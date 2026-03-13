@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simul'Santé — Simulateur de remboursements santé pour professionnels</title>
+<meta name="description" content="Outil de simulation des remboursements santé (AMO + mutuelle) pour mutuelles, courtiers et cabinets RH. Demandez un accès.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#0c0e14;
+  --ink2:#444860;
+  --muted:#8a90a8;
+  --bg:#f4f5f9;
+  --surface:#fff;
+  --border:#e2e5ef;
+  --accent:#1a3aff;
+  --accent2:#0026cc;
+  --accent-light:#eef1ff;
+  --secu:#1d6ed8;
+  --mut:#0e9e6e;
+  --rac:#d63a3a;
+  --radius:16px;
+  --shadow:0 2px 8px rgba(12,14,20,.06),0 8px 32px rgba(12,14,20,.07);
+  --shadow-lg:0 8px 20px rgba(12,14,20,.09),0 32px 64px rgba(12,14,20,.12);
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;height:64px;
+  background:rgba(244,245,249,.94);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 2px 20px rgba(12,14,20,.08)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-mark{
+  width:34px;height:34px;
+  background:var(--accent);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:800;color:#fff;
+  letter-spacing:-1px;
+}
+.logo-text{font-size:17px;font-weight:700;letter-spacing:-.4px}
+.logo-text span{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:28px}
+.nav-link{font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--accent)}
+.nav-cta{
+  background:var(--accent);color:#fff;
+  padding:9px 20px;border-radius:8px;
+  font-size:13px;font-weight:600;
+  text-decoration:none;
+  transition:all .2s;
+}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,58,255,.3)}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:100px 5vw 80px;
+  position:relative;overflow:hidden;
+}
+.hero-noise{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.6;
+}
+.hero-glow-1{
+  position:absolute;top:-100px;right:-80px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(26,58,255,.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-glow-2{
+  position:absolute;bottom:-60px;left:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(13,158,110,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+  position:relative;width:100%;
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-light);
+  border:1px solid rgba(26,58,255,.18);
+  color:var(--accent);
+  font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;
+  margin-bottom:24px;
+}
+.hero-label::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1{
+  font-family:'Lora',serif;
+  font-size:clamp(36px,4.5vw,58px);
+  line-height:1.08;
+  letter-spacing:-.5px;
+  color:var(--ink);
+  margin-bottom:22px;
+}
+h1 em{font-style:italic;color:var(--accent)}
+h1 strong{font-weight:700}
+
+.hero-desc{
+  font-size:16px;font-weight:400;color:var(--ink2);
+  line-height:1.8;margin-bottom:40px;max-width:480px;
+}
+.hero-stats{
+  display:flex;gap:36px;margin-bottom:44px;
+}
+.stat{border-left:2px solid var(--border);padding-left:16px}
+.stat-num{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-1px;line-height:1}
+.stat-num span{font-size:16px;font-weight:600;color:var(--accent)}
+.stat-label{font-size:12px;font-weight:500;color:var(--muted);margin-top:4px}
+
+.hero-cta{display:flex;gap:12px;align-items:center}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  padding:14px 28px;border-radius:10px;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:600;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all .2s;
+}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,58,255,.35)}
+.btn-primary svg{transition:transform .2s}
+.btn-primary:hover svg{transform:translateX(3px)}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--ink2);font-size:13.5px;font-weight:500;
+  text-decoration:none;padding:14px 4px;
+  border:none;background:none;cursor:pointer;
+  transition:color .2s;font-family:'Syne',sans-serif;
+}
+.btn-secondary:hover{color:var(--accent)}
+
+/* ─── HERO VISUAL ─── */
+.hero-visual{position:relative}
+.card-main{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  position:relative;
+}
+.card-topbar{
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#f87171}.dot.y{background:#fbbf24}.dot.g{background:#34d399}
+.url-bar{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:5px;padding:5px 10px;
+  font-size:10.5px;color:var(--muted);font-family:monospace;
+  margin:0 8px;
+}
+.card-body{padding:20px}
+.acte-pill{
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,#eef1ff,#f5f3ff);
+  border:1.5px solid rgba(26,58,255,.18);
+  border-radius:10px;padding:13px 15px;margin-bottom:16px;
+}
+.acte-name{font-size:13px;font-weight:700;color:var(--ink)}
+.acte-sub{font-size:10.5px;color:var(--ink2);margin-top:2px}
+.acte-code{font-size:10px;font-weight:700;color:var(--accent);background:rgba(26,58,255,.1);padding:3px 8px;border-radius:5px;font-family:monospace}
+.params-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.param{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:10px 12px}
+.param.active{border-color:var(--accent);background:var(--accent-light)}
+.param-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.param-val{font-size:13px;font-weight:700;color:var(--ink)}
+.param.active .param-val{color:var(--accent)}
+
+.repartition{margin-bottom:14px}
+.rep-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.rep-bar{height:10px;border-radius:8px;overflow:hidden;display:flex;background:var(--bg)}
+.rep-secu{background:var(--secu);width:48%}
+.rep-mut{background:var(--mut);width:38%}
+.rep-rac{background:var(--rac);width:14%}
+.rep-legend{display:flex;gap:14px;margin-top:7px}
+.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink2)}
+.leg-dot{width:7px;height:7px;border-radius:50%}
+
+.results{background:var(--bg);border-radius:10px;overflow:hidden}
+.result-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--border);
+}
+.result-row:last-child{border-bottom:none}
+.res-left{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)}
+.res-badge{width:8px;height:8px;border-radius:50%}
+.res-val{font-size:13px;font-weight:800}
+.v-secu{color:var(--secu)}.v-mut{color:var(--mut)}.v-rac{color:var(--rac)}
+
+.card-float{
+  position:absolute;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:12px 16px;
+  font-size:12px;font-weight:600;color:var(--ink);
+}
+.card-float.f1{top:-20px;right:-24px;display:flex;align-items:center;gap:8px}
+.card-float.f2{bottom:-16px;left:-20px;display:flex;align-items:center;gap:8px}
+.f-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.f-icon.blue{background:#dbeafe}.f-icon.green{background:#d1fae5}
+.f-sub{font-size:10px;font-weight:400;color:var(--muted);display:block;margin-top:1px}
+
+/* ─── SECTION POUR QUI ─── */
+.section{padding:100px 5vw}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-tag{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+}
+h2{
+  font-family:'Lora',serif;
+  font-size:clamp(28px,3.5vw,44px);
+  line-height:1.15;letter-spacing:-.4px;
+  color:var(--ink);margin-bottom:16px;
+}
+h2 em{font-style:italic;color:var(--accent)}
+.section-sub{font-size:16px;color:var(--ink2);line-height:1.75;max-width:520px;margin-bottom:60px}
+
+.targets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.target-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px;
+  transition:all .25s;
+  cursor:default;
+}
+.target-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.target-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:20px;
+}
+.ti-blue{background:#dbeafe}.ti-green{background:#d1fae5}.ti-purple{background:#ede9fe}
+.target-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.target-desc{font-size:13.5px;color:var(--ink2);line-height:1.7}
+
+/* ─── SECTION FONCTIONNALITÉS ─── */
+.features-section{background:var(--ink);color:#fff;padding:100px 5vw;position:relative;overflow:hidden}
+.features-section::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 800px 600px at 80% 50%,rgba(26,58,255,.2) 0%,transparent 70%);
+}
+.features-section .section-inner{max-width:1200px;margin:0 auto;position:relative}
+.features-section .section-tag{color:rgba(255,255,255,.5)}
+.features-section h2{color:#fff}
+.features-section h2 em{color:rgba(26,58,255,.8)}
+.features-section .section-sub{color:rgba(255,255,255,.6)}
+
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.feature{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  padding:28px 30px;
+  transition:all .25s;
+}
+.feature:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.feature-num{font-size:11px;font-weight:700;color:rgba(26,58,255,.7);letter-spacing:.5px;margin-bottom:14px}
+.feature-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+.feature-desc{font-size:13.5px;color:rgba(255,255,255,.58);line-height:1.7}
+
+/* ─── SECTION COMMENT ÇA MARCHE ─── */
+.steps-section{padding:100px 5vw;background:var(--surface)}
+.steps-section .section-inner{max-width:900px;margin:0 auto;text-align:center}
+.steps-section .section-sub{margin:0 auto 64px}
+
+.steps{display:flex;gap:0;position:relative}
+.steps::before{
+  content:'';position:absolute;
+  top:30px;left:calc(50% - 30%);width:60%;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  pointer-events:none;
+}
+.step{flex:1;text-align:center;padding:0 20px;position:relative}
+.step-circle{
+  width:56px;height:56px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  font-size:20px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  position:relative;z-index:1;
+}
+.step:nth-child(2) .step-circle{background:var(--secu)}
+.step:nth-child(3) .step-circle{background:var(--mut)}
+.step-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--ink2);line-height:1.7}
+
+/* ─── SECTION CONTACT ─── */
+.contact-section{
+  padding:100px 5vw;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+}
+.contact-section::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 700px 500px at 50% 50%,rgba(26,58,255,.05) 0%,transparent 70%);
+}
+.contact-inner{
+  max-width:640px;margin:0 auto;
+  text-align:center;position:relative;
+}
+.contact-inner h2{margin-bottom:12px}
+.contact-inner .section-sub{margin:0 auto 48px}
+
+.form-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:44px 48px;
+  box-shadow:var(--shadow-lg);
+  text-align:left;
+}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:20px}
+.form-label{
+  display:block;font-size:12px;font-weight:700;
+  color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:8px;
+}
+.form-input{
+  width:100%;
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:12px 16px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;color:var(--ink);
+  transition:all .2s;outline:none;
+}
+.form-input:focus{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 3px rgba(26,58,255,.08)}
+.form-input::placeholder{color:var(--muted)}
+textarea.form-input{resize:vertical;min-height:110px;line-height:1.6}
+
+select.form-input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238a90a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+
+.form-submit{
+  width:100%;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:10px;
+  padding:15px;
+  font-family:'Syne',sans-serif;
+  font-size:15px;font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:8px;
+}
+.form-submit:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,58,255,.35)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+
+.form-note{
+  text-align:center;
+  font-size:12px;color:var(--muted);
+  margin-top:16px;line-height:1.5;
+}
+
+.success-msg{
+  display:none;
+  background:#d1fae5;border:1px solid #6ee7b7;
+  border-radius:10px;padding:16px 20px;
+  font-size:14px;color:#065f46;font-weight:600;
+  text-align:center;margin-top:16px;
+}
+.success-msg.show{display:block}
+.error-msg{
+  display:none;
+  background:#fef2f2;border:1px solid #fca5a5;
+  border-radius:10px;padding:16px 20px;
+  font-size:14px;color:#991b1b;font-weight:600;
+  text-align:center;margin-top:16px;
+}
+.error-msg.show{display:block}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);color:rgba(255,255,255,.45);
+  padding:40px 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:-.3px}
+.footer-logo span{color:var(--accent)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12.5px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px}
+
+/* ─── ANIMATIONS ─── */
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:56px}
+  .hero-visual{display:none}
+  .targets-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .steps{flex-direction:column;gap:32px}
+  .steps::before{display:none}
+  .form-row{grid-template-columns:1fr}
+  .form-card{padding:32px 24px}
+  nav{padding:0 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">S</div>
+    <div class="logo-text">Simul<span>'Santé</span></div>
+  </a>
+  <div class="nav-right">
+    <a href="#pour-qui" class="nav-link">Pour qui</a>
+    <a href="#fonctionnalites" class="nav-link">Fonctionnalités</a>
+    <a href="#contact" class="nav-cta">Demander un accès</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-label">Outil professionnel B2B</div>
+      <h1>Le simulateur qui calcule <em>exactement</em> ce que rembourse la sécu et la mutuelle</h1>
+      <p class="hero-desc">
+        Plus de 1 000 actes médicaux. Taux AMO officiels. Moteur de calcul secteur / dépassement / hors parcours. 
+        Conçu pour les mutuelles, courtiers et cabinets RH qui veulent des réponses précises.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">1 024<span>+</span></div>
+          <div class="stat-label">Actes médicaux</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Taux AMO officiels</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0€</div>
+          <div class="stat-label">Installation requise</div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">
+          Demander un accès
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#fonctionnalites" class="btn-secondary">
+          Voir les fonctionnalités
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="card-float f1">
+        <div class="f-icon blue">🏥</div>
+        <div>
+          <div>Secteur 2 OPTAM</div>
+          <span class="f-sub">Dépassement calculé</span>
+        </div>
+      </div>
+      <div class="card-main">
+        <div class="card-topbar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="url-bar">simulsante.fr/simulateur</div>
+        </div>
+        <div class="card-body">
+          <div class="acte-pill">
+            <div>
+              <div class="acte-name">Consultation spécialiste</div>
+              <div class="acte-sub">CS — Secteur 2 OPTAM</div>
+            </div>
+            <div class="acte-code">CS</div>
+          </div>
+          <div class="params-grid">
+            <div class="param active">
+              <div class="param-label">Tarif sécu</div>
+              <div class="param-val">30,00 €</div>
+            </div>
+            <div class="param active">
+              <div class="param-label">Honoraires</div>
+              <div class="param-val">55,00 €</div>
+            </div>
+            <div class="param">
+              <div class="param-label">Base remb.</div>
+              <div class="param-val">25,00 €</div>
+            </div>
+            <div class="param">
+              <div class="param-label">Ticket mod.</div>
+              <div class="param-val">1,00 €</div>
+            </div>
+          </div>
+          <div class="repartition">
+            <div class="rep-label">Répartition du coût</div>
+            <div class="rep-bar">
+              <div class="rep-secu"></div>
+              <div class="rep-mut"></div>
+              <div class="rep-rac"></div>
+            </div>
+            <div class="rep-legend">
+              <div class="leg"><div class="leg-dot" style="background:var(--secu)"></div>AMO</div>
+              <div class="leg"><div class="leg-dot" style="background:var(--mut)"></div>Mutuelle</div>
+              <div class="leg"><div class="leg-dot" style="background:var(--rac)"></div>RAC</div>
+            </div>
+          </div>
+          <div class="results">
+            <div class="result-row">
+              <div class="res-left"><div class="res-badge" style="background:var(--secu)"></div>Remb. Sécu</div>
+              <div class="res-val v-secu">17,50 €</div>
+            </div>
+            <div class="result-row">
+              <div class="res-left"><div class="res-badge" style="background:var(--mut)"></div>Remb. Mutuelle</div>
+              <div class="res-val v-mut">28,00 €</div>
+            </div>
+            <div class="result-row">
+              <div class="res-left"><div class="res-badge" style="background:var(--rac)"></div>Reste à charge</div>
+              <div class="res-val v-rac">9,50 €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-float f2">
+        <div class="f-icon green">✅</div>
+        <div>
+          <div>100% Santé intégré</div>
+          <span class="f-sub">Optique · Dentaire · Audio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section class="section" id="pour-qui">
+  <div class="section-inner">
+    <div class="section-tag fade-in">Cibles</div>
+    <h2 class="fade-in">Fait pour les <em>professionnels</em> du secteur santé</h2>
+    <p class="section-sub fade-in">Simul'Santé s'adresse aux acteurs qui ont besoin de simuler avec précision, pas d'approximer.</p>
+    <div class="targets-grid">
+      <div class="target-card fade-in">
+        <div class="target-icon ti-blue">🏢</div>
+        <div class="target-title">Mutuelles & organismes complémentaires</div>
+        <div class="target-desc">Simulez les remboursements selon vos garanties. Formez vos équipes commerciales. Répondez aux adhérents avec des chiffres exacts.</div>
+      </div>
+      <div class="target-card fade-in">
+        <div class="target-icon ti-green">📋</div>
+        <div class="target-title">Courtiers en assurance santé</div>
+        <div class="target-desc">Comparez les contrats en situation réelle. Présentez à vos clients le RAC selon leurs besoins médicaux concrets.</div>
+      </div>
+      <div class="target-card fade-in">
+        <div class="target-icon ti-purple">👥</div>
+        <div class="target-title">Cabinets RH & DRH</div>
+        <div class="target-desc">Évaluez la couverture collective. Argumentez le choix d'une mutuelle d'entreprise avec des exemples chiffrés concrets.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FONCTIONNALITÉS -->
+<section class="features-section" id="fonctionnalites">
+  <div class="section-inner">
+    <div class="section-tag fade-in">Fonctionnalités</div>
+    <h2 class="fade-in">Tout ce qu'il faut pour simuler <em>sans approximation</em></h2>
+    <p class="section-sub fade-in">Un moteur de calcul construit sur les textes officiels de l'Assurance Maladie.</p>
+    <div class="features-grid">
+      <div class="feature fade-in">
+        <div class="feature-num">01</div>
+        <div class="feature-title">1 024+ actes médicaux couverts</div>
+        <div class="feature-desc">Consultations, chirurgie, dentaire, optique, audiologie, biologie, kiné, hospitalisation, transport. Tous les secteurs tarifaires.</div>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Moteur secteur / dépassement</div>
+        <div class="feature-desc">Secteur 1, 2 OPTAM, 2 non-OPTAM, 3. Calcul automatique du dépassement autorisé et de son impact sur le remboursement mutuelle.</div>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Réforme 100% Santé intégrée</div>
+        <div class="feature-desc">Paniers A, B, C en optique, dentaire et audiologie. RAC zéro calculé selon les plafonds en vigueur.</div>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Paramétrage libre de la mutuelle</div>
+        <div class="feature-desc">Saisissez les garanties de n'importe quel contrat : % BR, forfait €, PMSS, BRSS. Le simulateur calcule le reste à charge réel.</div>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Hors parcours & ALD</div>
+        <div class="feature-desc">Simulation précise des situations hors parcours de soins et des actes en affection longue durée.</div>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">06</div>
+        <div class="feature-title">Déploiement instantané</div>
+        <div class="feature-desc">Fichier HTML standalone. Aucun serveur, aucune installation. Utilisable en interne, en réunion client, ou sur un domaine sécurisé.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="steps-section" id="comment">
+  <div class="section-inner">
+    <div class="section-tag fade-in">Accès</div>
+    <h2 class="fade-in">Simple à obtenir</h2>
+    <p class="section-sub fade-in">L'accès est réservé aux professionnels. Trois étapes pour disposer de l'outil.</p>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-circle">1</div>
+        <div class="step-title">Vous envoyez une demande</div>
+        <div class="step-desc">Remplissez le formulaire ci-dessous avec vos coordonnées et votre contexte.</div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-circle">2</div>
+        <div class="step-title">Je vous recontacte</div>
+        <div class="step-desc">Sous 48h, pour comprendre votre besoin et vous proposer les conditions d'accès.</div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-circle">3</div>
+        <div class="step-title">Accès sécurisé</div>
+        <div class="step-desc">Vous recevez le simulateur en accès sécurisé, prêt à l'emploi.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-tag fade-in">Contact</div>
+    <h2 class="fade-in">Demandez votre accès</h2>
+    <p class="section-sub fade-in">Réservé aux professionnels. Je réponds sous 48h.</p>
+
+    <div class="form-card fade-in">
+      <form id="contact-form" action="https://formspree.io/f/mgonzaqo" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="prenom">Prénom</label>
+            <input class="form-input" type="text" id="prenom" name="prenom" placeholder="Jean" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="nom">Nom</label>
+            <input class="form-input" type="text" id="nom" name="nom" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="societe">Société / Organisation</label>
+          <input class="form-input" type="text" id="societe" name="societe" placeholder="Mutuelle XYZ, Cabinet RH..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">E-mail professionnel</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="jean.dupont@societe.fr" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profil">Votre profil</label>
+          <select class="form-input" id="profil" name="profil">
+            <option value="">Sélectionnez...</option>
+            <option>Mutuelle / Organisme complémentaire</option>
+            <option>Courtier en assurance santé</option>
+            <option>Cabinet RH / DRH</option>
+            <option>Autre professionnel de santé</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Votre besoin (optionnel)</label>
+          <textarea class="form-input" id="message" name="message" placeholder="Décrivez brièvement votre contexte et usage prévu..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submit-btn">
+          Envoyer ma demande
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <div class="success-msg" id="success-msg">✅ Demande envoyée. Je vous recontacte sous 48h.</div>
+      <div class="error-msg" id="error-msg">❌ Une erreur s'est produite. Écrivez directement à <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abd8c2c6dec7d8cac5dfceebd2cac3c4c485c8c4c6">[email&#160;protected]</a></div>
+      <p class="form-note">Données utilisées uniquement pour vous recontacter. Aucun démarchage commercial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Simul<span>'Santé</span></div>
+  <div class="footer-links">
+    <a href="/cdn-cgi/l/email-protection#2e5d47435b425d4f405a4b6e574f464141004d4143">Contact</a>
+    <a href="#">Mentions légales</a>
+  </div>
+  <div class="footer-copy">© 2025 Simul'Santé — Tous droits réservés</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Form submission via Formspree
+const form = document.getElementById('contact-form');
+const submitBtn = document.getElementById('submit-btn');
+const successMsg = document.getElementById('success-msg');
+const errorMsg = document.getElementById('error-msg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Envoi en cours...';
+  successMsg.classList.remove('show');
+  errorMsg.classList.remove('show');
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      form.reset();
+      successMsg.classList.add('show');
+      submitBtn.style.display = 'none';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    errorMsg.classList.add('show');
+    submitBtn.disabled = f
