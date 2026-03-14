@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<script>
-// Vérification accès 24h
-(function(){
-  var expiry = sessionStorage.getItem('ss_expiry');
-  if (!expiry || Date.now() > parseInt(expiry)) {
-    window.location.href = '/acces';
-  }
-})();
-</script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
