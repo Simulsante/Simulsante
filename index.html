@@ -1,1 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Simul'Santé — Simulation précise des remboursements santé</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f8fc;--surface:#fff;--surface2:#f0f2f8;
+  --ink:#0f1117;--ink2:#4a5068;--muted:#9299b0;--border:#e4e7f0;
+  --accent:#6366f1;--accent-light:#eef2ff;--accent-dark:#4f46e5;
+  --secu:#2563eb;--secu-light:#eff4ff;
+  --mut:#059669;--mut-light:#ecfdf5;
+  --rac:#dc2626;--rac-light:#fef2f2;
+  --radius:14px;--radius-sm:8px;
+  --shadow:0 1px 3px rgba(15,17,23,.06),0 4px 16px rgba(15,17,23,.06);
+  --shadow-md:0 4px 6px rgba(15,17,23,.07),0 12px 32px rgba(15,17,23,.09);
+  --shadow-lg:0 8px 12px rgba(15,17,23,.08),0 24px 48px rgba(15,17,23,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(247,248,252,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;letter-spacing:-.6px;color:var(--ink);text-decoration:none}
+.nav-logo-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:9px 20px;border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .18s}
+.nav-cta:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(99,102,241,.35)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:96px 48px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 700px 500px at 78% 40%,rgba(99,102,241,0.07) 0%,transparent 70%),radial-gradient(ellipse 500px 400px at 18% 80%,rgba(5,150,105,0.05) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 90% 70% at 50% 50%,black 20%,transparent 100%)}
+.hero-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px;border:1px solid rgba(99,102,241,.2);margin-bottom:22px}
+.hero-tag::before{content:'';width:5px;height:5px;background:var(--accent);border-radius:50%}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,4.5vw,54px);line-height:1.1;letter-spacing:-.5px;color:var(--ink);margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:15.5px;color:var(--ink2);line-height:1.75;margin-bottom:36px;max-width:460px}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:13px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;text-decoration:none;transition:all .18s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;color:var(--ink2);font-size:13.5px;font-weight:500;text-decoration:none;padding:13px 0;transition:color .18s}
+.btn-ghost:hover{color:var(--accent)}
+
+/* URGENCY BANNER */
+.urgency{display:inline-flex;align-items:center;gap:8px;background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;margin-bottom:16px}
+.urgency-dot{width:7px;height:7px;background:#f97316;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}}
+
+/* MOCKUP */
+.hero-visual{position:relative}
+.mockup{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden}
+.mockup-bar{background:var(--surface2);padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border)}
+.mdot{width:10px;height:10px;border-radius:50%}
+.mdot:nth-child(1){background:#f87171}.mdot:nth-child(2){background:#fbbf24}.mdot:nth-child(3){background:#34d399}
+.mockup-url{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;color:var(--muted);margin:0 8px;font-family:monospace}
+.mockup-body{padding:20px}
+
+/* Acte sélectionné */
+.sim-acte-card{background:linear-gradient(135deg,var(--accent-light),#f5f3ff);border:1.5px solid rgba(99,102,241,.2);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.sim-acte-nom{font-size:13px;font-weight:700;color:var(--ink)}
+.sim-acte-code{font-size:10px;font-weight:600;color:var(--accent);background:rgba(99,102,241,.1);padding:2px 7px;border-radius:4px;font-family:monospace}
+.sim-acte-sub{font-size:11px;color:var(--ink2);margin-top:2px}
+
+/* Grille paramètres */
+.sim-params{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.sim-field{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px}
+.sim-fl{font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.sim-fv{font-size:13px;font-weight:600;color:var(--ink)}
+.sim-field.active{border-color:var(--accent);background:var(--accent-light)}
+.sim-field.active .sim-fv{color:var(--accent)}
+
+/* Barre de répartition */
+.sim-bar-wrap{margin-bottom:14px}
+.sim-bar-label{font-size:10.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
+.sim-bar{height:10px;background:var(--surface2);border-radius:10px;overflow:hidden;display:flex}
+.sim-bar-secu{height:100%;background:var(--secu);border-radius:10px 0 0 10px;width:42%}
+.sim-bar-mut{height:100%;background:var(--mut);width:43%}
+.sim-bar-rac{height:100%;background:var(--rac);border-radius:0 10px 10px 0;width:15%}
+.sim-bar-legend{display:flex;gap:12px;margin-top:6px}
+.sim-legend-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink2)}
+.sim-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* Tableau résultats */
+.sim-results{background:var(--surface2);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:12px}
+.sim-res-row{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;border-bottom:1px solid var(--border)}
+.sim-res-row:last-child{border-bottom:none}
+.sim-res-label{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.sim-res-badge{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sim-res-val{font-size:13px;font-weight:700}
+.v-secu{color:var(--secu)}.v-mut{color:var(--mut)}.v-rac{color:var(--rac)}
+
+/* RAC final */
+.sim-rac{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,var(--accent-light),#f5f3ff);border:1.5px solid rgba(99,102,241,.25);border-radius:var(--radius-sm);padding:12px 14px}
+.sim-rac-left{}
+.sim-rac-label{font-size:11px;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.4px}
+.sim-rac-sublabel{font-size:10px;color:var(--muted);margin-top:1px}
+.sim-rac-v{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-.5px}
+
+.float-badge{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;box-shadow:var(--shadow-md);font-size:12px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:7px}
+.fb1{top:-16px;right:-12px}
+.fb2{bottom:-12px;left:-12px}
+.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* STRIP */
+.strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.strip-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.strip-item{padding:40px;text-align:center;border-right:1px solid var(--border)}
+.strip-item:last-child{border-right:none}
+.strip-num{font-family:'DM Serif Display',serif;font-size:44px;color:var(--ink);letter-spacing:-1px;line-height:1;margin-bottom:7px}
+.strip-num span{color:var(--accent)}
+.strip-label{font-size:13px;color:var(--ink2)}
+
+/* SECTIONS */
+.section{padding:88px 48px}
+.section-inner{max-width:1160px;margin:0 auto}
+.section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:18px;height:2px;background:var(--accent);border-radius:2px}
+h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,40px);line-height:1.15;letter-spacing:-.3px;color:var(--ink);margin-bottom:14px}
+.section-sub{font-size:15px;color:var(--ink2);line-height:1.75;max-width:520px}
+
+/* OPPORT */
+.opport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.opport-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:all .22s;position:relative;overflow:hidden}
+.opport-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#8b5cf6);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.opport-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:rgba(99,102,241,.2)}
+.opport-card:hover::after{transform:scaleX(1)}
+.opport-icon{width:38px;height:38px;background:var(--accent-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:16px}
+.opport-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:9px}
+.opport-text{font-size:12.5px;color:var(--ink2);line-height:1.7}
+
+/* HOW */
+.how{background:var(--surface)}
+.how-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start;margin-top:52px}
+.steps{display:flex;flex-direction:column}
+.step{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border);transition:all .2s}
+.step:last-child{border-bottom:none}
+.step:hover .step-num{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step-num{width:34px;height:34px;flex-shrink:0;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);transition:all .2s;margin-top:2px}
+.step-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.step-text{font-size:12.5px;color:var(--ink2);line-height:1.65}
+.coverage-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:sticky;top:80px}
+.coverage-box-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.cov-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:var(--radius-sm);font-size:12.5px;color:var(--ink2);transition:background .15s}
+.cov-item:hover{background:var(--surface)}
+.cov-check{width:17px;height:17px;flex-shrink:0;background:var(--mut-light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:9px;font-weight:700}
+
+/* AUDIENCE */
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.audience-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;transition:all .22s}
+.audience-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:rgba(99,102,241,.2)}
+.aud-picto{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.pv{background:var(--accent-light)}.pb{background:var(--secu-light)}.pg{background:var(--mut-light)}
+.audience-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:9px}
+.audience-text{font-size:12.5px;color:var(--ink2);line-height:1.7}
+.aud-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}
+.aud-tag{font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:3px 8px;border-radius:100px}
+
+/* OFFER */
+.offer{background:#0f1117}
+.offer .section-label{color:rgba(99,102,241,.9)}
+.offer .section-label::before{background:var(--accent)}
+.offer h2{color:#fff}
+.offer .section-sub{color:rgba(255,255,255,.5)}
+.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:52px;align-items:start}
+.offer-point{display:flex;align-items:flex-start;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.6}
+.offer-point:last-child{border-bottom:none}
+.offer-dot{width:19px;height:19px;flex-shrink:0;background:rgba(99,102,241,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:9px;font-weight:700;margin-top:2px}
+.offer-cta-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:36px 28px;text-align:center;position:sticky;top:80px}
+.offer-eyebrow{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:14px}
+.offer-cta-title{font-family:'DM Serif Display',serif;font-size:24px;color:#fff;line-height:1.2;margin-bottom:9px}
+.offer-cta-sub{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.6}
+
+/* Timer */
+.timer-box{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);border-radius:var(--radius-sm);padding:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px}
+.timer-label{font-size:11px;color:rgba(255,255,255,.5)}
+.timer-val{font-family:'DM Serif Display',serif;font-size:28px;color:#f97316;letter-spacing:2px;line-height:1}
+.timer-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+
+.btn-offer{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:13px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;text-decoration:none;transition:all .18s;width:100%;justify-content:center;border:none;cursor:pointer}
+.btn-offer:hover{background:var(--accent-dark);box-shadow:0 6px 20px rgba(99,102,241,.4)}
+.offer-divider{display:flex;align-items:center;gap:10px;margin:16px 0}
+.offer-div-line{flex:1;height:1px;background:rgba(255,255,255,.08)}
+.offer-div-txt{font-size:11px;color:rgba(255,255,255,.25)}
+.offer-note{font-size:11.5px;color:rgba(255,255,255,.3)}
+
+/* FOOTER */
+footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface)}
+.footer-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ink)}
+.footer-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--accent),#8b5cf6);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700}
+.footer-logo span{color:var(--accent)}
+.footer-right{text-align:right}
+.footer-author{font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:2px}
+.footer-credit{font-size:11.5px;color:var(--muted)}
+
+@media(max-width:960px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero{padding:88px 20px 60px}.hero-inner{grid-template-columns:1fr;gap:40px}.hero-visual{display:none}
+  .strip-inner{grid-template-columns:1fr}.strip-item{border-right:none;border-bottom:1px solid var(--border);padding:28px 20px}
+  .section{padding:60px 20px}
+  .opport-grid,.audience-grid{grid-template-columns:1fr}
+  .how-grid,.offer-grid{grid-template-columns:1fr}
+  .coverage-box,.offer-cta-card{position:static}
+  footer{padding:20px;flex-direction:column;gap:12px;text-align:center}.footer-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">♥</div>
+    Simul'<span style='letter-spacing:-.4px'>Santé</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#opportunite">L'enjeu</a></li>
+    <li><a href="#fonctionnement">Fonctionnement</a></li>
+    <li><a href="#pour-qui">Pour qui</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Demander un accès</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="urgency"><div class="urgency-dot"></div>Accès ouvert pendant 24h </div>
+      <div class="hero-tag">Outil professionnel &middot; Santé &amp; Assurance</div>
+      <h1>Le reste à charge réel,<br>calculé en <em>30 secondes</em></h1>
+      <p class="hero-sub">3 clics. Un tarif décomposé. Un résultat précis, téléchargeable en PDF — remboursement Sécurité sociale, part mutuelle, et ce qu'il restera à payer, vraiment.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Accès test gratuit &mdash; 24h &rarr;</a>
+        <a href="#fonctionnement" class="btn-ghost">Voir comment ça marche &rarr;</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="float-badge fb1"><div class="fdot" style="background:var(--mut)"></div>Données ameli.fr 2025</div>
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mdot"></div><div class="mdot"></div><div class="mdot"></div>
+          <div class="mockup-url">simulsante.app</div>
+        </div>
+        <div class="mockup-body">
+
+          <!-- Acte sélectionné -->
+          <div class="sim-acte-card">
+            <div>
+              <div class="sim-acte-nom">Consultation cardiologue</div>
+              <div class="sim-acte-sub">Secteur 2 OPTAM &middot; Dans le parcours de soins</div>
+            </div>
+            <div class="sim-acte-code">CS</div>
+          </div>
+
+          <!-- Paramètres -->
+          <div class="sim-params">
+            <div class="sim-field">
+              <div class="sim-fl">Tarif facturé</div>
+              <div class="sim-fv" style="font-size:15px;font-weight:800">60,00 €</div>
+            </div>
+            <div class="sim-field active">
+              <div class="sim-fl">Base AMO (BR)</div>
+              <div class="sim-fv">30,00 €</div>
+            </div>
+            <div class="sim-field active">
+              <div class="sim-fl">Taux AMO</div>
+              <div class="sim-fv">70 %</div>
+            </div>
+            <div class="sim-field">
+              <div class="sim-fl">Part. forfaitaire</div>
+              <div class="sim-fv">2,00 €</div>
+            </div>
+          </div>
+
+          <!-- Barre de répartition -->
+          <div class="sim-bar-wrap">
+            <div class="sim-bar-label">Répartition du remboursement</div>
+            <div class="sim-bar">
+              <div class="sim-bar-secu" style="width:42%"></div>
+              <div class="sim-bar-mut" style="width:25%"></div>
+              <div class="sim-bar-rac" style="width:33%"></div>
+            </div>
+            <div class="sim-bar-legend">
+              <div class="sim-legend-item"><div class="sim-legend-dot" style="background:var(--secu)"></div>Sécu 42% &mdash; 19,00 &euro;</div>
+              <div class="sim-legend-item"><div class="sim-legend-dot" style="background:var(--mut)"></div>Mutuelle 24% &mdash; 11,00 &euro;</div>
+              <div class="sim-legend-item"><div class="sim-legend-dot" style="background:var(--rac)"></div>RAC 33% &mdash; 15,00 &euro;</div>
+            </div>
+          </div>
+
+          <!-- Tableau résultats -->
+          <div class="sim-results">
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--secu)"></div>Remboursement Sécurité sociale</span>
+              <span class="sim-res-val v-secu">+ 19,00 €</span>
+            </div>
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--mut)"></div>Remboursement mutuelle</span>
+              <span class="sim-res-val v-mut">+ 32,00 €</span>
+            </div>
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--rac)"></div>Dépassement non couvert</span>
+              <span class="sim-res-val v-rac">9,00 €</span>
+            </div>
+          </div>
+
+
+          <!-- Badge PDF -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:7px;background:#f0fdf4;border:1px solid #a7f3d0;border-radius:var(--radius-sm);padding:9px 13px;margin:10px 0;font-size:12px;font-weight:600;color:#065f46;">
+            <span style="font-size:14px">&#x1F4C4;</span>
+            Résultat téléchargeable en PDF &mdash; 1 clic
+          </div>
+          <!-- RAC final -->
+          <div class="sim-rac" style="margin-top:10px">
+            <div class="sim-rac-left">
+              <div class="sim-rac-label">Reste à charge net</div>
+              <div class="sim-rac-sublabel">Ce qui reste à régler</div>
+            </div>
+            <div class="sim-rac-v">9,00 €</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="float-badge fb2"><div class="fdot" style="background:var(--accent)"></div>1 024 actes couverts</div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <div class="strip-item"><div class="strip-num">1 024<span>♥</span></div><div class="strip-label">Actes médicaux référencés<br><span style='font-size:11px;color:var(--accent);font-weight:600'>représentant 95% des actes les plus utilisés</span></div></div>
+    <div class="strip-item"><div class="strip-num">30<span>s</span></div><div class="strip-label">Pour un résultat complet et précis</div></div>
+    <div class="strip-item"><div class="strip-num">100<span>%</span></div><div class="strip-label">Conforme aux tarifs ameli.fr 2025</div></div>
+  </div>
+</div>
+
+<!-- L'ENJEU -->
+<section class="section" id="opportunite">
+  <div class="section-inner">
+    <div class="section-label">L'enjeu</div>
+    <h2>Votre équipe mérite<br>un outil à la hauteur</h2>
+    <p class="section-sub">Estimer un remboursement précisément, c'est une opportunité de renforcer la confiance de chaque personne accompagnée au moment où elle en a le plus besoin.</p>
+    <div class="opport-grid">
+      <div class="opport-card">
+        <div class="opport-icon">&#x26A1;</div>
+        <div class="opport-title">Une réponse immédiate qui rassure</div>
+        <div class="opport-text">Répondre en 30 secondes avec un chiffre exact renforce la crédibilité de votre structure dès le premier échange. Plus d'estimation approximative — un résultat, un PDF, une certitude.</div>
+      </div>
+      <div class="opport-card">
+        <div class="opport-icon">&#x1F3AF;</div>
+        <div class="opport-title">Des garanties expliquées en euros réels</div>
+        <div class="opport-text">BR, BRSS, PMSS, secteurs — Simul'Santé traduit automatiquement chaque règle en euros concrets. Votre équipe se concentre sur l'accompagnement, pas sur les calculs.</div>
+      </div>
+      <div class="opport-card">
+        <div class="opport-icon">&#x1F4C8;</div>
+        <div class="opport-title">Un avantage différenciant mesurable</div>
+        <div class="opport-text">Proposer une simulation précise avant un acte médical transforme chaque appel en preuve de valeur. C'est un argument de fidélisation concret que vos concurrents n'ont pas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FONCTIONNEMENT -->
+<section class="section how" id="fonctionnement">
+  <div class="section-inner">
+    <div class="section-label">Fonctionnement</div>
+    <h2>Simple à utiliser.<br>Rigoureux dans le calcul.</h2>
+    <div class="how-grid">
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div><div class="step-title">Recherche de l'acte médical</div><div class="step-text">L'utilisateur tape le nom de l'acte. Le moteur trouve instantanément parmi 1 024 actes référencés avec leur base de remboursement officielle et leur code CCAM.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div><div class="step-title">Paramétrage de la situation</div><div class="step-text">Secteur du médecin, parcours de soins ou hors parcours, situation du patient (ALD, maternité, accident du travail). Chaque variable est intégrée automatiquement dans le calcul.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div><div class="step-title">Résultat détaillé en temps réel</div><div class="step-text">Remboursement Sécurité sociale exact, part mutuelle selon les garanties saisies, reste à charge net. Calcul conforme ameli.fr et convention médicale 2024&ndash;2029.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div><div class="step-title">Téléchargement PDF en un clic</div><div class="step-text">Le résultat complet — tarif décomposé, base AMO, part mutuelle, reste à charge — est téléchargeable en PDF en un clic. À transmettre, à archiver, à présenter.</div></div></div>
+      </div>
+      <div class="coverage-box">
+        <div class="coverage-box-title">Spécialités couvertes</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Médecine générale et toutes spécialités</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Imagerie &mdash; radio, écho, IRM, scanner, TEP</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Chirurgie et hospitalisation</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Dentaire et optique &mdash; 100% Santé inclus</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Biologie médicale &mdash; 111 actes</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Kinésithérapie, infirmiers, orthophonie</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Gastro-entérologie, pneumologie, urologie</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Obstétrique et maternité &mdash; 100%</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Oncologie, soins palliatifs, HAD</div>
+        <div class="cov-item"><div class="cov-check">&#x2713;</div>Transport sanitaire, SMUR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section class="section" id="pour-qui">
+  <div class="section-inner">
+    <div class="section-label">Pour qui</div>
+    <h2>Conçu pour les professionnels<br>de santé</h2>
+    <p class="section-sub">Tout professionnel de santé qui doit expliquer un remboursement avec précision gagne du temps et de la crédibilité avec Simul'Santé.</p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="aud-picto pv">&#x1F3E2;</div>
+        <div class="audience-title">Mutuelles et organismes complémentaires</div>
+        <div class="audience-text">Donnez à votre équipe un outil de réponse immédiate et exacte. Réduisez les temps de traitement et renforcez la satisfaction à chaque échange.</div>
+        <div class="aud-tags"><span class="aud-tag">Relation client</span><span class="aud-tag">Hotline</span><span class="aud-tag">Back-office</span></div>
+      </div>
+      <div class="audience-card">
+        <div class="aud-picto pb">&#x1F91D;</div>
+        <div class="audience-title">Courtiers en assurance santé</div>
+        <div class="audience-text">Montrez à vos prospects exactement ce que leur couverture actuelle leur laisse à charge, sur des actes concrets. Un argument qui parle en euros, pas en pourcentages.</div>
+        <div class="aud-tags"><span class="aud-tag">Prospection</span><span class="aud-tag">Argumentation</span><span class="aud-tag">Comparaison</span></div>
+      </div>
+      <div class="audience-card">
+        <div class="aud-picto pg">&#x1F4BC;</div>
+        <div class="audience-title">Cabinets RH et conseils en protection sociale</div>
+        <div class="audience-text">Comparez plusieurs contrats collectifs sur des actes réels et présentez des analyses chiffrées lors de la négociation ou du renouvellement.</div>
+        <div class="aud-tags"><span class="aud-tag">Contrats collectifs</span><span class="aud-tag">Analyse</span><span class="aud-tag">Reporting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRE -->
+<section class="section offer" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Accès</div>
+    <h2>24h pour tester<br>sans aucun engagement</h2>
+    <p class="section-sub">Accès complet à l'outil dans vos conditions réelles. Aucune carte bancaire demandée.</p>
+    <div class="offer-grid">
+      <div>
+        <div class="offer-point"><div class="offer-dot">&#x2713;</div>Accès complet pendant toute la période d'essai, sans restriction sur les actes ou les simulations</div>
+        <div class="offer-point"><div class="offer-dot">&#x2713;</div>Accessible depuis n'importe quel navigateur &mdash; ordinateur, tablette, mobile &mdash; sans installation</div>
+        <div class="offer-point"><div class="offer-dot">&#x2713;</div>Mises à jour tarifaires intégrées automatiquement, sans action de votre côté</div>
+        <div class="offer-point"><div class="offer-dot">&#x2713;</div>Prise en main en moins de 10 minutes, accompagnement inclus</div>
+        <div class="offer-point"><div class="offer-dot">&#x2713;</div>Liberté totale à l'issue de la période d'essai &mdash; sans condition</div>
+      </div>
+      <div class="offer-cta-card">
+        <div class="offer-eyebrow">Accès test gratuit 24h</div>
+        <div class="offer-cta-title">Intéressé ?<br>Écrivez-moi.</div>
+        <div class="offer-cta-sub">Je reviens vers vous sous 24h pour organiser un accès et une présentation rapide de l'outil.</div>
+        <form id="contact-form" action="https://formspree.io/f/mgonzaqo" method="POST" style="text-align:left">
+          <div style="margin-bottom:12px">
+            <input name="nom" type="text" placeholder="Nom / Prénom" required style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 13px;font-family:inherit;font-size:13px;color:#fff;outline:none;transition:border .2s" onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='rgba(255,255,255,.15)'">
+          </div>
+          <div style="margin-bottom:12px">
+            <input name="structure" type="text" placeholder="Votre structure (mutuelle, courtier...)" required style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 13px;font-family:inherit;font-size:13px;color:#fff;outline:none;transition:border .2s" onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='rgba(255,255,255,.15)'">
+          </div>
+          <div style="margin-bottom:16px">
+            <input name="email" type="email" placeholder="Votre e-mail professionnel" required style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 13px;font-family:inherit;font-size:13px;color:#fff;outline:none;transition:border .2s" onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='rgba(255,255,255,.15)'">
+          </div>
+          <button type="submit" id="submit-btn" class="btn-offer">Demander un accès →</button>
+        </form>
+        <div id="success-msg" style="display:none;background:rgba(5,150,105,.2);border:1px solid rgba(5,150,105,.4);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:#6ee7b7;text-align:center;font-weight:600">✅ Demande reçue — je vous recontacte sous 24h.</div>
+        <div id="error-msg" style="display:none;background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);border-radius:8px;padding:14px;margin-top:12px;font-size:13px;color:#fca5a5;text-align:center;font-weight:600">❌ Erreur — écrivez à simulsante@yahoo.com</div>
+        <div class="offer-note" style="margin-top:14px">Aucune carte bancaire · Réponse sous 24h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">♥</div>Simul'<span>Santé</span>
+  </div>
+  <div class="footer-right">
+    <div class="footer-credit">Données ameli.fr 2025 &middot; Convention médicale 2024&ndash;2029</div>
+  </div>
+</footer>
+
+<script>
+// Compte à rebours 24h
+(function() {
+  const key = 'simulsante_deadline';
+  let deadline = localStorage.getItem(key);
+  if (!deadline) {
+    deadline = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem(key, deadline);
+  }
+  function update() {
+    const diff = Math.max(0, deadline - Date.now());
+    const 
