@@ -48,40 +48,28 @@ h1{font-size:20px;font-weight:700;color:#0f1117;margin-bottom:8px}
   <p class="note">Acc&egrave;s valable 24h &middot; Usage personnel uniquement</p>
 </div>
 <script>
-async function check() {
-  const pwd = document.getElementById('pwd').value.trim();
-  const btn = document.getElementById('btn');
-  const err = document.getElementById('error');
-  
+// POUR CHANGER LE MOT DE PASSE :
+// 1. Modifiez MOT_DE_PASSE ci-dessous
+// 2. Uploadez ce fichier sur GitHub
+var MOT_DE_PASSE = 'demo2025';
+var SECRET_URL = '/sim-759fbe312022605be4ca0ef812fdb418';
+
+function check() {
+  var pwd = document.getElementById('pwd').value.trim();
+  var btn = document.getElementById('btn');
+  var err = document.getElementById('error');
   if (!pwd) return;
-  
-  btn.disabled = true;
-  btn.textContent = 'Vérification...';
-  err.classList.remove('show');
-  
-  try {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pwd })
-    });
-    
-    if (res.ok) {
-      window.location.href = '/demo';
-    } else {
-      err.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Accéder au simulateur →';
-      document.getElementById('pwd').value = '';
-      document.getElementById('pwd').focus();
-    }
-  } catch(e) {
+  if (pwd === MOT_DE_PASSE) {
+    // Enregistrer expiration 24h
+    var expiry = Date.now() + 24 * 60 * 60 * 1000;
+    sessionStorage.setItem('ss_ok', expiry);
+    window.location.href = SECRET_URL;
+  } else {
     err.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Accéder au simulateur →';
+    document.getElementById('pwd').value = '';
+    document.getElementById('pwd').focus();
   }
 }
-
 document.getElementById('pwd').addEventListener('keydown', function(e) {
   if(e.key === 'Enter') check();
 });
