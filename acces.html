@@ -48,30 +48,25 @@ h1{font-size:20px;font-weight:700;color:#0f1117;margin-bottom:8px}
   <p class="note">Acc&egrave;s valable 24h &middot; Usage personnel uniquement</p>
 </div>
 <script>
-// POUR CHANGER LE MOT DE PASSE :
-// 1. Modifiez MOT_DE_PASSE ci-dessous
-// 2. Uploadez ce fichier sur GitHub
-var MOT_DE_PASSE = 'demo2026';
-var SECRET_URL = '/sim-759fbe312022605be4ca0ef812fdb418';
-
-function check() {
-  var pwd = document.getElementById('pwd').value.trim();
-  var btn = document.getElementById('btn');
-  var err = document.getElementById('error');
-  if (!pwd) return;
-  if (pwd === MOT_DE_PASSE) {
-    // Enregistrer expiration 24h
-    var expiry = Date.now() + 24 * 60 * 60 * 1000;
-    sessionStorage.setItem('ss_ok', expiry);
-    window.location.href = SECRET_URL;
-  } else {
-    err.classList.add('show');
-    document.getElementById('pwd').value = '';
-    document.getElementById('pwd').focus();
-  }
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
+
+async function check() {
+  const pwd = document.getElementById('pwd').value.trim();
+  const btn = document.getElementById('btn');
+  const err = document.getElementById('error');
+  if (!pwd) return;
+  btn.disabled = true;
+  btn.textContent = 'Vérification...';
+  err.classList.remove('show');
+  const hash = await sha256(pwd);
+  window.location.href = '/sim-' + hash;
+}
+
 document.getElementById('pwd').addEventListener('keydown', function(e) {
-  if(e.key === 'Enter') check();
+  if (e.key === 'Enter') check();
 });
 </script>
 </body>
