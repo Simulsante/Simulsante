@@ -6,7 +6,7 @@ export default function handler(req, res) {
   const { password } = req.body;
   
   // Mot de passe — changez cette valeur pour renouveler l'accès
-  const MOT_DE_PASSE = 'demo2025';
+  const MOT_DE_PASSE = 'demo2026';
   
   if (password === MOT_DE_PASSE) {
     // Cookie valable 24h
