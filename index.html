@@ -93,13 +93,13 @@ h1 em{font-style:italic;color:var(--accent)}
 .section-label::before{content:'';width:18px;height:2px;background:var(--accent);border-radius:2px}
 h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3.2vw,38px);line-height:1.15;letter-spacing:-.3px;color:var(--ink);margin-bottom:16px}
 h2 em{font-style:italic;color:var(--accent)}
-.section-text{font-size:15px;color:var(--ink2);line-height:1.8;max-width:700px;margin-bottom:20px}
+.section-text{font-size:16px;color:var(--ink2);line-height:1.8;max-width:700px;margin-bottom:20px}
 .problem-section{background:var(--surface);border-top:1px solid var(--border)}
 .problem-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
 .problem-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 22px;display:flex;align-items:flex-start;gap:12px}
 .problem-icon{width:34px;height:34px;background:var(--rac-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
-.problem-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:5px}
-.problem-desc{font-size:12.5px;color:var(--ink2);line-height:1.65}
+.problem-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.problem-desc{font-size:13.5px;color:var(--ink2);line-height:1.65}
 .steps-section{background:var(--bg)}
 .steps-grid{display:flex;flex-direction:column;margin-top:36px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
 .step-row{display:flex;align-items:center;gap:18px;padding:18px 24px;border-bottom:1px solid var(--border);transition:background .18s}
@@ -107,8 +107,8 @@ h2 em{font-style:italic;color:var(--accent)}
 .step-row:hover{background:var(--bg)}
 .step-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-content{flex:1}
-.step-title{font-size:13.5px;font-weight:700;color:var(--ink)}
-.step-desc{font-size:12.5px;color:var(--ink2);margin-top:3px;line-height:1.6}
+.step-title{font-size:14.5px;font-weight:700;color:var(--ink)}
+.step-desc{font-size:13.5px;color:var(--ink2);margin-top:3px;line-height:1.6}
 .step-val{font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;white-space:nowrap;background:var(--accent-light);color:var(--accent)}
 .step-val.v-secu{background:var(--secu-light);color:var(--secu)}
 .step-val.v-mut{background:var(--mut-light);color:var(--mut)}
@@ -123,8 +123,8 @@ h2 em{font-style:italic;color:var(--accent)}
 .usage-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:22px;transition:all .2s}
 .usage-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(99,102,241,.2)}
 .usage-icon{font-size:22px;margin-bottom:12px}
-.usage-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:7px}
-.usage-desc{font-size:12.5px;color:var(--ink2);line-height:1.65}
+.usage-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.usage-desc{font-size:13.5px;color:var(--ink2);line-height:1.65}
 .contact-section{background:#0f1117;padding:88px 48px}
 .contact-inner{max-width:560px;margin:0 auto;text-align:center}
 .contact-inner .section-label{justify-content:center;color:rgba(99,102,241,.8)}
@@ -170,7 +170,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 <nav id="nav">
   <a class="nav-logo" href="#">
     <div class="nav-logo-icon">&#x2665;</div>
-    Simul'<span>Sant&eacute;</span>
+    <div>Simul'<span>Sant&eacute;</span><span style="display:block;font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.3px;margin-top:-2px">by Lounis</span></div>
   </a>
   <ul class="nav-links">
     <li><a href="#probleme">Le constat</a></li>
@@ -190,7 +190,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
       <div class="hero-tag" style="margin-bottom:0">Outil p&eacute;dagogique &middot; Assurance sant&eacute;</div>
       <div style="display:inline-flex;align-items:center;gap:7px;background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px"><span style="width:5px;height:5px;background:#f97316;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span>Acc&egrave;s au simulateur gratuit 24h</div>
     </div>
-      <h1>Simul'Sant&eacute;</h1>
+      <h1>Simul'<span style="color:var(--accent)">Sant&eacute;</span></h1>
       <div class="hero-subtitle">Le simulateur p&eacute;dagogique des remboursements sant&eacute;</div>
       <p class="hero-desc">Les r&egrave;gles de remboursement en sant&eacute; sont souvent difficiles &agrave; lire. Entre la base de remboursement, les d&eacute;passements d'honoraires, le parcours de soins et les participations forfaitaires, il est rarement &eacute;vident de savoir ce que l'on va r&eacute;ellement payer apr&egrave;s une consultation ou un acte m&eacute;dical.</p>
       <div class="hero-actions">
@@ -206,22 +206,34 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
           <div class="mockup-url">simulsante.fr</div>
         </div>
         <div class="mockup-body">
+          <!-- Barre de recherche simulée -->
+          <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;color:var(--muted)">&#x1F50D;</span>
+            <span style="font-size:12px;color:var(--ink2);font-weight:500">Consultation m&eacute;decin g&eacute;n&eacute;raliste</span>
+            <span style="margin-left:auto;font-size:10px;background:var(--mut-light);color:var(--mut);padding:2px 7px;border-radius:4px;font-weight:700">Trouv&eacute;</span>
+          </div>
+          <!-- Acte -->
           <div class="sim-acte-card">
-            <div><div class="sim-acte-nom">Consultation cardiologue</div><div class="sim-acte-sub">Secteur 2 OPTAM &middot; Dans le parcours de soins</div></div>
-            <div class="sim-acte-code">CS</div>
+            <div>
+              <div class="sim-acte-nom">Consultation g&eacute;n&eacute;raliste — m&eacute;decin traitant</div>
+              <div class="sim-acte-sub">Secteur 1 &middot; Dans le parcours de soins</div>
+            </div>
+            <div class="sim-acte-code">G</div>
           </div>
+          <!-- Paramètres -->
           <div class="sim-params">
-            <div class="sim-field"><div class="sim-fl">Tarif factur&eacute;</div><div class="sim-fv" style="font-size:15px;font-weight:800">60,00 &euro;</div></div>
+            <div class="sim-field active"><div class="sim-fl">Tarif conventionnel</div><div class="sim-fv" style="font-size:15px;font-weight:800">30,00 &euro;</div></div>
             <div class="sim-field active"><div class="sim-fl">Base de remboursement</div><div class="sim-fv">30,00 &euro;</div></div>
-            <div class="sim-field active"><div class="sim-fl">Taux AMO</div><div class="sim-fv">70 %</div></div>
-            <div class="sim-field"><div class="sim-fl">Participation forfaitaire</div><div class="sim-fv">1,00 &euro;</div></div>
+            <div class="sim-field"><div class="sim-fl">Taux AMO</div><div class="sim-fv">70 %</div></div>
+            <div class="sim-field"><div class="sim-fl">Remboursement AMO</div><div class="sim-fv">21,00 &euro;</div></div>
           </div>
+          <!-- Barre -->
           <div class="sim-bar-wrap">
-            <div class="sim-bar-label">R&eacute;partition du co&ucirc;t</div>
+            <div class="sim-bar-label">R&eacute;partition du co&ucirc;t (30,00 &euro;)</div>
             <div class="sim-bar">
-              <div class="sim-bar-secu" style="width:33%"></div>
-              <div class="sim-bar-mut" style="width:42%"></div>
-              <div class="sim-bar-rac" style="width:25%"></div>
+              <div class="sim-bar-secu" style="width:63%"></div>
+              <div class="sim-bar-mut" style="width:30%"></div>
+              <div class="sim-bar-rac" style="width:7%"></div>
             </div>
             <div class="sim-bar-legend">
               <div class="sim-legend-item"><div class="sim-legend-dot" style="background:var(--secu)"></div>AMO</div>
@@ -229,17 +241,32 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
               <div class="sim-legend-item"><div class="sim-legend-dot" style="background:var(--rac)"></div>Reste &agrave; charge</div>
             </div>
           </div>
+          <!-- Résultats -->
           <div class="sim-results">
-            <div class="sim-res-row"><span class="sim-res-label"><div class="sim-res-badge" style="background:var(--secu)"></div>Remboursement AMO</span><span class="sim-res-val v-secu">+ 20,00 &euro;</span></div>
-            <div class="sim-res-row"><span class="sim-res-label"><div class="sim-res-badge" style="background:var(--mut)"></div>Part compl&eacute;mentaire sant&eacute;</span><span class="sim-res-val v-mut">+ 25,00 &euro;</span></div>
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--secu)"></div>Remboursement AMO</span>
+              <span class="sim-res-val v-secu">+ 19,00 &euro;</span>
+            </div>
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--muted)"></div>Participation forfaitaire</span>
+              <span class="sim-res-val" style="color:var(--rac);font-size:12px">2,00 &euro;</span>
+            </div>
+            <div class="sim-res-row">
+              <span class="sim-res-label"><div class="sim-res-badge" style="background:var(--mut)"></div>Part compl&eacute;mentaire sant&eacute;</span>
+              <span class="sim-res-val v-mut">+ 9,00 &euro;</span>
+            </div>
           </div>
+          <!-- RAC -->
           <div class="sim-rac" style="margin-top:10px">
-            <div><div class="sim-rac-label">Reste &agrave; charge</div><div class="sim-rac-sublabel">Ce qui reste &agrave; r&eacute;gler</div></div>
-            <div class="sim-rac-v">15,00 &euro;</div>
+            <div>
+              <div class="sim-rac-label">Reste &agrave; charge</div>
+              <div class="sim-rac-sublabel">Participation forfaitaire non remboursable</div>
+            </div>
+            <div class="sim-rac-v">2,00 &euro;</div>
           </div>
         </div>
       </div>
-      <div class="float-badge fb2"><div class="fdot" style="background:var(--accent)"></div>1 024 actes m&eacute;dicaux</div>
+      <div class="float-badge fb2"><div class="fdot" style="background:var(--accent)"></div><div>1 024 actes m&eacute;dicaux<span style="display:block;font-size:10px;font-weight:400;color:var(--muted);margin-top:1px">Mis &agrave; jour r&eacute;guli&egrave;rement</span></div></div>
     </div>
   </div>
 </section>
