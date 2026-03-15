@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /acces
+Disallow: /sim-
+
+Sitemap: https://simulsante-gche.vercel.app/sitemap.xml
