@@ -769,10 +769,11 @@ input[type=number]{-moz-appearance:textfield}
       <button onclick="closeBugModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
     </div>
     <p style="font-size:13px;color:#555;margin:0 0 14px;">Décrivez le problème rencontré (acte concerné, résultat attendu, résultat obtenu…). Votre message sera envoyé par email.</p>
-    <textarea id="bug-text" placeholder="Ex : Pour une consultation cardiologue sect2 OPTAM hors parcours, le taux affiché est 70% au lieu de 30%..." style="width:100%;height:130px;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;box-sizing:border-box;outline:none;color:#111;" oninput="document.getElementById('bug-send').disabled=this.value.trim().length<5;"></textarea>
+    <textarea id="bug-text" placeholder="Ex : Pour une consultation cardiologue sect2 OPTAM hors parcours, le taux affiché est 70% au lieu de 30%..." style="width:100%;height:130px;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;box-sizing:border-box;outline:none;color:#111;" oninput="const ok=this.value.trim().length>=5;const b=document.getElementById('bug-send');b.style.opacity=ok?'1':'.5';b.style.pointerEvents=ok?'auto':'none';"></textarea>
+    <p style="font-size:11px;color:#9299b0;margin:6px 0 0;text-align:right;">5 caractères minimum requis pour envoyer</p>
     <div style="display:flex;gap:10px;margin-top:14px;justify-content:flex-end;">
       <button onclick="closeBugModal()" style="padding:9px 18px;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Annuler</button>
-      <button id="bug-send" onclick="sendBug()" disabled style="padding:9px 18px;border:none;border-radius:8px;background:#111;color:#fff;font-size:13px;font-weight:600;cursor:pointer;opacity:.5;transition:opacity .2s;">Envoyer ✉️</button>
+      <a id="bug-send" href="#" onclick="return prepBug(this)" style="padding:9px 18px;border:none;border-radius:8px;background:#111;color:#fff;font-size:13px;font-weight:600;cursor:pointer;opacity:.5;text-decoration:none;display:inline-block;pointer-events:none;">Envoyer ✉️</a>
     </div>
   </div>
 </div>
@@ -804,7 +805,7 @@ const DB=[
 {id:'MG08',code:'C2',nom:'Avis ponctuel consultant (C2/APC) — 2e recours',cat:'Généraliste',br:67.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'Créé déc. 2024 — expertise sur orientation MT.'},
 // ── GYNÉCOLOGIE ────────────────────────────────────────────
-{id:'MG09',code:'MEG',nom:'Majoration enfant <6 ans — consultation MG',cat:'Généraliste',br:35,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'G (30€) + MEG (5€) = 35€ pour enfant <6 ans.'},
+{id:'MG09',code:'MEG',nom:'Majoration enfant moins de 6 ans — consultation MG',cat:'Généraliste',br:35,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'G (30€) + MEG (5€) = 35€ pour enfant moins de 6 ans.'},
 {id:'MG10',code:'VLO',nom:'Visite longue à domicile',cat:'Généraliste',br:65,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'VG + MD + IK. Tarif moyen estimé.'},
 {id:'MG11',code:'GL1',nom:'Consultation longue sortie hospitalisation (GL1)',cat:'Généraliste',br:60,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'Dans les 45 jours après hospitalisation. Réservé MT. 1 fois/an.'},
 {id:'MG12',code:'GL2',nom:'Consultation longue déprescription (GL2)',cat:'Généraliste',br:60,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'Patient >80 ans hyperpolymédiqué (>10 lignes). Réservé MT. 1 fois/an.'},
@@ -813,10 +814,10 @@ const DB=[
  note:'Avis par professeur des universités-praticien hospitalier. Tarif opposable.'},
 {id:'MG15',code:'CCT',nom:'Consultation très complexe (CCT/CCE)',cat:'Généraliste',br:60,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'CTE ou MPH agrégée. Ex: handicap sévère, TND, repérage troubles neuro-développement.'},
-{id:'MG16',code:'MGE',nom:'Majoration enfant <6 ans — spécialiste (MGE)',cat:'Généraliste',br:5,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:"S'ajoute à C ou CS pour enfant <6 ans chez spécialiste."},
-{id:'MG17',code:'MNO',nom:'Consultation nourrisson <2 ans — pédiatre (MNO)',cat:'Généraliste',br:40,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Tarif global pédiatre nourrisson <2 ans depuis déc. 2024.'},
+{id:'MG16',code:'MGE',nom:'Majoration enfant moins de 6 ans — spécialiste (MGE)',cat:'Généraliste',br:5,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
+ note:"S'ajoute à C ou CS pour enfant moins de 6 ans chez spécialiste."},
+{id:'MG17',code:'MNO',nom:'Consultation nourrisson moins de 2 ans — pédiatre (MNO)',cat:'Généraliste',br:40,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
+ note:'Tarif global pédiatre nourrisson moins de 2 ans depuis déc. 2024.'},
 {id:'MG18',code:'MNU',nom:'Majoration nuit profonde 00h-06h (MNU)',cat:'Généraliste',br:40,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:"Modificateur MM. S'ajoute à C ou V pour acte de nuit profonde 00h-06h."},
 {id:'MG19',code:'MPA',nom:'Majoration personne âgée non-traitant (MPA/MOP)',cat:'Généraliste',br:5,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
@@ -844,18 +845,18 @@ const DB=[
 // ── PSYCHIATRIE / NEURO ────────────────────────────────────
 {id:'PS01',code:'CNP',nom:'Psychiatre — consultation adulte (CNP)',cat:'Psychiatrie',br:57,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'Revalorisation juil. 2025 (précédent : 55€). Accès direct 16-25 ans.'},
-{id:'PS02',code:'CNP-PP',nom:'Pédopsychiatre (<25 ans) — CNP+MP',cat:'Psychiatrie',br:75,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
+{id:'PS02',code:'CNP-PP',nom:'Pédopsychiatre (moins de 25 ans) — CNP+MP',cat:'Psychiatrie',br:75,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'Accès direct sans pénalité 16-25 ans.'},
 {id:'PS03',code:'CNP-NEU',nom:'Neurologue — consultation (CNP)',cat:'Neurologie',br:52,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Accès direct autorisé.'},
+ note:'Tarifs particuliers. Orientation MT requise pour le parcours de soins.'},
 {id:'PS04',code:'MONPSY',nom:'Psychologue Mon Soutien Psy (8 séances/an)',cat:'Psychiatrie',br:50,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
  note:'Dispositif MSP : sur ordonnance MT. 8 séances max/an.'},
 {id:'PS05',code:'NEUROPSYCHO',nom:'Bilan neuropsychologique',cat:'Neurologie',br:93.6,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'PS06',code:'MPR',nom:'Médecine physique réadaptation (MPR)',cat:'Neurologie',br:35,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Accès direct autorisé.'},
+ note:'Tarifs particuliers. Orientation MT requise pour le parcours de soins.'},
 // ── PÉDIATRIE ──────────────────────────────────────────────
-{id:'PE01',code:'CS-PED-2',nom:'Pédiatre — enfant <2 ans',cat:'Pédiatrie',br:40,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Pas de PF <18 ans. Pédiatre = accès direct.'},
+{id:'PE01',code:'CS-PED-2',nom:'Pédiatre — enfant moins de 2 ans',cat:'Pédiatrie',br:40,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
+ note:'Pas de PF pour les moins de 18 ans. Tarifs particuliers pour les moins de 2 ans.'},
 {id:'PE02',code:'CS-PED-6',nom:'Pédiatre — enfant 2-6 ans',cat:'Pédiatrie',br:35,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'PE04',code:'CS-PED-6+',nom:'Pédiatre — enfant >6 ans',cat:'Pédiatrie',br:31.5,taux:70,ff:0,fran:0,lourd:false,catHP:'spe',accesDirect:true,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'PE03',code:'COB',nom:'Examen obl. nourrisson (9 examen/an, 0-6 ans)',cat:'Pédiatrie',br:60,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:true,
@@ -871,7 +872,7 @@ const DB=[
 {id:'DE01',code:'CDS',nom:'Dermatologue — consultation',cat:'Dermatologie',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'DE02',code:'CDE',nom:'Consultation dermatologique experte / mélanome',cat:'Dermatologie',br:60,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'Revalorisation juil. 2025.'},
-{id:'DE03',code:'QZFA036',nom:'Exérèse lésion cutanée <5 cm²',cat:'Dermatologie',br:28.8,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
+{id:'DE03',code:'QZFA036',nom:'Exérèse lésion cutanée moins de 5 cm²',cat:'Dermatologie',br:28.8,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'DE04',code:'QZFA010',nom:'Exérèse lésion cutanée ≥5 cm²',cat:'Dermatologie',br:57.6,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 // ── ORL ────────────────────────────────────────────────────
 {id:'OR01',code:'COL',nom:'ORL — consultation',cat:'ORL',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
@@ -884,7 +885,7 @@ const DB=[
 {id:'SP04',code:'CUR',nom:'Urologue — consultation',cat:'Spécialistes',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'SP05',code:'CAL',nom:'Allergologue — consultation',cat:'Spécialistes',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'SP06',code:'CGR',nom:'Gériatre — consultation',cat:'Spécialistes',br:42,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Accès direct autorisé. Revalorisation juil. 2025.'},
+ note:'Tarifs particuliers. Orientation MT requise. Revalorisation jan. 2026.'},
 {id:'SP07',code:'CPNE',nom:'Pneumologue — consultation',cat:'Spécialistes',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'SP08',code:'CNE',nom:'Néphrologue — consultation',cat:'Spécialistes',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'SP09',code:'CHE',nom:'Hématologue / oncologue — consultation',cat:'Spécialistes',br:31.5,taux:70,ff:2,fran:0,lourd:false,catHP:'spe',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
@@ -925,7 +926,7 @@ const DB=[
 // ── ORTHOPHONIE ────────────────────────────────────────────
 {id:'OT01',code:'AMO8',nom:'Séance orthophonie (AMO8)',cat:'Orthophonie',br:54,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'OT02',code:'AMO11',nom:'Bilan orthophonique (AMO11)',cat:'Orthophonie',br:69.3,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
-{id:'OT03',code:'AMO5',nom:'Séance orthophonie enfant <3 ans (AMO5)',cat:'Orthophonie',br:33.75,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
+{id:'OT03',code:'AMO5',nom:'Séance orthophonie enfant moins de 3 ans (AMO5)',cat:'Orthophonie',br:33.75,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'OT04',code:'AMO13',nom:'Séance orthophonie déglutition (AMO13)',cat:'Orthophonie',br:87.75,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'Troubles de déglutition post-AVC, oncologie.'},
 {id:'OT05',code:'AMO17',nom:'Bilan orthophonique complexe (AMO17)',cat:'Orthophonie',br:114.75,taux:60,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'Bilan neuro-développemental.'},
 // ── SAGE-FEMME ─────────────────────────────────────────────
@@ -936,8 +937,8 @@ const DB=[
  note:'BR = V (23€) + MSF (3,50€) + IFD (4€). + IK si >2km. 100% si grossesse ≥6 mois ou post-partum ≤14 semaines.'},
 {id:'SF03',code:'C+MSF',nom:'Examen gynécologique sage-femme',cat:'Sage-femme',br:26.50,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
  note:'Suivi gynécologique de prévention. Même tarif que consultation (C+MSF). Pas de PF.'},
-{id:'SF-CCP',code:'CCP',nom:'Consultation contraception & prévention <26 ans',cat:'Sage-femme',br:47.50,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,
- note:'100% sans avance. Jeunes femmes et hommes <26 ans. Tarif avenant 7 2024.'},
+{id:'SF-CCP',code:'CCP',nom:'Consultation contraception & prévention moins de 26 ans',cat:'Sage-femme',br:47.50,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,
+ note:'100% sans avance. Jeunes femmes et hommes moins de 26 ans. Tarif avenant 7 2024.'},
 // Grossesse & périnatalité
 {id:'SF08',code:'SF15',nom:'Entretien prénatal précoce (EPP) — 1re séance PNP',cat:'Sage-femme',br:48.00,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,
  note:'100% maternité. 1re séance obligatoire de préparation à la naissance. Dès le 1er trimestre.'},
@@ -964,9 +965,9 @@ const DB=[
 {id:'SF-FROTTIS',code:'JKHD001',nom:'Frottis cervico-vaginal sage-femme (FCU)',cat:'Sage-femme',br:13.00,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
  note:'70%. Recommandé tous les 3 ans (25-65 ans). Acte CCAM, même BR que médecin.'},
 {id:'SF-DIU',code:'JNJD001',nom:'Pose DIU / stérilet par sage-femme',cat:'Sage-femme',br:38.40,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
- note:'70% (100% <26 ans). Acte CCAM. Même BR que médecin.'},
+ note:'70% (100% moins de 26 ans). Acte CCAM. Même BR que médecin.'},
 {id:'SF-IMPLANT',code:'JNJP002',nom:'Pose implant contraceptif par sage-femme',cat:'Sage-femme',br:19.20,taux:70,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
- note:'70% (100% <26 ans). Acte CCAM.'},
+ note:'70% (100% moins de 26 ans). Acte CCAM.'},
 {id:'SF10',code:'JNJD-IVG',nom:'IVG médicamenteuse par sage-femme',cat:'Sage-femme',br:298.00,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,
  note:'100% sans avance de frais depuis 2023.'},
 // ── PODOLOGIE ──────────────────────────────────────────────
@@ -1129,7 +1130,7 @@ const DB=[
 {id:'DN07',code:'HBMD212',nom:'Extraction dent incluse / semi-incluse (dent de sagesse)',cat:'Dentaire',br:89.64,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-EXT-OA',code:'HBMD214',nom:'Extraction sous anesthésie générale (SSPI)',cat:'Dentaire',br:150,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 // Orthodontie
-{id:'DN09',code:'ORTHO-SEM',nom:'Orthodontie — semestre (<16 ans)',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:true,
+{id:'DN09',code:'ORTHO-SEM',nom:'Orthodontie — semestre (moins de 16 ans)',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:true,
  note:'100% si traitement débuté avant 16 ans. 6 semestres max.'},
 {id:'DN-ORTHO-AD',code:'ORTHO-AD',nom:'Orthodontie adulte (>16 ans)',cat:'Dentaire',br:0,taux:0,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:true,lockParc:true,lockSit:true,
  note:'Non remboursé sécu. Mutuelle uniquement.'},
@@ -1285,7 +1286,7 @@ const DB=[
 {id:'PH06',code:'MED-ANTICOA',nom:'Anticoagulant oral (AVK, NACO)',cat:'Médicaments',br:0,taux:65,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'65%.'},
 {id:'PH07',code:'MED-ANTIDEP',nom:'Antidépresseur (liste)',cat:'Médicaments',br:0,taux:65,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'PH08',code:'MED-VACCI',nom:'Vaccin (hors grippe — sur ordonnance)',cat:'Médicaments',br:0,taux:65,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
-{id:'PH09',code:'MED-PILULE',nom:'Contraceptif oral (pilule — <26 ans)',cat:'Médicaments',br:0,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,note:'100% pour moins de 26 ans depuis 2023.'},
+{id:'PH09',code:'MED-PILULE',nom:'Contraceptif oral (pilule — moins de 26 ans)',cat:'Médicaments',br:0,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:true,note:'100% pour moins de 26 ans depuis 2023.'},
 {id:'PH10',code:'MED-PILULE-AD',nom:'Contraceptif oral (pilule — adulte)',cat:'Médicaments',br:0,taux:65,ff:0,fran:1,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'65% si sur liste remboursable.'},
 
 // ── SOINS COURANTS — EXTENSION ───────────────────────────
@@ -1422,8 +1423,8 @@ const DB=[
 {id:'DN-AMALG1',code:'HBGD100',nom:'Amalgame 1 face',cat:'Dentaire',br:11.5,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-AMALG2',code:'HBGD101',nom:'Amalgame 2 faces',cat:'Dentaire',br:14.44,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-AMALG3',code:'HBGD102',nom:'Amalgame 3+ faces',cat:'Dentaire',br:17.38,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
-{id:'DN-CUR-CAR',code:'HBGD050',nom:'Curetage carie (enfant <12 ans)',cat:'Dentaire',br:7.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
-{id:'DN-SCA-PIT',code:'HBGD055',nom:'Scellement de sillons (prévention, <14 ans)',cat:'Dentaire',br:8.75,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
+{id:'DN-CUR-CAR',code:'HBGD050',nom:'Curetage carie (enfant moins de 12 ans)',cat:'Dentaire',br:7.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
+{id:'DN-SCA-PIT',code:'HBGD055',nom:'Scellement de sillons (prévention, moins de 14 ans)',cat:'Dentaire',br:8.75,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-DEMIN',code:'HBGD056',nom:'Traitement déminéralisation (vernis fluoré)',cat:'Dentaire',br:5.3,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-DEVIT1',code:'HBGD001',nom:'Dévitalisation 1 canal',cat:'Dentaire',br:27,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-DEVIT2',code:'HBGD002',nom:'Dévitalisation 2 canaux',cat:'Dentaire',br:39,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
@@ -1455,7 +1456,7 @@ const DB=[
 {id:'DN-INLAY-CORE',code:'INLAY-CORE',nom:'Inlay-core coulé (métallique)',cat:'Dentaire',br:96.75,taux:60,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-ONLAY',code:'ONLAY-CER',nom:'Onlay céramique (hors nomen.)',cat:'Dentaire',br:0,taux:0,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'DN-FACETTE',code:'FACETTE',nom:'Facette céramique (hors nomen.)',cat:'Dentaire',br:0,taux:0,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:true,lockParc:true,lockSit:false,note:''},
-{id:'DN-ODF-S1',code:'HBMD500',nom:'Orthodontie — semestre 1 (<16 ans)',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
+{id:'DN-ODF-S1',code:'HBMD500',nom:'Orthodontie — semestre 1 (moins de 16 ans)',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-ODF-S2',code:'HBMD501',nom:'Orthodontie — semestre 2',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-ODF-S3',code:'HBMD502',nom:'Orthodontie — semestre 3',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
 {id:'DN-ODF-S4',code:'HBMD503',nom:'Orthodontie — semestre 4',cat:'Dentaire',br:193.5,taux:100,ff:0,fran:0,lourd:false,catHP:'True',accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
@@ -1507,7 +1508,7 @@ const DB=[
 {id:'DN-BRIDGE-ZIRCONE',code:'HBLD099',nom:'Bridge monolithique zircone — 100% santé',cat:'Dentaire',br:107.5,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Nouveau bridge zircone intégré panier 100% santé jan 2026.'},
 
 // Prévention — extension génération sans carie aux 26 ans
-{id:'DN-VERNIS-FLUORE-26',code:'HBMD700',nom:'Vernis fluoré — prévention (1 à 26 ans)',cat:'Dentaire',br:17.22,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:true,note:'100%. Extension aux 26 ans jan 2026 (était <18 ans). Risque carieux élevé, 2 fois/an max.'},
+{id:'DN-VERNIS-FLUORE-26',code:'HBMD700',nom:'Vernis fluoré — prévention (1 à 26 ans)',cat:'Dentaire',br:17.22,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:true,note:'100%. Extension aux 26 ans jan 2026 (était moins de 18 ans). Risque carieux élevé, 2 fois/an max.'},
 
 // Autres actes manquants
 {id:'DN-DETARTRAGE-1Q',code:'HBMD004',nom:'Détartrage + surfaçage 1 quadrant',cat:'Dentaire',br:28.92,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:''},
@@ -2135,7 +2136,7 @@ const DB=[
 
 // ── DERMATOLOGIE ──
 {id:'DERM-BIOPSIE',code:'QZHA001',nom:'Biopsie cutanée diagnostique',cat:'Dermatologie',br:28.80,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:'Cumulable avec consultation.'},
-{id:'DERM-EXER-PET',code:'QZFA036',nom:'Exérèse lésion cutanée <5 cm²',cat:'Dermatologie',br:28.80,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
+{id:'DERM-EXER-PET',code:'QZFA036',nom:'Exérèse lésion cutanée moins de 5 cm²',cat:'Dermatologie',br:28.80,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'DERM-EXER-GRD',code:'QZFA040',nom:'Exérèse lésion cutanée ≥5 cm²',cat:'Dermatologie',br:57.60,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'DERM-CRYO',code:'QZJA001',nom:'Cryothérapie (verrues, kératoses)',cat:'Dermatologie',br:28.80,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
 {id:'DERM-SUTURE',code:'QZGA001',nom:'Suture plaie cutanée simple',cat:'Dermatologie',br:28.80,taux:70,ff:2,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:false,lockParc:false,lockSit:false,note:''},
@@ -2998,13 +2999,11 @@ function calc(){
   const mutVisee        = mutParTaux + forfaitMut;       // objectif mutuelle sur BRSS normale
   const mutBrute        = Math.max(0, mutVisee - rembBrut); // base brute AMO — la PF n'est pas récupérée par la mutuelle
   const paiementPatient = Math.max(0, tarif - rembNet);
-  // irremb contrat responsable : uniquement PF + forfait lourd + franchise
-  // La majHP 10,60€ et la pénalité non-OPTAM NE sont PAS irremboursables par la mutuelle
-  // La mutuelle vise son objectif (mutVisee) en complément du remboursement BRUT AMO.
-  // Elle ne récupère pas la PF (irremb) — celle-ci reste dans le RAC du patient.
-  // Formule : mutBrute = mutVisee - rembBrut (et non rembNet, pour éviter d'absorber la PF)
-  // Plafond : la mutuelle ne peut pas couvrir les non remboursables (PF, forfait lourd, franchise)
-  const irremb  = pf + forfaitLourd + fran;
+  // irremb contrat responsable : PF + forfait lourd + franchise + pénalité HP 10,60€
+  // La pénalité HP (majHP) est INTERDITE de remboursement par la mutuelle (contrat responsable)
+  // Source : ameli.fr + loi contrats responsables — la mutuelle ne peut pas compenser la majoration TM
+  // La pénalité non-OPTAM (sect2 HP) est aussi irremboursable — absorbée dans le taux réduit à 30%
+  const irremb  = pf + forfaitLourd + fran + majHP;
   const rembMut = Math.min(mutBrute, Math.max(0, paiementPatient - irremb));
   const rac     = Math.max(0, tarif - rembNet - rembMut);
 
@@ -3096,6 +3095,7 @@ function render(r){
 
   if(r.dep>0){const msg=r.sect==='2optam'?'partiellement couverts par votre mutuelle (OPTAM) si votre contrat le prévoit':r.sect==='2'?'base de remboursement plafonnée au tarif convention non-OPTAM':'à votre charge (non remboursable)';al+=`<div class="al al-warn">⚠️ <strong>Dépassement d'honoraires : ${fmt(r.dep)}</strong> — ${msg}.</div>`;}
     if(r.pf>0)al+=`<div class="al al-info">ℹ️ <strong>Participation forfaitaire ${fmt(r.pf)}</strong> — non remboursable (sécu ET mutuelle en contrat responsable).</div>`;
+  if(r.majHP>0)al+=`<div class="al al-warn">⚠️ <strong>Pénalité hors parcours ${fmt(r.majHP)}</strong> — non remboursable par votre mutuelle en contrat responsable. Reste définitivement à votre charge.</div>`;
   const _isHospit = acte && acte.cat==='Hospitalisation';
   if(_isHospit && !r.isExo) al+=`<div class="al al-info">ℹ️ <strong>Hospitalisation</strong> — le ticket modérateur est de 20% (non 30%). Le forfait journalier (20€/j) est à votre charge, couvert par la plupart des mutuelles avec garantie hospitalisation.</div>`;
   if(r.fran>0&&!r.forfaitLourd)al+=`<div class="al al-info">ℹ️ <strong>Franchise médicale ${fmt(r.fran)}</strong> — non remboursable. Plafond 50€/an.</div>`;
@@ -3207,15 +3207,17 @@ function closeBugModal(){
   document.getElementById('bug-overlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-function sendBug(){
+function prepBug(link){
   const txt = document.getElementById('bug-text').value.trim();
-  if(!txt) return;
+  if(!txt) return false;
   const acteInfo = acte ? `Acte : ${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
   const subject = encodeURIComponent("Dysfonctionnement Simul'Santé");
   const body = encodeURIComponent(`${acteInfo}\n\n${txt}\n\n---\nEnvoyé depuis Simul'Santé by Lounis`);
-  window.open(`mailto:simulsante@yahoo.com?subject=${subject}&body=${body}`, '_self');
-  closeBugModal();
+  link.href = `mailto:simulsante@yahoo.com?subject=${subject}&body=${body}`;
+  setTimeout(()=>closeBugModal(), 300);
+  return true;
 }
+function sendBug(){ prepBug(document.getElementById('bug-send')); }
 // Fermer la modale en cliquant sur l'overlay
 document.addEventListener('DOMContentLoaded', ()=>{
   const ov = document.getElementById('bug-overlay');
