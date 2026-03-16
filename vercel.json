@@ -5,6 +5,14 @@
     {
       "source": "/acces",
       "destination": "/acces.html"
+    },
+    {
+      "source": "/lexique",
+      "destination": "/lexique.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
     }
   ],
   "headers": [
@@ -18,6 +26,22 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:;"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
         }
       ]
     }

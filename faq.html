@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ Remboursement santé et reste à charge — Simul'Santé</title>
+<meta name="description" content="20 questions essentielles sur le remboursement santé : base de remboursement, AMO, AMC, reste à charge, ticket modérateur, tiers payant, dépassements d'honoraires, parcours de soins.">
+<meta name="keywords" content="FAQ remboursement santé, base de remboursement explication, différence AMO AMC, ticket modérateur définition, reste à charge calcul, tiers payant utilisation, RAC0, parcours soins coordonné, CCAM NGAP NABM LPP, dépassement honoraires remboursement, OPTAM DPTAM, optimiser reste à charge mutuelle">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simulsante.fr/faq">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fdf4ff;--surface:#fff;--surface2:#f5f0ff;
+  --ink:#1a0533;--ink2:#4a3060;--muted:#9e8ab0;--border:#e8d5f5;
+  --accent:#7c3aed;--accent-light:#f3e8ff;
+  --pink:#ec4899;--pink-light:#fdf2f8;
+  --radius:14px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;height:68px;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'DM Serif Display',serif;font-size:19px;font-weight:800;letter-spacing:-.6px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:#ec4899;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .18s}
+.nav-cta:hover{background:#db2777}
+.hero{padding:120px 3vw 60px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px;border:1px solid rgba(124,58,237,.2);margin-bottom:20px}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.5vw,46px);color:var(--ink);margin-bottom:14px;line-height:1.15}
+h1 span{color:var(--pink)}
+.hero-sub{font-size:16px;color:var(--ink2);max-width:620px;margin:0 auto 60px;line-height:1.75}
+.content{max-width:820px;margin:0 auto;padding:0 3vw 80px}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:all .2s}
+.faq-item:hover{border-color:rgba(236,72,153,.25)}
+.faq-question{padding:20px 24px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;user-select:none}
+.faq-question:hover{background:linear-gradient(135deg,#fff0f6,#fdf4ff)}
+.faq-num{width:28px;height:28px;border-radius:50%;background:#ec4899;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.faq-q-text{flex:1}
+.faq-arrow{font-size:16px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-answer{display:none;padding:0 24px 20px;font-size:15px;color:var(--ink2);line-height:1.8;border-top:1px solid var(--border);text-align:justify;hyphens:auto;text-align-last:left}
+.faq-answer p{margin-top:14px}
+.faq-item.open .faq-answer{display:block}
+footer{background:#1a0533;color:rgba(255,255,255,.4);padding:28px 3vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:17px;font-weight:800}
+@media(max-width:768px){nav .nav-links{display:none}.faq-question{font-size:14px;padding:16px 18px}.faq-answer{padding:0 18px 18px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="data:image/png;base64,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" style="width:44px;height:44px;border-radius:10px;object-fit:cover" alt="logo">
+    <span style="font-weight:800;letter-spacing:-.4px;white-space:nowrap"><span style="color:#7c3aed">Simul'</span><span style="color:#ec4899">Sant&eacute;</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/lexique">Lexique</a></li>
+    <li><a href="/faq" style="color:var(--accent)">FAQ</a></li>
+  </ul>
+  <a href="/#contact" class="nav-cta">Demander un acc&egrave;s</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Questions fr&eacute;quentes</div>
+  <h1>FAQ &mdash; Remboursement sant&eacute;<br>et <span>reste &agrave; charge</span></h1>
+  <p class="hero-sub">20 questions essentielles pour comprendre les m&eacute;canismes de remboursement, l&rsquo;articulation AMO&nbsp;/&nbsp;AMC et le calcul du reste &agrave; charge.</p>
+</div>
+
+<div class="content">
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">1</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce que la base de remboursement (BR)&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>La base de remboursement est le tarif de r&eacute;f&eacute;rence utilis&eacute; par l&rsquo;Assurance Maladie pour calculer le remboursement d&rsquo;un acte ou d&rsquo;une prestation.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">2</div>
+      <div class="faq-q-text">Quelle est la diff&eacute;rence entre AMO et mutuelle compl&eacute;mentaire (AMC)&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>L&rsquo;AMO rembourse une partie des soins selon le tarif conventionnel, tandis que l&rsquo;AMC compl&egrave;te le remboursement pour r&eacute;duire le reste &agrave; charge de l&rsquo;assur&eacute;.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">3</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce que le ticket mod&eacute;rateur (TM)&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Le ticket mod&eacute;rateur est la part des frais de sant&eacute; qui reste &agrave; la charge de l&rsquo;assur&eacute; apr&egrave;s remboursement par l&rsquo;AMO.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">4</div>
+      <div class="faq-q-text">Que signifie &laquo;&nbsp;reste &agrave; charge&nbsp;&raquo; (RAC)&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Le reste &agrave; charge correspond &agrave; ce que l&rsquo;assur&eacute; doit payer apr&egrave;s remboursement de l&rsquo;AMO et &eacute;ventuellement de sa compl&eacute;mentaire sant&eacute;.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">5</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce que le tiers payant et comment l&rsquo;utiliser&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Le tiers payant permet de ne pas avancer les frais&nbsp;: l&rsquo;AMO et la mutuelle paient directement le professionnel de sant&eacute;.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">6</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce que RAC0 ou reste &agrave; charge z&eacute;ro&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>RAC0 d&eacute;signe les soins pris en charge int&eacute;gralement par l&rsquo;AMO et l&rsquo;AMC pour certains paniers sant&eacute;, sans paiement par l&rsquo;assur&eacute;.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">7</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce que le parcours de soins coordonn&eacute;&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>C&rsquo;est un syst&egrave;me dans lequel l&rsquo;assur&eacute; d&eacute;clare un m&eacute;decin traitant et obtient un meilleur remboursement lorsqu&rsquo;il suit le parcours recommand&eacute; par l&rsquo;AMO.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">8</div>
+      <div class="faq-q-text">Quel est le r&ocirc;le des nomenclatures CCAM, NGAP, NABM et LPP&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Ces nomenclatures classent et codifient les actes m&eacute;dicaux et dispositifs pour que l&rsquo;AMO et l&rsquo;AMC puissent calculer le remboursement.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">9</div>
+      <div class="faq-q-text">Comment l&rsquo;AMC compl&egrave;te-t-elle le remboursement de l&rsquo;AMO&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>La mutuelle prend en charge tout ou partie du ticket mod&eacute;rateur et des d&eacute;passements d&rsquo;honoraires non rembours&eacute;s par l&rsquo;AMO.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">10</div>
+      <div class="faq-q-text">Qu&rsquo;est-ce qu&rsquo;un d&eacute;passement d&rsquo;honoraires&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>C&rsquo;est la diff&eacute;rence entre le tarif factur&eacute; par le professionnel et le tarif conventionnel pris en charge par l&rsquo;AMO&nbsp;; la mutuelle peut couvrir une partie ou la totalit&eacute;.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">11</div>
+      <div class="faq-q-text">Comment fonctionne le remboursement S&eacute;curit&eacute; sociale pour une consultation m&eacute;dicale&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>L&rsquo;AMO rembourse une partie du tarif conventionnel, et le reste peut &ecirc;tre compl&eacute;t&eacute; par la mutuelle selon le contrat.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">12</div>
+      <div class="faq-q-text">Comment calculer le reste &agrave; charge apr&egrave;s remboursement AMO et AMC&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Il faut d&eacute;terminer le tarif de base, appliquer le taux de remboursement AMO, puis ajouter le remboursement &eacute;ventuel de la mutuelle pour obtenir le reste &agrave; charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">13</div>
+      <div class="faq-q-text">Quelle diff&eacute;rence entre base de remboursement et tarif conventionnel&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>La base de remboursement sert &agrave; calculer le remboursement AMO, tandis que le tarif conventionnel est le prix fix&eacute; entre le professionnel de sant&eacute; et l&rsquo;Assurance Maladie.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">14</div>
+      <div class="faq-q-text">Comment savoir si ma mutuelle rembourse les d&eacute;passements d&rsquo;honoraires&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Les contrats indiquent si les d&eacute;passements de secteur 2 ou 3 sont pris en charge et dans quelle proportion.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">15</div>
+      <div class="faq-q-text">Quels actes m&eacute;dicaux sont rembours&eacute;s par la S&eacute;curit&eacute; sociale&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Les actes codifi&eacute;s dans la CCAM, NGAP ou NABM et certains dispositifs list&eacute;s dans la LPP sont pris en charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">16</div>
+      <div class="faq-q-text">Comment r&eacute;duire le ticket mod&eacute;rateur&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>La mutuelle peut prendre en charge la part non rembours&eacute;e par l&rsquo;AMO pour limiter le reste &agrave; charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">17</div>
+      <div class="faq-q-text">Pourquoi certains actes sont &laquo;&nbsp;hors parcours de soins coordonn&eacute;&nbsp;&raquo;&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Les actes r&eacute;alis&eacute;s sans m&eacute;decin traitant d&eacute;clar&eacute; ou hors parcours coordonn&eacute; ont un remboursement moindre par l&rsquo;AMO, augmentant le reste &agrave; charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">18</div>
+      <div class="faq-q-text">Comment v&eacute;rifier si un acte m&eacute;dical est rembours&eacute; par la S&eacute;curit&eacute; sociale&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Il faut consulter la nomenclature correspondante (CCAM, NGAP, NABM, LPP) et v&eacute;rifier le contrat de mutuelle pour conna&icirc;tre la couverture compl&egrave;te.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">19</div>
+      <div class="faq-q-text">Que signifient OPTAM et DPTAM pour le remboursement&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>Ce sont des dispositifs encadrant les d&eacute;passements d&rsquo;honoraires des m&eacute;decins secteur 2 pour optimiser le remboursement par l&rsquo;AMO et limiter le reste &agrave; charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggle(this)">
+      <div class="faq-num">20</div>
+      <div class="faq-q-text">Comment optimiser son reste &agrave; charge avec une compl&eacute;mentaire sant&eacute;&nbsp;?</div>
+      <div class="faq-arrow">&#x25BC;</div>
+    </div>
+    <div class="faq-answer"><p>En choisissant un contrat qui couvre le ticket mod&eacute;rateur, les d&eacute;passements d&rsquo;honoraires et les dispositifs m&eacute;dicaux non rembours&eacute;s par l&rsquo;AMO.</p></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo"><span style="color:#a78bfa">Simul'</span><span style="color:#f472b6">Sant&eacute;</span></div>
+  <div style="font-size:12px">FAQ p&eacute;dagogique &middot; Remboursement sant&eacute; &middot; &copy; 2026</div>
+</footer>
+
+<script>
+function toggle(el) {
+  el.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>

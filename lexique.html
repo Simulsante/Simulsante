@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexique des acronymes santé — Simul'Santé</title>
+<meta name="description" content="Lexique complet de plus de 60 acronymes et termes techniques de l'assurance santé : AMO, AMC, BR, BRSS, PMSS, ticket modérateur, reste à charge, tiers payant, 100% Santé.">
+<meta name="keywords" content="lexique santé, acronymes assurance santé, AMO définition, AMC définition, BRSS, PMSS, ticket modérateur, reste à charge, tiers payant, 100% Santé, dépassement honoraires, ALD, OPTAM, parcours de soins, CCAM, NGAP, LPP, NOEMIE, ONDAM, PUMA">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simulsante.fr/lexique">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fdf4ff;--surface:#fff;--surface2:#f5f0ff;
+  --ink:#1a0533;--ink2:#4a3060;--muted:#9e8ab0;--border:#e8d5f5;
+  --accent:#7c3aed;--accent-light:#f3e8ff;
+  --pink:#ec4899;--pink-light:#fdf2f8;
+  --radius:14px;--radius-sm:8px;
+  --shadow:0 2px 8px rgba(26,5,51,.06),0 8px 24px rgba(26,5,51,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;height:68px;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'DM Serif Display',serif;font-size:19px;font-weight:800;letter-spacing:-.6px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:#ec4899;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .18s}
+.nav-cta:hover{background:#db2777}
+.hero{padding:120px 3vw 60px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px;border:1px solid rgba(124,58,237,.2);margin-bottom:20px}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,50px);color:var(--ink);margin-bottom:14px}
+h1 span{color:var(--pink)}
+.hero-sub{font-size:16px;color:var(--ink2);max-width:600px;margin:0 auto 48px;line-height:1.75}
+.search-wrap{max-width:500px;margin:0 auto 60px;position:relative}
+.search-input{width:100%;background:var(--surface);border:2px solid var(--border);border-radius:50px;padding:14px 24px 14px 48px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--ink);outline:none;transition:all .2s}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+.content{max-width:1000px;margin:0 auto;padding:0 3vw 80px}
+.letter-section{margin-bottom:48px}
+.letter-title{font-family:'DM Serif Display',serif;font-size:36px;color:var(--accent);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--accent-light)}
+.term-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.term-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 22px;transition:all .2s;cursor:default}
+.term-card:hover{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,#ffe4f0,#fdf4ff);transform:translateX(4px)}
+.term-acronym{font-size:15px;font-weight:800;color:var(--accent);margin-bottom:3px}
+.term-full{font-size:12.5px;font-weight:600;color:var(--pink);margin-bottom:7px}
+.term-def{font-size:13px;color:var(--ink2);line-height:1.7;text-align:justify;hyphens:auto;text-align-last:left}
+footer{background:#1a0533;color:rgba(255,255,255,.4);padding:28px 3vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:17px;font-weight:800}
+@media(max-width:768px){nav .nav-links{display:none}.term-grid{grid-template-columns:1fr}.letter-title{font-size:26px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="data:image/png;base64,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" style="width:44px;height:44px;border-radius:10px;object-fit:cover" alt="logo">
+    <span style="font-weight:800;letter-spacing:-.4px;white-space:nowrap"><span style="color:#7c3aed">Simul'</span><span style="color:#ec4899">Sant&eacute;</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/lexique" style="color:var(--accent)">Lexique</a></li>
+    <li><a href="/faq">FAQ</a></li>
+  </ul>
+  <a href="/#contact" class="nav-cta">Demander un acc&egrave;s</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">R&eacute;f&eacute;rentiel terminologique</div>
+  <h1>Lexique des <span>acronymes sant&eacute;</span></h1>
+  <p class="hero-sub">Plus de 60 termes techniques de l'assurance sant&eacute; expliqu&eacute;s clairement — AMO, AMC, remboursements, nomenclatures, dispositifs.</p>
+  <div class="search-wrap">
+    <span class="search-icon">&#x1F50D;</span>
+    <input class="search-input" type="text" id="search" placeholder="Rechercher un acronyme..." oninput="filterTerms()">
+  </div>
+</div>
+
+<div class="content" id="lexique-content">
+  <div class="letter-section" data-letter="A">
+    <div class="letter-title">A</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">ACS</div>
+        <div class="term-full">Aide à la Complémentaire Santé</div>
+        <div class="term-def">Aide financière accordée aux personnes à revenus modestes pour souscrire une complémentaire santé. Remplacée depuis le 1er novembre 2019 par la Complémentaire Santé Solidaire (CSS).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">ALD</div>
+        <div class="term-full">Affection de Longue Durée</div>
+        <div class="term-def">Maladie grave et chronique (cancer, diabète, insuffisance cardiaque...) dont le traitement est pris en charge à 100% par l'Assurance maladie obligatoire sur les actes en rapport avec l'ALD.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">AMC</div>
+        <div class="term-full">Assurance Maladie Complémentaire</div>
+        <div class="term-def">Désigne l'ensemble des organismes qui complètent les remboursements de l'AMO : mutuelles, compagnies d'assurance, institutions de prévoyance. L'AMC prend en charge tout ou partie du ticket modérateur et des dépassements d'honoraires selon les garanties du contrat.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">AMO</div>
+        <div class="term-full">Assurance Maladie Obligatoire</div>
+        <div class="term-def">Régime de base de la Sécurité sociale qui rembourse une partie des dépenses de santé de tout assuré social. Le remboursement est calculé sur la base de remboursement (BR) selon un taux variable selon la nature de l'acte et la situation du patient.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">AT/MP</div>
+        <div class="term-full">Accident du Travail / Maladie Professionnelle</div>
+        <div class="term-def">En cas d'accident du travail ou de maladie professionnelle reconnue, les soins sont pris en charge à 100% par l'Assurance maladie obligatoire sans participation forfaitaire ni franchise.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="B">
+    <div class="letter-title">B</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">BR</div>
+        <div class="term-full">Base de Remboursement</div>
+        <div class="term-def">Montant de référence fixé par l'Assurance maladie obligatoire sur lequel est calculé le remboursement. La BR peut être inférieure au tarif facturé par le praticien, notamment en secteur 2 ou 3.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">BRR</div>
+        <div class="term-full">Base de Remboursement Reconstituée</div>
+        <div class="term-def">Base de remboursement calculée à partir des éléments de facturation lorsque la base officielle n'est pas directement disponible. Utilisée notamment pour les actes hors nomenclature ou en cas de facturation complexe.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">BRSS</div>
+        <div class="term-full">Base de Remboursement de la Sécurité Sociale</div>
+        <div class="term-def">Synonyme de base de remboursement (BR). Certains contrats de complémentaire santé expriment leurs garanties en pourcentage de la BRSS (ex : 150% BRSS).</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="C">
+    <div class="letter-title">C</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">CAM</div>
+        <div class="term-full">Coût Assurance Maladie</div>
+        <div class="term-def">Montant total pris en charge par l'Assurance maladie obligatoire pour un acte ou une prestation donné. Correspond au remboursement AMO avant déduction de la participation forfaitaire.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">CAS</div>
+        <div class="term-full">Contrat d'Accès aux Soins</div>
+        <div class="term-def">Ancien dispositif conventionnel permettant aux médecins de secteur 2 de s'engager à modérer leurs dépassements d'honoraires. Remplacé par l'OPTAM en 2017.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">CCAM</div>
+        <div class="term-full">Classification Commune des Actes Médicaux</div>
+        <div class="term-def">Nomenclature officielle qui répertorie et codifie l'ensemble des actes techniques médicaux (chirurgie, imagerie, actes de spécialité...). Chaque acte possède un code CCAM unique qui détermine son tarif de remboursement.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">CMU-C</div>
+        <div class="term-full">Couverture Maladie Universelle Complémentaire</div>
+        <div class="term-def">Ancien dispositif permettant aux personnes à faibles revenus de bénéficier d'une couverture complémentaire santé gratuite. Fusionnée avec l'ACS pour créer la CSS en 2019.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">CSS</div>
+        <div class="term-full">Complémentaire Santé Solidaire</div>
+        <div class="term-def">Dispositif remplaçant la CMU-C et l'ACS depuis 2019. Permet aux personnes à revenus modestes de bénéficier d'une complémentaire santé gratuite ou à faible coût.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="D">
+    <div class="letter-title">D</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">DAF</div>
+        <div class="term-full">Dotation Annuelle de Financement</div>
+        <div class="term-def">Enveloppe financière allouée annuellement aux établissements de santé publics ou ESPIC pour financer leurs activités non couvertes par la tarification à l'activité (T2A).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">DE</div>
+        <div class="term-full">Dépassement d'Honoraires</div>
+        <div class="term-def">Montant facturé par un médecin au-delà du tarif conventionnel fixé par la Sécurité sociale. Concerne principalement les médecins de secteur 2 et 3. La prise en charge dépend du contrat de complémentaire santé.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">DPTAM</div>
+        <div class="term-full">Dispositif de Pratique Tarifaire Maîtrisée</div>
+        <div class="term-def">Dispositif conventionnel permettant aux médecins de secteur 2 de pratiquer des dépassements d'honoraires encadrés en échange d'une meilleure prise en charge pour les patients. Anciennement appelé OPTAM.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">DRE</div>
+        <div class="term-full">Demande de Remboursement Électronique</div>
+        <div class="term-def">Transmission électronique des feuilles de soins et demandes de remboursement à l'Assurance maladie. Permet un traitement plus rapide des dossiers et une réduction des délais de remboursement.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="E">
+    <div class="letter-title">E</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">EHPAD</div>
+        <div class="term-full">Établissement d'Hébergement pour Personnes Âgées Dépendantes</div>
+        <div class="term-def">Structure médico-sociale accueillant des personnes âgées en perte d'autonomie. Les soins médicaux y sont pris en charge par l'Assurance maladie selon des forfaits spécifiques.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="F">
+    <div class="letter-title">F</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">FF</div>
+        <div class="term-full">Franchise Forfaitaire</div>
+        <div class="term-def">Montant fixe déduit des remboursements de l'Assurance maladie sur certaines catégories de dépenses. Plafonnée annuellement. Non remboursable par la complémentaire santé.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">FJH</div>
+        <div class="term-full">Forfait Journalier Hospitalier</div>
+        <div class="term-def">Participation aux frais d'hébergement et d'entretien lors d'une hospitalisation, à la charge du patient ou de sa complémentaire santé. Son montant est fixé par arrêté ministériel.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">FM</div>
+        <div class="term-full">Franchise Médicale</div>
+        <div class="term-def">Montant fixe déduit des remboursements sur les médicaments, les actes paramédicaux et les transports sanitaires. Plafonnée à 50€ par an. Non remboursable par la complémentaire santé.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">FR</div>
+        <div class="term-full">Frais Réels</div>
+        <div class="term-def">Montant effectivement facturé par le professionnel de santé, qui peut être supérieur à la base de remboursement en cas de dépassement d'honoraires.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">FSE</div>
+        <div class="term-full">Feuille de Soins Électronique</div>
+        <div class="term-def">Transmission dématérialisée des informations de soins entre le professionnel de santé et l'Assurance maladie via la carte Vitale. Permet un remboursement rapide sans formalités papier.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">FSP</div>
+        <div class="term-full">Feuille de Soins Papier</div>
+        <div class="term-def">Document papier rempli par le professionnel de santé et remis au patient pour lui permettre de se faire rembourser auprès de l'Assurance maladie. Utilisée en l'absence de carte Vitale.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="G">
+    <div class="letter-title">G</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">GHS</div>
+        <div class="term-full">Groupe Homogène de Séjour</div>
+        <div class="term-def">Tarif forfaitaire associé à un groupe homogène de malades (GHM) pour la facturation des séjours hospitaliers dans le cadre de la tarification à l'activité (T2A).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">GHT</div>
+        <div class="term-full">Groupe Hospitalier de Territoire</div>
+        <div class="term-def">Groupement d'établissements publics de santé d'un même territoire visant à assurer une offre de soins graduée et à mutualiser les ressources médicales.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="H">
+    <div class="letter-title">H</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">HAD</div>
+        <div class="term-full">Hospitalisation À Domicile</div>
+        <div class="term-def">Prise en charge médicale à domicile équivalente à une hospitalisation. Les soins sont remboursés par l'Assurance maladie dans les mêmes conditions qu'une hospitalisation conventionnelle.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">HORS CAS</div>
+        <div class="term-full">Hors Contrat d'Accès aux Soins</div>
+        <div class="term-def">Désigne un médecin de secteur 2 qui n'a pas adhéré au DPTAM/OPTAM et peut donc pratiquer des dépassements d'honoraires libres, moins bien pris en charge par les complémentaires.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="L">
+    <div class="letter-title">L</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">LFSS</div>
+        <div class="term-full">Loi de Financement de la Sécurité Sociale</div>
+        <div class="term-def">Loi votée chaque année par le Parlement qui fixe les objectifs de dépenses et de recettes de la Sécurité sociale pour l'année suivante, dont l'ONDAM.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">LPP</div>
+        <div class="term-full">Liste des Produits et Prestations</div>
+        <div class="term-def">Liste officielle des dispositifs médicaux et prestations remboursables par l'Assurance maladie obligatoire (prothèses, orthèses, fauteuils roulants, audioprothèses...).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">LPPR</div>
+        <div class="term-full">Liste des Produits et Prestations Remboursables</div>
+        <div class="term-def">Ancienne dénomination de la LPP. Répertorie les dispositifs médicaux dont la prise en charge par l'Assurance maladie est admise.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="M">
+    <div class="letter-title">M</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">MCO</div>
+        <div class="term-full">Médecine Chirurgie Obstétrique</div>
+        <div class="term-def">Secteur hospitalier regroupant les activités de court séjour : médecine, chirurgie et obstétrique. Financé principalement par la tarification à l'activité (T2A).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">MT</div>
+        <div class="term-full">Médecin Traitant</div>
+        <div class="term-def">Médecin choisi par l'assuré et déclaré auprès de l'Assurance maladie. Indispensable pour bénéficier d'un remboursement optimal dans le cadre du parcours de soins coordonnés.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="N">
+    <div class="letter-title">N</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">NABM</div>
+        <div class="term-full">Nomenclature des Actes de Biologie Médicale</div>
+        <div class="term-def">Nomenclature officielle qui répertorie et codifie les actes de biologie médicale remboursables par l'Assurance maladie. Détermine le tarif de remboursement de chaque analyse.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">NGAP</div>
+        <div class="term-full">Nomenclature Générale des Actes Professionnels</div>
+        <div class="term-def">Nomenclature répertoriant les actes des médecins (consultations, visites) et des auxiliaires médicaux. Elle définit les lettres-clés (G, C, CS, APC...) et les coefficients utilisés pour calculer le tarif de remboursement.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">NOEMIE</div>
+        <div class="term-full">Norme Ouverte d'Échange entre la Maladie et les Intervenants Extérieurs</div>
+        <div class="term-def">Protocole d'échange électronique standardisé permettant à l'Assurance maladie de transmettre automatiquement les informations de remboursement aux organismes complémentaires (mutuelles).</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="O">
+    <div class="letter-title">O</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">ONDAM</div>
+        <div class="term-full">Objectif National des Dépenses d'Assurance Maladie</div>
+        <div class="term-def">Enveloppe budgétaire annuelle fixée par la LFSS qui plafonne les dépenses remboursées par l'Assurance maladie. Son respect est un enjeu majeur de la politique de santé.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">OPTAM</div>
+        <div class="term-full">Option Pratique Tarifaire Maîtrisée</div>
+        <div class="term-def">Ancien nom du DPTAM. Accord entre les médecins de secteur 2 et l'Assurance maladie permettant de mieux rembourser les patients en échange d'un encadrement des dépassements d'honoraires.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">OPTAM-CO</div>
+        <div class="term-full">Option Pratique Tarifaire Maîtrisée Chirurgie Obstétrique</div>
+        <div class="term-def">Variante de l'OPTAM destinée aux chirurgiens et obstétriciens de secteur 2, avec des engagements tarifaires spécifiques à ces spécialités.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="P">
+    <div class="letter-title">P</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">PEC</div>
+        <div class="term-full">Prise En Charge</div>
+        <div class="term-def">Désigne la prise en charge des dépenses de santé par l'Assurance maladie et/ou la complémentaire santé. Une PEC à 100% signifie que l'intégralité des frais est couverte sans reste à charge.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">PF</div>
+        <div class="term-full">Participation Forfaitaire</div>
+        <div class="term-def">Montant fixe de 2€ déduit de chaque remboursement de consultation ou d'acte médical par l'Assurance maladie. Non remboursable par la complémentaire santé. Plafonnée à 50€ par an.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">PLFSS</div>
+        <div class="term-full">Projet de Loi de Financement de la Sécurité Sociale</div>
+        <div class="term-def">Projet de loi présenté chaque automne par le gouvernement au Parlement, définissant les orientations budgétaires de la Sécurité sociale pour l'année suivante.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">PLV</div>
+        <div class="term-full">Plafond de Versement</div>
+        <div class="term-def">Montant maximum que la complémentaire santé peut rembourser pour un acte ou une catégorie de soins, selon les garanties du contrat souscrit.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">PMSS</div>
+        <div class="term-full">Plafond Mensuel de la Sécurité Sociale</div>
+        <div class="term-def">Montant de référence utilisé pour le calcul de certaines cotisations et prestations sociales. En 2026 le PMSS est fixé à 3 925€. Certains contrats expriment leurs garanties en pourcentage du PMSS.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">PUMA</div>
+        <div class="term-full">Protection Universelle Maladie</div>
+        <div class="term-def">Dispositif garantissant à toute personne résidant en France de manière stable et régulière la prise en charge de ses frais de santé par l'Assurance maladie, indépendamment de sa situation professionnelle.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="R">
+    <div class="letter-title">R</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">RAC</div>
+        <div class="term-full">Reste à Charge</div>
+        <div class="term-def">Montant qui reste à payer par l'assuré après les remboursements de l'AMO et de l'AMC. Il inclut la participation forfaitaire, les franchises médicales, les dépassements non couverts et les actes hors nomenclature.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">RAC0</div>
+        <div class="term-full">Reste à Charge Zéro</div>
+        <div class="term-def">Dispositif garantissant une prise en charge intégrale sans reste à charge sur certains équipements d'optique, audioprothèses et soins dentaires prothétiques (paniers 100% Santé).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">RC</div>
+        <div class="term-full">Régime Complémentaire</div>
+        <div class="term-def">Désigne le régime de retraite complémentaire (AGIRC-ARRCO) ou, dans le contexte de l'assurance santé, la couverture complémentaire santé (AMC).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">RBT</div>
+        <div class="term-full">Remboursement</div>
+        <div class="term-def">Montant versé par l'Assurance maladie et/ou la complémentaire santé au titre des dépenses de santé engagées par l'assuré.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">RO</div>
+        <div class="term-full">Régime Obligatoire</div>
+        <div class="term-def">Désigne le régime de base de la Sécurité sociale (AMO). Synonyme d'Assurance maladie obligatoire dans le contexte de la complémentaire santé.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="S">
+    <div class="letter-title">S</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">SECT 1</div>
+        <div class="term-full">Médecin Secteur 1</div>
+        <div class="term-def">Médecin conventionné qui applique strictement les tarifs fixés par la convention médicale, sans dépassement d'honoraires sauf cas exceptionnels. Offre le meilleur niveau de remboursement pour l'assuré.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">SECT 2</div>
+        <div class="term-full">Médecin Secteur 2</div>
+        <div class="term-def">Médecin conventionné autorisé à pratiquer des dépassements d'honoraires avec tact et mesure. Le remboursement AMO est calculé sur la base conventionnelle ; le dépassement est à la charge du patient ou de sa complémentaire.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">SSR</div>
+        <div class="term-full">Soins de Suite et de Réadaptation</div>
+        <div class="term-def">Secteur hospitalier assurant la continuité des soins après une hospitalisation en MCO : rééducation, réadaptation fonctionnelle, soins palliatifs. Financé par dotation journalière.</div>
+      </div>
+    </div>
+  </div>
+  <div class="letter-section" data-letter="T">
+    <div class="letter-title">T</div>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-acronym">TC</div>
+        <div class="term-full">Tarif Conventionnel</div>
+        <div class="term-def">Tarif fixé par la convention médicale entre l'Assurance maladie et les syndicats de médecins, servant de base au calcul des remboursements. Correspond à la base de remboursement pour les actes courants.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">TJP</div>
+        <div class="term-full">Tarif Journalier de Prestation</div>
+        <div class="term-def">Tarif journalier facturé par un établissement de santé pour un séjour hospitalier, incluant l'hébergement et les soins. Sert de base au calcul du remboursement par l'Assurance maladie.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">TM</div>
+        <div class="term-full">Ticket Modérateur</div>
+        <div class="term-def">Part des dépenses de santé non prise en charge par l'AMO, laissée à la charge de l'assuré ou de sa complémentaire. Pour une consultation à 30€ en secteur 1, le TM est de 9€ (30% de 30€).</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">TMJ</div>
+        <div class="term-full">Ticket Modérateur Journalier</div>
+        <div class="term-def">Ticket modérateur appliqué quotidiennement lors d'une hospitalisation, calculé sur le forfait journalier de prestation. Généralement pris en charge par la complémentaire santé.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">TP</div>
+        <div class="term-full">Tiers Payant</div>
+        <div class="term-def">Dispositif permettant à l'assuré de ne pas avancer les frais de santé. L'Assurance maladie et/ou la complémentaire règlent directement le praticien.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-acronym">TR</div>
+        <div class="term-full">Taux de Remboursement</div>
+        <div class="term-def">Pourcentage appliqué à la base de remboursement pour calculer le montant remboursé par l'Assurance maladie. Varie selon la nature de l'acte, le secteur du médecin et la situation du patient (70%, 60%, 80%, 100%...).</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo"><span style="color:#a78bfa">Simul'</span><span style="color:#f472b6">Sant&eacute;</span></div>
+  <div style="font-size:12px">Lexique p&eacute;dagogique &middot; Assurance maladie &middot; &copy; 2026</div>
+</footer>
+
+<script>
+function filterTerms() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.term-card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.letter-section').forEach(section => {
+    const visible = [...section.querySelectorAll('.term-card')].some(c => c.style.display !== 'none');
+    section.style.display = visible ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
