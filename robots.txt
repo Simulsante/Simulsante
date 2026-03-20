@@ -3,4 +3,4 @@ Allow: /
 Disallow: /acces
 Disallow: /sim-
 
-Sitemap: https://simulsante-gche.vercel.app/sitemap.xml
+Sitemap: https://simulsante.fr/sitemap.xml

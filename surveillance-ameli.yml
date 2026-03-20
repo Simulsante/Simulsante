@@ -2,8 +2,8 @@ name: Surveillance Ameli.fr
 
 on:
   schedule:
-    - cron: '0 8 * * 1'  # Chaque lundi à 8h UTC
-  workflow_dispatch:       # Lancement manuel possible
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
 
 jobs:
   surveiller:
@@ -12,13 +12,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Vérifier les tarifs ameli.fr
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
         run: |
           python3 << 'PYEOF'
-          import urllib.request
-          import hashlib
-          import smtplib
-          import os
-          import json
+          import urllib.request, hashlib, smtplib, os, json
           from email.mime.text import MIMEText
           from email.mime.multipart import MIMEMultipart
 
@@ -29,55 +28,43 @@ jobs:
           ]
 
           HASH_FILE = "ameli_hashes.json"
-
           try:
-            with open(HASH_FILE, 'r') as f:
-              old_hashes = json.load(f)
-          except:
-            old_hashes = {}
+            with open(HASH_FILE) as f: old_hashes = json.load(f)
+          except: old_hashes = {}
 
-          changements = []
-          new_hashes = {}
-          headers = {'User-Agent': 'Mozilla/5.0 (compatible; SimulSante-Monitor/1.0)'}
+          changements, new_hashes = [], {}
+          headers = {'User-Agent': 'Mozilla/5.0'}
 
           for url in PAGES:
             try:
               req = urllib.request.Request(url, headers=headers)
               with urllib.request.urlopen(req, timeout=15) as r:
-                content = r.read()
-                h = hashlib.md5(content).hexdigest()
+                h = hashlib.md5(r.read()).hexdigest()
                 new_hashes[url] = h
                 if url in old_hashes and old_hashes[url] != h:
                   changements.append(url)
-            except Exception as e:
-              print(f"Erreur {url}: {e}")
+            except Exception as e: print(f"Erreur {url}: {e}")
 
-          with open(HASH_FILE, 'w') as f:
-            json.dump(new_hashes, f)
+          with open(HASH_FILE, 'w') as f: json.dump(new_hashes, f)
 
           if changements:
             msg = MIMEMultipart()
-            msg['From'] = os.environ['YAHOO_USER']
+            msg['From'] = os.environ['GMAIL_USER']
             msg['To'] = 'simulsante@yahoo.com'
             msg['Subject'] = "⚠️ Simul'Santé — Changement détecté sur ameli.fr"
-
-            body = "Bonjour,\n\nLes pages suivantes ont été modifiées sur ameli.fr :\n\n"
-            for url in changements:
-              body += f"• {url}\n"
-            body += "\nVérifiez si des tarifs ont changé et mettez à jour le simulateur.\n\nSimul'Santé Monitor 🤖"
-
+            body = "Les pages suivantes ont changé :\n\n" + "\n".join(f"• {u}" for u in changements)
+            body += "\n\nMettez à jour le simulateur.\n\nSimul'Santé Monitor 🤖"
             msg.attach(MIMEText(body, 'plain', 'utf-8'))
-
-            with smtplib.SMTP_SSL('smtp.mail.yahoo.com', 465) as server:
-              server.login(os.environ['YAHOO_USER'], os.environ['YAHOO_PASS'])
-              server.send_message(msg)
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
+              s.login(os.environ['GMAIL_USER'], os.environ['GMAIL_PASS'])
+              s.send_message(msg)
             print("Email envoyé !")
           else:
-            print("Aucun changement détecté.")
+            print("Aucun changement.")
           PYEOF
 
       - name: Sauvegarder les hashes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🤖 Mise à jour hashes surveillance ameli.fr"
+          commit_message: "🤖 Surveillance ameli.fr"
           file_pattern: ameli_hashes.json
