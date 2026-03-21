@@ -51,7 +51,10 @@ h1{font-size:20px;font-weight:700;color:#0f1117;margin-bottom:8px}
   <p class="sub">Ce lien vous a &eacute;t&eacute; transmis personnellement. Entrez le code re&ccedil;u pour acc&eacute;der au simulateur.</p>
   <div class="form-group">
     <label class="form-label">Code d'acc&egrave;s</label>
-    <input class="form-input" type="password" id="pwd" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="off">
+    <div style="position:relative">
+      <input class="form-input" type="password" id="pwd" placeholder="" autocomplete="off" style="padding-right:48px">
+      <button type="button" id="toggle-pwd" onclick="togglePwd()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9299b0;font-size:18px;padding:0;line-height:1">&#x1F441;</button>
+    </div>
   </div>
   <button class="btn" id="btn" onclick="check()">Acc&eacute;der au simulateur &rarr;</button>
   <div class="error" id="error">Code incorrect. V&eacute;rifiez le code re&ccedil;u ou contactez simulsante@yahoo.com</div>
@@ -72,7 +75,37 @@ async function check() {
   btn.textContent = 'Vérification...';
   err.classList.remove('show');
   const hash = await sha256(pwd);
-  window.location.href = '/sim-' + hash;
+  // On tente d'accéder — si la page n'existe pas, on revient ici avec erreur
+  const testUrl = '/sim-' + hash;
+  try {
+    const res = await fetch(testUrl, { method: 'HEAD' });
+    if (res.ok) {
+      window.location.href = testUrl;
+    } else {
+      // Mauvais mot de passe
+      err.classList.add('show');
+      document.getElementById('pwd').value = '';
+      btn.disabled = false;
+      btn.textContent = 'Accéder au simulateur →';
+    }
+  } catch(e) {
+    err.classList.add('show');
+    document.getElementById('pwd').value = '';
+    btn.disabled = false;
+    btn.textContent = 'Accéder au simulateur →';
+  }
+}
+
+function togglePwd() {
+  const input = document.getElementById('pwd');
+  const btn = document.getElementById('toggle-pwd');
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.style.opacity = '1';
+  } else {
+    input.type = 'password';
+    btn.style.opacity = '0.5';
+  }
 }
 
 document.getElementById('pwd').addEventListener('keydown', function(e) {
