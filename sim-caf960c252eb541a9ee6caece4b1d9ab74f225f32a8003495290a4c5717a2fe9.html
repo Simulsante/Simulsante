@@ -3452,15 +3452,27 @@ const EJS_SERVICE_ID     = 'service_simulsante';
 const EJS_TEMPLATE_BUG   = 'template_aay5a15';
 const EJS_TEMPLATE_FICHE = 'template_6yoptlt';
 
-// Initialisation immédiate au chargement
-(function initEJS(){
-  const t = setInterval(()=>{
+// Attendre que EmailJS soit chargé puis initialiser
+function waitForEJS(){
+  return new Promise((resolve, reject) => {
     if(typeof emailjs !== 'undefined'){
       emailjs.init({ publicKey: EJS_PUBLIC_KEY });
-      clearInterval(t);
+      return resolve();
     }
-  }, 100);
-})();
+    let tries = 0;
+    const t = setInterval(()=>{
+      tries++;
+      if(typeof emailjs !== 'undefined'){
+        clearInterval(t);
+        emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+        resolve();
+      } else if(tries > 50){
+        clearInterval(t);
+        reject(new Error('EmailJS non chargé — vérifiez votre connexion internet.'));
+      }
+    }, 100);
+  });
+}
 
 // ── Modale Bug ───────────────────────────────────────────────
 function openBugModal(){
@@ -3486,6 +3498,7 @@ async function sendBugEmail(){
   st.style.display = 'none';
   const acteInfo = acte ? `${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
   try {
+    await waitForEJS();
     const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_BUG, {
       acte_info: acteInfo,
       message:   txt,
@@ -3550,6 +3563,7 @@ Remboursement Sécurité sociale : ${fmt(r.rembNet)}
 Remboursement mutuelle : ${fmt(r.rembMut)}
 Reste à charge : ${fmt(r.rac)}`;
   try {
+    await waitForEJS();
     const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_FICHE, {
       to_email:    dest,
       acte_nom:    r.nom || '—',
