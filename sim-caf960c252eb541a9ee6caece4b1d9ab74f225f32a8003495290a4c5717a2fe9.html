@@ -400,6 +400,21 @@ input[type=number]{-moz-appearance:textfield}
     padding:0 !important;
     margin:0 !important;
     box-shadow:none !important;
+    overflow:visible !important;
+  }
+  .pdf-inner {
+    max-width:100% !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+  .pdf-bar-wrap { break-inside:avoid; }
+  .pdf-blocs    { break-inside:avoid; }
+  .pdf-table    { break-inside:auto; }
+  .pdf-table tr { break-inside:avoid; }
+  .pdf-footer   { break-inside:avoid; margin-top:20px !important; }
+  @page {
+    margin: 15mm 12mm;
+    size: A4;
   }
   #pdf-overlay * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
@@ -3357,11 +3372,16 @@ function openPdf(){
   document.getElementById('pdf-footer-date').textContent = ds;
 
   // Bloc acte
-  const sect = r.sect === '2optam' ? 'Secteur 2 OPTAM' : r.sect === '2' ? 'Secteur 2 non-OPTAM' : 'Secteur 1 / Honoraires libres';
+  const sectLabel = r.sect === '2optam' ? 'Secteur 2 OPTAM'
+                  : r.sect === '2'      ? 'Secteur 2 non-OPTAM'
+                  : r.sect === '3'      ? 'Secteur 3 / Non conventionné'
+                  :                       'Secteur 1';
+  const regimeLabel = regimeAL ? '<span class="pdf-tag" style="background:#eff4ff;color:#2563eb">Régime Alsace-Moselle</span>' : '';
   const tags = [
-    `<span class="pdf-tag s1">${sect}</span>`,
+    `<span class="pdf-tag s1">${sectLabel}</span>`,
     r.hpActif ? '<span class="pdf-tag hp">Hors parcours de soins</span>' : '',
     r.exo     ? '<span class="pdf-tag exo">Exonération ' + (r.exoType||'') + '</span>' : '',
+    regimeLabel,
   ].filter(Boolean).join('');
   document.getElementById('pdf-acte-block').innerHTML = `
     <div class="pdf-acte">
@@ -3369,21 +3389,24 @@ function openPdf(){
       <div class="pdf-acte-nom">${r.nom}</div>
       <div class="pdf-acte-cat">${r.cat}</div>
       ${tags ? '<div class="pdf-acte-tags">'+tags+'</div>' : ''}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding:10px 14px;background:#f7f8fc;border-radius:8px;font-size:13px;">
+      <span style="color:#4a5068;">Tarif facturé</span>
+      <span style="font-weight:700;font-size:15px;color:#0f1117;">${fmt(r.tarif)}</span>
     </div>`;
 
   // Blocs AMO/Mut/RAC
   document.getElementById('pdf-s-v').textContent = fmt(r.rembNet);
-  document.getElementById('pdf-s-p').textContent = r.tarif > 0 ? pct(r.rembNet/r.tarif*100)+' de la facture' : '—';
+  document.getElementById('pdf-s-p').textContent = '';
   document.getElementById('pdf-m-v').textContent = fmt(r.rembMut);
-  document.getElementById('pdf-m-p').textContent = r.tarif > 0 ? pct(r.rembMut/r.tarif*100)+' de la facture' : '—';
+  document.getElementById('pdf-m-p').textContent = '';
   document.getElementById('pdf-r-v').textContent = fmt(r.rac);
-  document.getElementById('pdf-r-p').textContent = r.tarif > 0 ? pct(r.rac/r.tarif*100)+' de la facture' : '—';
+  document.getElementById('pdf-r-p').textContent = '';
 
   // Barre répartition
   const t = r.tarif || 1;
   const ps = Math.round(r.rembNet/t*100);
   const pm = Math.round(r.rembMut/t*100);
-  const pr = Math.max(0, 100-ps-pm);
   document.getElementById('pdf-bar-s').style.width = ps+'%';
   document.getElementById('pdf-bar-m').style.width = pm+'%';
 
@@ -3642,7 +3665,7 @@ function clearAmoBrutRo() {
 <!-- ════ FICHE PDF ════ -->
 <div id="pdf-overlay">
   <div class="pdf-inner">
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:0">
+    <div style="display:flex;gap:8px;justify-content:space-between;margin-bottom:0">
       <button class="pdf-close" onclick="closePdf()">✕ Fermer</button>
       <button id="pdf-print-btn" onclick="window.print()" style="background:#6366f1;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;">⬇ Imprimer / Enregistrer PDF</button>
     </div>
