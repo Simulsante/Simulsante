@@ -7,6 +7,12 @@
 <title>Simul'Santé by Lounis — Remboursement AMO + Mutuelle</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+// Fallback CDN si jsdelivr échoue
+if(typeof emailjs === 'undefined'){
+  document.write('<script src="https://unpkg.com/@emailjs/browser@4/dist/email.min.js"><\/script>');
+}
+</script>
 <style>
 :root{
   --bg:#f7f8fc;
