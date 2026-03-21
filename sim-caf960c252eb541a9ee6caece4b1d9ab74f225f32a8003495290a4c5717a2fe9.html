@@ -3493,8 +3493,7 @@ async function sendBugEmail(){
     st.style.display = 'block';
     st.style.background = '#f0fdf4';
     st.style.color = '#166534';
-    st.textContent = '✅ Message envoyé ! Merci pour votre signalement.';
-    st.innerHTML += '<br><small style="color:#166534;opacity:.8">📬 Vérifiez vos spams si vous ne recevez pas l\'email.</small>';
+    st.innerHTML = '✅ Message envoyé ! Merci pour votre signalement.';
     btn.textContent = 'Envoyé ✓';
     setTimeout(() => closeBugModal(), 2000);
   } catch(e){
@@ -3556,8 +3555,7 @@ Reste à charge : ${fmt(r.rac)}`;
     st.style.display = 'block';
     st.style.background = '#f0fdf4';
     st.style.color = '#166534';
-    st.textContent = `✅ Fiche envoyée à ${dest} !`;
-    st.innerHTML += '<br><small style="color:#166534;opacity:.8">📬 Vérifiez vos spams si vous ne recevez pas l\'email.</small>';
+    st.innerHTML = `✅ Fiche envoyée à ${dest} !<br><small style="color:#166534;opacity:.8">📬 Vérifiez vos spams si vous ne recevez pas l'email.</small>`;
     btn.textContent = 'Envoyé ✓';
     setTimeout(() => closeEmailModal(), 2500);
   } catch(e){
