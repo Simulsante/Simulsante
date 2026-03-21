@@ -6,6 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Simul'Santé by Lounis — Remboursement AMO + Mutuelle</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
   --bg:#f7f8fc;
@@ -403,23 +405,42 @@ input[type=number]{-moz-appearance:textfield}
   #pdf-overlay * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 
-/* ── Bouton export ── */
-#btn-pdf {
-  display:flex; align-items:center; gap:7px;
-  margin:16px 0 4px;
-  width:100%;
-  padding:11px 18px;
-  background:#6366f1;
-  color:#fff;
-  border:none; border-radius:10px;
-  font-family:inherit; font-size:14px; font-weight:600;
-  cursor:pointer; transition:background .15s, transform .1s;
-  justify-content:center;
-  letter-spacing:.01em;
+/* ── Sélects régime et secteur — bordure rose ── */
+#regime, #secteur {
+  border-color: #ec4899 !important;
+  background: #fdf2f8 !important;
 }
-#btn-pdf:hover { background:#4f46e5; }
-#btn-pdf:active { transform:scale(.98); }
-#btn-pdf svg { flex-shrink:0; }
+#regime:focus, #secteur:focus {
+  border-color: #db2777 !important;
+  box-shadow: 0 0 0 3px rgba(236,72,153,.15) !important;
+}
+
+/* ── Champ tarif — bordure rose ── */
+#tarif {
+  border-color: #ec4899 !important;
+  background: #fdf2f8 !important;
+}
+
+/* ── Boutons export ── */
+.export-row {
+  display: flex; gap: 8px; margin: 16px 0 4px;
+}
+#btn-pdf, #btn-email {
+  display: flex; align-items: center; gap: 6px;
+  flex: 1;
+  padding: 9px 12px;
+  border: none; border-radius: 10px;
+  font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background .15s, transform .1s;
+  justify-content: center; letter-spacing: .01em;
+  text-decoration: none;
+}
+#btn-pdf { background: #6366f1; color: #fff; }
+#btn-pdf:hover { background: #4f46e5; }
+#btn-email { background: #ec4899; color: #fff; }
+#btn-email:hover { background: #db2777; }
+#btn-pdf:active, #btn-email:active { transform: scale(.98); }
+#btn-pdf svg, #btn-email svg { flex-shrink: 0; }
 
 #btn-bug {
   display:inline-flex; align-items:center; justify-content:center; gap:5px;
@@ -754,34 +775,61 @@ input[type=number]{-moz-appearance:textfield}
     </table>
     <div id="note"></div>
 
-    <!-- Bouton export PDF -->
-    <button id="btn-pdf" onclick="openPdf()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="12" y1="18" x2="12" y2="12"/>
-        <line x1="9" y1="15" x2="15" y2="15"/>
-      </svg>
-      Exporter en PDF
-    </button>
+    <!-- Boutons export -->
+    <div class="export-row">
+      <button id="btn-pdf" onclick="openPdf()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Imprimer le PDF
+      </button>
+      <button id="btn-email" onclick="openEmailModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Recevoir par email
+      </button>
+    </div>
     <button id="btn-bug" onclick="openBugModal()">🐛 Signaler un dysfonctionnement</button>
   </div>
 </div>
 </div>
 
 <!-- ════ MODALE BUG ════ -->
-<div id="bug-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:none;align-items:center;justify-content:center;">
-  <div id="bug-modal" style="background:#fff;border-radius:14px;padding:28px 24px;width:min(480px,92vw);box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'Plus Jakarta Sans',sans-serif;">
+<div id="bug-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:28px 24px;width:min(480px,92vw);box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'Plus Jakarta Sans',sans-serif;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
       <h3 style="margin:0;font-size:16px;font-weight:700;color:#111;">🐛 Signaler un dysfonctionnement</h3>
       <button onclick="closeBugModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
     </div>
-    <p style="font-size:13px;color:#555;margin:0 0 14px;">Décrivez le problème rencontré (acte concerné, résultat attendu, résultat obtenu…). Votre message sera envoyé par email.</p>
-    <textarea id="bug-text" placeholder="Ex : Pour une consultation cardiologue sect2 OPTAM hors parcours, le taux affiché est 70% au lieu de 30%..." style="width:100%;height:130px;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;box-sizing:border-box;outline:none;color:#111;" oninput="const ok=this.value.trim().length>=5;const b=document.getElementById('bug-send');b.style.opacity=ok?'1':'.5';b.style.pointerEvents=ok?'auto':'none';"></textarea>
+    <p style="font-size:13px;color:#555;margin:0 0 14px;">Décrivez le problème rencontré. Votre message sera envoyé directement à l'équipe.</p>
+    <textarea id="bug-text" placeholder="Ex : Pour une consultation cardiologue sect2 OPTAM hors parcours, le taux affiché est 70% au lieu de 30%..." style="width:100%;height:130px;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;box-sizing:border-box;outline:none;color:#111;" oninput="const ok=this.value.trim().length>=5;document.getElementById('bug-send').disabled=!ok;document.getElementById('bug-send').style.opacity=ok?'1':'.5';"></textarea>
     <p style="font-size:11px;color:#9299b0;margin:6px 0 0;text-align:right;">5 caractères minimum requis pour envoyer</p>
+    <div id="bug-status" style="display:none;font-size:12px;margin-top:8px;padding:8px 12px;border-radius:6px;"></div>
     <div style="display:flex;gap:10px;margin-top:14px;justify-content:flex-end;">
-      <button onclick="closeBugModal()" style="padding:9px 18px;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Annuler</button>
-      <a id="bug-send" href="#" onclick="return prepBug(this)" style="padding:9px 18px;border:none;border-radius:8px;background:#111;color:#fff;font-size:13px;font-weight:600;cursor:pointer;opacity:.5;text-decoration:none;display:inline-block;pointer-events:none;">Envoyer ✉️</a>
+      <button onclick="closeBugModal()" style="padding:9px 18px;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;font-family:inherit;">Annuler</button>
+      <button id="bug-send" onclick="sendBugEmail()" disabled style="padding:9px 18px;border:none;border-radius:8px;background:#111;color:#fff;font-size:13px;font-weight:600;cursor:pointer;opacity:.5;font-family:inherit;">Envoyer ✉️</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODALE EMAIL FICHE ════ -->
+<div id="email-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:28px 24px;width:min(420px,92vw);box-shadow:0 8px 40px rgba(0,0,0,.25);font-family:'Plus Jakarta Sans',sans-serif;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="margin:0;font-size:16px;font-weight:700;color:#111;">✉️ Envoyer la fiche par email</h3>
+      <button onclick="closeEmailModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
+    </div>
+    <p style="font-size:13px;color:#555;margin:0 0 14px;">Saisissez l'adresse email du destinataire. La fiche de remboursement lui sera envoyée.</p>
+    <input type="email" id="email-dest" placeholder="exemple@email.com" style="width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;box-sizing:border-box;outline:none;color:#111;" oninput="const ok=this.value.includes('@')&&this.value.includes('.');document.getElementById('email-send').disabled=!ok;document.getElementById('email-send').style.opacity=ok?'1':'.5';">
+    <div id="email-status" style="display:none;font-size:12px;margin-top:8px;padding:8px 12px;border-radius:6px;"></div>
+    <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+      <button onclick="closeEmailModal()" style="padding:9px 18px;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;font-family:inherit;">Annuler</button>
+      <button id="email-send" onclick="sendFicheEmail()" disabled style="padding:9px 18px;border:none;border-radius:8px;background:#ec4899;color:#fff;font-size:13px;font-weight:600;cursor:pointer;opacity:.5;font-family:inherit;">Envoyer ✉️</button>
     </div>
   </div>
 </div>
@@ -3392,17 +3440,132 @@ function closeBugModal(){
   document.getElementById('bug-overlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-function prepBug(link){
-  const txt = document.getElementById('bug-text').value.trim();
-  if(!txt) return false;
-  const acteInfo = acte ? `Acte : ${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
-  const subject = encodeURIComponent("Dysfonctionnement Simul'Santé");
-  const body = encodeURIComponent(`${acteInfo}\n\n${txt}\n\n---\nEnvoyé depuis Simul'Santé by Lounis`);
-  link.href = `mailto:simulsante@yahoo.com?subject=${subject}&body=${body}`;
-  setTimeout(()=>closeBugModal(), 300);
-  return true;
+// ════ EMAILJS CONFIG ════════════════════════════════════════
+const EJS_PUBLIC_KEY     = 'fQWmiyoDUJco2075b';
+const EJS_SERVICE_ID     = 'service_simulsante';
+const EJS_TEMPLATE_BUG   = 'template_aay5a15';
+const EJS_TEMPLATE_FICHE = 'template_6yoptlt';
+
+// Initialisation immédiate au chargement
+(function initEJS(){
+  const t = setInterval(()=>{
+    if(typeof emailjs !== 'undefined'){
+      emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+      clearInterval(t);
+    }
+  }, 100);
+})();
+
+// ── Modale Bug ───────────────────────────────────────────────
+function openBugModal(){
+  const ov = document.getElementById('bug-overlay');
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('bug-text').value = '';
+  document.getElementById('bug-send').disabled = true;
+  document.getElementById('bug-send').style.opacity = '.5';
+  document.getElementById('bug-status').style.display = 'none';
 }
-function sendBug(){ prepBug(document.getElementById('bug-send')); }
+function closeBugModal(){
+  document.getElementById('bug-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+async function sendBugEmail(){
+  const txt = document.getElementById('bug-text').value.trim();
+  if(!txt || txt.length < 5) return;
+  const btn = document.getElementById('bug-send');
+  const st  = document.getElementById('bug-status');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  st.style.display = 'none';
+  const acteInfo = acte ? `${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
+  try {
+    const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_BUG, {
+      acte_info: acteInfo,
+      message:   txt,
+    });
+    console.log('EmailJS bug OK:', res);
+    st.style.display = 'block';
+    st.style.background = '#f0fdf4';
+    st.style.color = '#166534';
+    st.textContent = '✅ Message envoyé !';
+    btn.textContent = 'Envoyé ✓';
+    setTimeout(() => closeBugModal(), 2000);
+  } catch(e){
+    console.error('EmailJS bug ERR:', e);
+    st.style.display = 'block';
+    st.style.background = '#fef2f2';
+    st.style.color = '#991b1b';
+    st.textContent = '❌ Erreur : ' + (e.text || e.message || JSON.stringify(e));
+    btn.disabled = false;
+    btn.textContent = 'Réessayer';
+  }
+}
+
+// ── Modale Email fiche ───────────────────────────────────────
+function openEmailModal(){
+  if(!_lastResult){ alert('Calculez d\'abord un remboursement.'); return; }
+  const ov = document.getElementById('email-overlay');
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('email-dest').value = '';
+  document.getElementById('email-send').disabled = true;
+  document.getElementById('email-send').style.opacity = '.5';
+  document.getElementById('email-status').style.display = 'none';
+}
+function closeEmailModal(){
+  document.getElementById('email-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+async function sendFicheEmail(){
+  const dest = document.getElementById('email-dest').value.trim();
+  if(!dest) return;
+  const btn = document.getElementById('email-send');
+  const st  = document.getElementById('email-status');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  st.style.display = 'none';
+  const r = _lastResult;
+  const now = new Date();
+  const ds = now.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  const ficheTexte =
+`Simul'Santé by Lounis — ${ds}
+
+Acte : ${r.nom || '—'} (${r.code || '—'})
+Catégorie : ${r.cat || '—'}
+Tarif facturé : ${fmt(r.tarif)}
+Base de remboursement : ${fmt(r.br)}
+Taux AMO : ${r.tamoEffectif != null ? r.tamoEffectif : Math.round((r.tamo||0)*100)} %
+
+Remboursement Sécurité sociale : ${fmt(r.rembNet)}
+Remboursement mutuelle : ${fmt(r.rembMut)}
+Reste à charge : ${fmt(r.rac)}`;
+  try {
+    const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_FICHE, {
+      to_email:    dest,
+      acte_nom:    r.nom || '—',
+      fiche_texte: ficheTexte,
+    });
+    console.log('EmailJS fiche OK:', res);
+    st.style.display = 'block';
+    st.style.background = '#f0fdf4';
+    st.style.color = '#166534';
+    st.textContent = `✅ Fiche envoyée à ${dest} !`;
+    btn.textContent = 'Envoyé ✓';
+    setTimeout(() => closeEmailModal(), 2500);
+  } catch(e){
+    console.error('EmailJS fiche ERR:', e);
+    st.style.display = 'block';
+    st.style.background = '#fef2f2';
+    st.style.color = '#991b1b';
+    st.textContent = '❌ Erreur : ' + (e.text || e.message || JSON.stringify(e));
+    btn.disabled = false;
+    btn.textContent = 'Réessayer';
+  }
+}
+
+function exportEmail(){ openEmailModal(); }
+function prepBug(){ sendBugEmail(); }
 // Fermer la modale en cliquant sur l'overlay
 document.addEventListener('DOMContentLoaded', ()=>{
   const ov = document.getElementById('bug-overlay');
