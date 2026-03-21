@@ -3458,25 +3458,20 @@ const EJS_SERVICE_ID     = 'service_simulsante';
 const EJS_TEMPLATE_BUG   = 'template_aay5a15';
 const EJS_TEMPLATE_FICHE = 'template_6yoptlt';
 
-// Attendre que EmailJS soit chargé puis initialiser
 function waitForEJS(){
   return new Promise((resolve, reject) => {
-    if(typeof emailjs !== 'undefined'){
-      emailjs.init({ publicKey: EJS_PUBLIC_KEY });
-      return resolve();
-    }
     let tries = 0;
-    const t = setInterval(()=>{
-      tries++;
+    const check = () => {
       if(typeof emailjs !== 'undefined'){
-        clearInterval(t);
-        emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+        try { emailjs.init(EJS_PUBLIC_KEY); } catch(e){}
         resolve();
-      } else if(tries > 50){
-        clearInterval(t);
-        reject(new Error('EmailJS non chargé — vérifiez votre connexion internet.'));
+      } else if(tries++ < 30){
+        setTimeout(check, 200);
+      } else {
+        reject(new Error('EmailJS non chargé'));
       }
-    }, 100);
+    };
+    check();
   });
 }
 
