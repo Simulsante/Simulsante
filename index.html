@@ -391,12 +391,14 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         <div class="form-group"><label class="form-label" for="objet">Objet de la demande</label>
           <select class="form-input" id="objet" name="objet">
             <option value="">S&eacute;lectionnez...</option>
-            <option>Acc&egrave;s s&eacute;curis&eacute; 24h pour tester l'outil</option>
-            <option>Pr&eacute;sentation compl&egrave;te de l'outil</option>
-            <option>Informations compl&eacute;mentaires</option>
+            <option>Demande d'acc&egrave;s 24h au simulateur</option>
+            <option>Autre demande</option>
           </select>
         </div>
         <div class="form-group"><label class="form-label" for="email">E-mail</label><input class="form-input" type="email" id="email" name="email" placeholder="jean.dupont@structure.fr" required></div>
+        <div id="msg-autre" style="display:none;background:var(--accent-light);border:1px solid rgba(124,58,237,.2);border-radius:9px;padding:14px 16px;font-size:13.5px;color:var(--accent);margin-bottom:8px">
+          Pour toute autre demande, vous pouvez aussi &eacute;crire directement &agrave; <a href="mailto:simulsante@yahoo.com" style="color:var(--pink);font-weight:700">simulsante@yahoo.com</a>
+        </div>
         <button type="submit" class="form-submit" id="submit-btn">Envoyer ma demande &rarr;</button>
       </form>
       <div class="success-msg" id="success-msg">&#x2705; Demande re&ccedil;ue &mdash; je vous recontacte sous 48h.</div>
@@ -455,6 +457,10 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 </footer>
 
 <script>
+document.getElementById('objet').addEventListener('change', function() {
+  document.getElementById('msg-autre').style.display = this.value === 'Autre demande' ? 'block' : 'none';
+});
+
 window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30)});
 var form=document.getElementById('contact-form');
 var btn=document.getElementById('submit-btn');
