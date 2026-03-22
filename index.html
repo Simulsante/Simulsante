@@ -398,7 +398,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
           </select>
         </div>
         <div class="form-group"><label class="form-label" for="objet">Objet de la demande</label>
-          <select class="form-input" id="objet" name="objet">
+          <select class="form-input" id="objet" name="objet" onchange="document.getElementById('msg-autre').style.display=this.value==='Autre demande'?'block':'none'">
             <option value="">S&eacute;lectionnez...</option>
             <option>Demande d'acc&egrave;s 24h au simulateur</option>
             <option>Autre demande</option>
@@ -425,7 +425,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">&Eacute;diteur du site</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">
           Simul'Sant&eacute;<br>
-          Contact : <a href="/cdn-cgi/l/email-protection#fd8e949088918e9c938998bd849c959292d39e9290" style="color:#a5b4fc;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a5b4fc'"><span class="__cf_email__" data-cfemail="0f7c66627a637c6e617b6a4f766e676060216c6062">[email&#160;protected]</span></a><br>
+          Contact : <button onclick="document.getElementById('modal-email').style.display='flex'" style="background:none;border:none;color:#a5b4fc;cursor:pointer;padding:0;font-size:13px;text-decoration:underline;font-family:inherit">Nous contacter</button><br>
           Propri&eacute;t&eacute; intellectuelle : Simul'Sant&eacute; &copy; 2026 — Tous droits r&eacute;serv&eacute;s
         </div>
       </div>
