@@ -406,20 +406,12 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         </div>
         <div class="form-group"><label class="form-label" for="email">E-mail</label><input class="form-input" type="email" id="email" name="email" placeholder="jean.dupont@structure.fr" required></div>
         <div id="msg-autre" style="display:none;background:var(--accent-light);border:1px solid rgba(124,58,237,.2);border-radius:9px;padding:14px 16px;font-size:13.5px;color:var(--accent);margin-bottom:8px">
-          Pour toute autre demande, vous pouvez aussi écrire directement à <a id="email-contact" href="#" style="color:var(--pink);font-weight:700"></a>
-          <script>
-            (function(){
-              var u='simulsante';var d='yahoo.com';
-              var el=document.getElementById('email-contact');
-              el.href='mailto:'+u+'@'+d;
-              el.textContent=u+'@'+d;
-            })();
-          </script>
+          Pour toute autre demande, cliquez ici : <button onclick="document.getElementById('modal-email').style.display='flex'" style="background:none;border:none;color:var(--accent);font-weight:700;cursor:pointer;font-size:13.5px;text-decoration:underline;padding:0">Nous contacter</button>
         </div>
         <button type="submit" class="form-submit" id="submit-btn">Envoyer ma demande &rarr;</button>
       </form>
       <div class="success-msg" id="success-msg">&#x2705; Demande re&ccedil;ue &mdash; je vous recontacte sous 48h.</div>
-      <div class="error-msg" id="error-msg">&#x274C; Une erreur s'est produite. &Eacute;crivez directement &agrave; <a href="/cdn-cgi/l/email-protection#c2b1abafb7aeb1a3acb6a782bba3aaadadeca1adaf" style="color:var(--pink);font-weight:700"><span class="__cf_email__" data-cfemail="c5b6aca8b0a9b6a4abb1a085bca4adaaaaeba6aaa8">[email&#160;protected]</span></a></div>
+      <div class="error-msg" id="error-msg">&#x274C; Une erreur s'est produite. Cliquez <button onclick="document.getElementById('modal-email').style.display='flex'" style="background:none;border:none;color:var(--pink);font-weight:700;cursor:pointer;text-decoration:underline;padding:0">ici</button> pour nous contacter.</div>
       <p class="form-note">Donn&eacute;es utilis&eacute;es uniquement pour vous recontacter. Aucun d&eacute;marchage commercial.</p>
     </div>
   </div>
@@ -473,3 +465,12 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></
+<!-- Modale contact email -->
+<div id="modal-email" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:32px 28px;max-width:380px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.3);">
+    <div style="font-size:32px;margin-bottom:12px">&#x2709;&#xFE0F;</div>
+    <h3 style="font-size:17px;font-weight:700;color:#0f1117;margin-bottom:10px">Nous contacter</h3>
+    <p style="font-size:13.5px;color:#4a5068;line-height:1.6;margin-bottom:18px">Merci d&#39;envoyer un email &#224; :<br><strong style="font-size:15px;color:#7c3aed;display:block;margin-top:8px">simulsante&#x40;yahoo&#x2E;com</strong></p>
+    <button onclick="document.getElementById('modal-email').style.display='none'" style="background:#7c3aed;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Fermer</button>
+  </div>
+</div>
