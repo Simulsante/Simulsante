@@ -11,7 +11,10 @@
 <meta name="keywords" content="FAQ remboursement santé, base de remboursement explication, différence AMO AMC, ticket modérateur définition, reste à charge calcul, tiers payant utilisation, RAC0, parcours soins coordonné, CCAM NGAP NABM LPP, dépassement honoraires remboursement, OPTAM DPTAM, optimiser reste à charge mutuelle">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://simulsante.fr/faq">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -51,13 +54,19 @@ footer{background:#1a0533;color:rgba(255,255,255,.4);padding:28px 3vw;display:fl
 .footer-logo{font-family:'DM Serif Display',serif;font-size:17px;font-weight:800}
 @media(max-width:768px){nav .nav-links{display:none}.faq-question{font-size:14px;padding:16px 18px}.faq-answer{padding:0 18px 18px}}
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN"></script>
+<!-- Google tag (gtag.js) — chargé après rendu initial -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5VHF2E5KPN');
+  window.addEventListener('load', function(){
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-5VHF2E5KPN');
+  });
 </script>
 </head>
 <body>
