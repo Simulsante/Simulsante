@@ -406,7 +406,15 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         </div>
         <div class="form-group"><label class="form-label" for="email">E-mail</label><input class="form-input" type="email" id="email" name="email" placeholder="jean.dupont@structure.fr" required></div>
         <div id="msg-autre" style="display:none;background:var(--accent-light);border:1px solid rgba(124,58,237,.2);border-radius:9px;padding:14px 16px;font-size:13.5px;color:var(--accent);margin-bottom:8px">
-          Pour toute autre demande, vous pouvez aussi &eacute;crire directement &agrave; <a href="/cdn-cgi/l/email-protection#addec4c0d8c1deccc3d9c8edd4ccc5c2c283cec2c0" style="color:var(--pink);font-weight:700"><span class="__cf_email__" data-cfemail="b3c0dadec6dfc0d2ddc7d6f3cad2dbdcdc9dd0dcde">[email&#160;protected]</span></a>
+          Pour toute autre demande, vous pouvez aussi écrire directement à <a id="email-contact" href="#" style="color:var(--pink);font-weight:700"></a>
+          <script>
+            (function(){
+              var u='simulsante';var d='yahoo.com';
+              var el=document.getElementById('email-contact');
+              el.href='mailto:'+u+'@'+d;
+              el.textContent=u+'@'+d;
+            })();
+          </script>
         </div>
         <button type="submit" class="form-submit" id="submit-btn">Envoyer ma demande &rarr;</button>
       </form>
