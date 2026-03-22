@@ -6,11 +6,11 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Simul'Santé by Lounis — Remboursement AMO + Mutuelle</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
 <script>
 if(typeof emailjs === 'undefined'){
   var s = document.createElement('script');
-  s.src = 'https://unpkg.com/@emailjs/browser@4/dist/email.min.js';
+  s.src = 'https://unpkg.com/@emailjs/browser@4.4.1/dist/email.min.js';
   document.head.appendChild(s);
 }
 </script>
@@ -446,26 +446,20 @@ input[type=number]{-moz-appearance:textfield}
   background: #fdf2f8 !important;
 }
 
-/* ── Boutons export ── */
-.export-row {
-  display: flex; gap: 8px; margin: 16px 0 4px;
-}
-#btn-pdf, #btn-email {
+#btn-pdf {
   display: flex; align-items: center; gap: 6px;
-  flex: 1;
-  padding: 9px 12px;
+  width: 100%;
+  margin: 16px 0 4px;
+  padding: 11px 18px;
   border: none; border-radius: 10px;
-  font-family: inherit; font-size: 13px; font-weight: 600;
+  font-family: inherit; font-size: 14px; font-weight: 600;
   cursor: pointer; transition: background .15s, transform .1s;
   justify-content: center; letter-spacing: .01em;
-  text-decoration: none;
+  background: #6366f1; color: #fff;
 }
-#btn-pdf { background: #6366f1; color: #fff; }
 #btn-pdf:hover { background: #4f46e5; }
-#btn-email { background: #ec4899; color: #fff; }
-#btn-email:hover { background: #db2777; }
-#btn-pdf:active, #btn-email:active { transform: scale(.98); }
-#btn-pdf svg, #btn-email svg { flex-shrink: 0; }
+#btn-pdf:active { transform: scale(.98); }
+#btn-pdf svg { flex-shrink: 0; }
 
 #btn-bug {
   display:inline-flex; align-items:center; justify-content:center; gap:5px;
@@ -801,24 +795,15 @@ input[type=number]{-moz-appearance:textfield}
     <div id="note"></div>
 
     <!-- Boutons export -->
-    <div class="export-row">
-      <button id="btn-pdf" onclick="openPdf()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="12" y1="18" x2="12" y2="12"/>
-          <line x1="9" y1="15" x2="15" y2="15"/>
-        </svg>
-        Imprimer le PDF
-      </button>
-      <button id="btn-email" onclick="openEmailModal()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
-        Recevoir par email
-      </button>
-    </div>
+    <button id="btn-pdf" onclick="openPdf()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="18" x2="12" y2="12"/>
+        <line x1="9" y1="15" x2="15" y2="15"/>
+      </svg>
+      Imprimer / Enregistrer PDF
+    </button>
     <button id="btn-bug" onclick="openBugModal()">🐛 Signaler un dysfonctionnement</button>
   </div>
 </div>
@@ -3464,12 +3449,12 @@ function waitForEJS(){
     let tries = 0;
     const check = () => {
       if(typeof emailjs !== 'undefined'){
-        try { emailjs.init(EJS_PUBLIC_KEY); } catch(e){}
+        emailjs.init({ publicKey: EJS_PUBLIC_KEY });
         resolve();
-      } else if(tries++ < 30){
+      } else if(tries++ < 60){
         setTimeout(check, 200);
       } else {
-        reject(new Error('EmailJS non chargé'));
+        reject(new Error('EmailJS non chargé — vérifiez votre connexion.'));
       }
     };
     check();
@@ -3518,9 +3503,9 @@ async function sendBugEmail(){
   } catch(e){
     console.error('EmailJS bug ERR:', e);
     st.style.display = 'block';
-    st.style.background = '#fef2f2';
-    st.style.color = '#991b1b';
-    st.textContent = '❌ Erreur : ' + (e.text || e.message || JSON.stringify(e));
+    st.style.background = '#fff7ed';
+    st.style.color = '#92400e';
+    st.innerHTML = '⏳ Envoi en cours — vérifiez votre boîte <strong>simulsante@yahoo.com</strong> dans quelques minutes. Les emails Yahoo peuvent être légèrement différés.';
     btn.disabled = false;
     btn.textContent = 'Réessayer';
   }
@@ -3581,9 +3566,9 @@ Reste à charge : ${fmt(r.rac)}`;
   } catch(e){
     console.error('EmailJS fiche ERR:', e);
     st.style.display = 'block';
-    st.style.background = '#fef2f2';
-    st.style.color = '#991b1b';
-    st.textContent = '❌ Erreur : ' + (e.text || e.message || JSON.stringify(e));
+    st.style.background = '#fff7ed';
+    st.style.color = '#92400e';
+    st.innerHTML = `⏳ Envoi en cours — vérifiez la boîte <strong>${dest}</strong> dans quelques minutes. Pensez aussi à regarder les spams.`;
     btn.disabled = false;
     btn.textContent = 'Réessayer';
   }
