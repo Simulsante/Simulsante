@@ -6,14 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Simul'Santé by Lounis — Remboursement AMO + Mutuelle</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
-<script>
-if(typeof emailjs === 'undefined'){
-  var s = document.createElement('script');
-  s.src = 'https://unpkg.com/@emailjs/browser@4.4.1/dist/email.min.js';
-  document.head.appendChild(s);
-}
-</script>
+
 <style>
 :root{
   --bg:#f7f8fc;
@@ -448,11 +441,11 @@ input[type=number]{-moz-appearance:textfield}
 
 #btn-pdf {
   display: flex; align-items: center; gap: 6px;
-  width: 100%;
-  margin: 16px 0 4px;
-  padding: 11px 18px;
+  width: auto;
+  margin: 16px auto 4px;
+  padding: 9px 16px;
   border: none; border-radius: 10px;
-  font-family: inherit; font-size: 14px; font-weight: 600;
+  font-family: inherit; font-size: 13px; font-weight: 600;
   cursor: pointer; transition: background .15s, transform .1s;
   justify-content: center; letter-spacing: .01em;
   background: #6366f1; color: #fff;
@@ -3439,26 +3432,47 @@ function closeBugModal(){
   document.body.style.overflow = '';
 }
 // ════ EMAILJS CONFIG ════════════════════════════════════════
-const EJS_PUBLIC_KEY     = 'fQWmiyoDUJco2075b';
-const EJS_SERVICE_ID     = 'service_simulsante';
-const EJS_TEMPLATE_BUG   = 'template_aay5a15';
-const EJS_TEMPLATE_FICHE = 'template_6yoptlt';
+// ════ FORMSPREE CONFIG ══════════════════════════════════════
+// Formspree fonctionne sans script externe — simple fetch POST
+const FORMSPREE_BUG = 'https://formspree.io/f/mgonzaqo';
 
-function waitForEJS(){
-  return new Promise((resolve, reject) => {
-    let tries = 0;
-    const check = () => {
-      if(typeof emailjs !== 'undefined'){
-        emailjs.init({ publicKey: EJS_PUBLIC_KEY });
-        resolve();
-      } else if(tries++ < 60){
-        setTimeout(check, 200);
-      } else {
-        reject(new Error('EmailJS non chargé — vérifiez votre connexion.'));
-      }
-    };
-    check();
-  });
+async function sendBugEmail(){
+  const txt = document.getElementById('bug-text').value.trim();
+  if(!txt || txt.length < 5) return;
+  const btn = document.getElementById('bug-send');
+  const st  = document.getElementById('bug-status');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  st.style.display = 'none';
+  const acteInfo = acte ? `${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
+  try {
+    const res = await fetch(FORMSPREE_BUG, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        acte:    acteInfo,
+        message: txt,
+        _subject: "🐛 Dysfonctionnement Simul'Santé"
+      })
+    });
+    if(res.ok){
+      st.style.display = 'block';
+      st.style.background = '#f0fdf4';
+      st.style.color = '#166534';
+      st.innerHTML = '✅ Message envoyé ! Merci pour votre signalement.';
+      btn.textContent = 'Envoyé ✓';
+      setTimeout(() => closeBugModal(), 2000);
+    } else {
+      throw new Error('Réponse serveur : ' + res.status);
+    }
+  } catch(e){
+    st.style.display = 'block';
+    st.style.background = '#fef2f2';
+    st.style.color = '#991b1b';
+    st.textContent = '❌ Erreur d\'envoi. Contactez simulsante@yahoo.com directement.';
+    btn.disabled = false;
+    btn.textContent = 'Réessayer';
+  }
 }
 
 // ── Modale Bug ───────────────────────────────────────────────
@@ -3475,104 +3489,10 @@ function closeBugModal(){
   document.getElementById('bug-overlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-async function sendBugEmail(){
-  const txt = document.getElementById('bug-text').value.trim();
-  if(!txt || txt.length < 5) return;
-  const btn = document.getElementById('bug-send');
-  const st  = document.getElementById('bug-status');
-  btn.disabled = true;
-  btn.textContent = 'Envoi…';
-  st.style.display = 'none';
-  const acteInfo = acte ? `${acte.nom} (${acte.id})` : 'Aucun acte sélectionné';
-  try {
-    await waitForEJS();
-    const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_BUG, {
-      acte_info: acteInfo,
-      message:   txt,
-      title:     'Dysfonctionnement Simul\'Santé',
-      name:      'Utilisateur Simul\'Santé',
-      email:     'simulsante@yahoo.com',
-    });
-    console.log('EmailJS bug OK:', res);
-    st.style.display = 'block';
-    st.style.background = '#f0fdf4';
-    st.style.color = '#166534';
-    st.innerHTML = '✅ Message envoyé ! Merci pour votre signalement.';
-    btn.textContent = 'Envoyé ✓';
-    setTimeout(() => closeBugModal(), 2000);
-  } catch(e){
-    console.error('EmailJS bug ERR:', e);
-    st.style.display = 'block';
-    st.style.background = '#fff7ed';
-    st.style.color = '#92400e';
-    st.innerHTML = '⏳ Envoi en cours — vérifiez votre boîte <strong>simulsante@yahoo.com</strong> dans quelques minutes. Les emails Yahoo peuvent être légèrement différés.';
-    btn.disabled = false;
-    btn.textContent = 'Réessayer';
-  }
-}
-
-// ── Modale Email fiche ───────────────────────────────────────
-function openEmailModal(){
-  if(!_lastResult){ alert('Calculez d\'abord un remboursement.'); return; }
-  const ov = document.getElementById('email-overlay');
-  ov.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  document.getElementById('email-dest').value = '';
-  document.getElementById('email-send').disabled = true;
-  document.getElementById('email-send').style.opacity = '.5';
-  document.getElementById('email-status').style.display = 'none';
-}
-function closeEmailModal(){
-  document.getElementById('email-overlay').style.display = 'none';
-  document.body.style.overflow = '';
-}
-async function sendFicheEmail(){
-  const dest = document.getElementById('email-dest').value.trim();
-  if(!dest) return;
-  const btn = document.getElementById('email-send');
-  const st  = document.getElementById('email-status');
-  btn.disabled = true;
-  btn.textContent = 'Envoi…';
-  st.style.display = 'none';
-  const r = _lastResult;
-  const now = new Date();
-  const ds = now.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
-  const ficheTexte =
-`Simul'Santé by Lounis — ${ds}
-
-Acte : ${r.nom || '—'} (${r.code || '—'})
-Catégorie : ${r.cat || '—'}
-Tarif facturé : ${fmt(r.tarif)}
-Base de remboursement : ${fmt(r.br)}
-Taux AMO : ${r.tamoEffectif != null ? r.tamoEffectif : Math.round((r.tamo||0)*100)} %
-
-Remboursement Sécurité sociale : ${fmt(r.rembNet)}
-Remboursement mutuelle : ${fmt(r.rembMut)}
-Reste à charge : ${fmt(r.rac)}`;
-  try {
-    await waitForEJS();
-    const res = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_FICHE, {
-      to_email:    dest,
-      acte_nom:    r.nom || '—',
-      fiche_texte: ficheTexte,
-    });
-    console.log('EmailJS fiche OK:', res);
-    st.style.display = 'block';
-    st.style.background = '#f0fdf4';
-    st.style.color = '#166534';
-    st.innerHTML = `✅ Fiche envoyée à ${dest} !<br><small style="color:#166534;opacity:.8">📬 Vérifiez vos spams si vous ne recevez pas l'email.</small>`;
-    btn.textContent = 'Envoyé ✓';
-    setTimeout(() => closeEmailModal(), 2500);
-  } catch(e){
-    console.error('EmailJS fiche ERR:', e);
-    st.style.display = 'block';
-    st.style.background = '#fff7ed';
-    st.style.color = '#92400e';
-    st.innerHTML = `⏳ Envoi en cours — vérifiez la boîte <strong>${dest}</strong> dans quelques minutes. Pensez aussi à regarder les spams.`;
-    btn.disabled = false;
-    btn.textContent = 'Réessayer';
-  }
-}
+// ── Modale Email fiche (désactivée) ──────────────────────────
+function openEmailModal(){}
+function closeEmailModal(){ document.getElementById('email-overlay').style.display = 'none'; document.body.style.overflow = ''; }
+async function sendFicheEmail(){}
 
 function exportEmail(){ openEmailModal(); }
 function prepBug(){ sendBugEmail(); }
