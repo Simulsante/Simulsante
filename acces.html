@@ -61,10 +61,10 @@ h1{font-size:20px;font-weight:700;color:#0f1117;margin-bottom:8px}
     </div>
   </div>
   <button class="btn" id="btn" onclick="check()">Acc&eacute;der au simulateur &rarr;</button>
-  <div class="error" id="error">Code incorrect. V&eacute;rifiez le code re&ccedil;u ou contactez <a href="mailto:simulsante@yahoo.com" style="color:#991b1b">simulsante@yahoo.com</a></div>
+  <div class="error" id="error">Code incorrect. V&eacute;rifiez le code re&ccedil;u ou contactez <a href="/cdn-cgi/l/email-protection#f88b91958d948b99968c9db88199909797d69b9795" style="color:#991b1b"><span class="__cf_email__" data-cfemail="c3b0aaaeb6afb0a2adb7a683baa2abacaceda0acae">[email&#160;protected]</span></a></div>
   <p class="note">Acc&egrave;s valable 24h &middot; Usage personnel uniquement</p>
 </div>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
@@ -103,15 +103,4 @@ function togglePwd() {
   const eyeOpen = document.getElementById('eye-open');
   const eyeClosed = document.getElementById('eye-closed');
   if (input.type === 'password') {
-    input.type = 'text';
-    eyeOpen.style.display = 'block';
-    eyeClosed.style.display = 'none';
-  } else {
-    input.type = 'password';
-    eyeOpen.style.display = 'none';
-    eyeClosed.style.display = 'block';
-  }
-}
-</script>
-</body>
-</html>
+ 
