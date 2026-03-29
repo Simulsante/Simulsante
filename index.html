@@ -389,7 +389,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
           </select>
         </div>
         <div class="form-group"><label class="form-label" for="objet">Objet de la demande</label>
-          <select class="form-input" id="objet" name="objet">
+          <select class="form-input" id="objet" name="objet" onchange="document.getElementById('msg-autre').style.display=this.value==='Autre demande'?'block':'none'">
             <option value="">S&eacute;lectionnez...</option>
             <option>Demande d'acc&egrave;s 24h au simulateur</option>
             <option>Autre demande</option>
@@ -397,12 +397,12 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         </div>
         <div class="form-group"><label class="form-label" for="email">E-mail</label><input class="form-input" type="email" id="email" name="email" placeholder="jean.dupont@structure.fr" required></div>
         <div id="msg-autre" style="display:none;background:var(--accent-light);border:1px solid rgba(124,58,237,.2);border-radius:9px;padding:14px 16px;font-size:13.5px;color:var(--accent);margin-bottom:8px">
-          Pour toute autre demande, vous pouvez aussi &eacute;crire directement &agrave; <a href="/cdn-cgi/l/email-protection#dba8b2b6aeb7a8bab5afbe9ba2bab3b4b4f5b8b4b6" style="color:var(--pink);font-weight:700"><span class="__cf_email__" data-cfemail="2f5c46425a435c4e415b4a6f564e474040014c4042">[email&#160;protected]</span></a>
+          Pour toute autre demande, vous pouvez aussi &eacute;crire directement &agrave; <strong style="color:var(--pink)">simulsante&#64;yahoo&#46;com</strong>
         </div>
         <button type="submit" class="form-submit" id="submit-btn">Envoyer ma demande &rarr;</button>
       </form>
       <div class="success-msg" id="success-msg">&#x2705; Demande re&ccedil;ue &mdash; je vous recontacte sous 48h.</div>
-      <div class="error-msg" id="error-msg">&#x274C; Une erreur s'est produite. &Eacute;crivez directement &agrave; <a href="/cdn-cgi/l/email-protection#45362c28302936242b3120053c242d2a2a6b262a28" style="color:var(--pink);font-weight:700"><span class="__cf_email__" data-cfemail="d7a4bebaa2bba4b6b9a3b297aeb6bfb8b8f9b4b8ba">[email&#160;protected]</span></a></div>
+      <div class="error-msg" id="error-msg">&#x274C; Une erreur s'est produite. &Eacute;crivez directement &agrave; <strong style="color:var(--pink)">simulsante&#64;yahoo&#46;com</strong></div>
       <p class="form-note">Donn&eacute;es utilis&eacute;es uniquement pour vous recontacter. Aucun d&eacute;marchage commercial.</p>
     </div>
   </div>
@@ -416,7 +416,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">&Eacute;diteur du site</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">
           Simul'Sant&eacute;<br>
-          Contact : <a href="/cdn-cgi/l/email-protection#1e6d77736b726d7f706a7b5e677f767171307d7173" style="color:#a5b4fc;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a5b4fc'"><span class="__cf_email__" data-cfemail="75061c18001906141b0110350c141d1a1a5b161a18">[email&#160;protected]</span></a><br>
+          Contact : <span style="color:#a5b4fc">simulsante&#64;yahoo&#46;com</span><br>
           Propri&eacute;t&eacute; intellectuelle : Simul'Sant&eacute; &copy; 2026 — Tous droits r&eacute;serv&eacute;s
         </div>
       </div>
@@ -455,4 +455,3 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></
