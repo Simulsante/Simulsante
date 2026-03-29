@@ -79,7 +79,7 @@ async function check() {
   btn.textContent = 'Vérification...';
   err.classList.remove('show');
   const hash = await sha256(pwd);
-  const testUrl = '/sim-' + hash + '.html';
+  const testUrl = './sim-' + hash + '.html';
   try {
     const res = await fetch(testUrl, { method: 'HEAD' });
     if (res.ok) {
