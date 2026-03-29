@@ -389,7 +389,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
           </select>
         </div>
         <div class="form-group"><label class="form-label" for="objet">Objet de la demande</label>
-          <select class="form-input" id="objet" name="objet" onchange="document.getElementById('msg-autre').style.display=this.value==='Autre demande'?'block':'none'">
+          <select class="form-input" id="objet" name="objet">
             <option value="">S&eacute;lectionnez...</option>
             <option>Demande d'acc&egrave;s 24h au simulateur</option>
             <option>Autre demande</option>
@@ -416,7 +416,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">&Eacute;diteur du site</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">
           Simul'Sant&eacute;<br>
-          Contact : <span style="color:#a5b4fc">simulsante&#64;yahoo&#46;com</span><br>
           Propri&eacute;t&eacute; intellectuelle : Simul'Sant&eacute; &copy; 2026 — Tous droits r&eacute;serv&eacute;s
         </div>
       </div>
@@ -455,3 +454,12 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
   </div>
 </footer>
 
+
+<script>
+document.getElementById('objet').addEventListener('change', function() {
+  var msg = document.getElementById('msg-autre');
+  if (msg) msg.style.display = this.value === 'Autre demande' ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
