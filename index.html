@@ -2,11 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simul'Santé — Simulateur pédagogique des remboursements santé AMO et mutuelle</title>
 <meta name="description" content="Simul'Santé est un simulateur pédagogique des remboursements santé. Visualisez la répartition entre Assurance maladie, complémentaire santé et reste à charge sur plus de 1 000 actes médicaux.">
@@ -166,6 +164,8 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 .footer-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--accent),#8b5cf6);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700}
 .footer-logo span{color:var(--accent)}
 .footer-note{font-size:12px;color:rgba(255,255,255,.3)}
+@keyframes ss-dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.6)}}
+@-webkit-keyframes ss-dot-pulse{0%,100%{opacity:1;-webkit-transform:scale(1)}50%{opacity:.3;-webkit-transform:scale(1.6)}}
 @media(max-width:960px){
   nav{padding:0 20px}.nav-links{display:none}
   .hero{padding:88px 20px 60px}.hero-inner{grid-template-columns:1fr;gap:40px}.hero-visual{display:none}
@@ -178,13 +178,24 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
   footer{padding:20px;flex-direction:column;text-align:center}
 }
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN"></script>
+<!-- GA4 — chargé uniquement après consentement -->
 <script>
-  window.dataLayer = window.dataLayer || [];
+function ssLoadGA4(){
+  if(document.getElementById('ss-ga4'))return;
+  var s=document.createElement('script');
+  s.id='ss-ga4';s.async=true;
+  s.src='https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';
+  document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5VHF2E5KPN');
+  window.gtag=gtag;
+  gtag('js',new Date());
+  gtag('config','G-5VHF2E5KPN');
+}
+(function(){
+  var c=localStorage.getItem('ss_consent');
+  if(c==='accepted') ssLoadGA4();
+})();
 </script>
 </head>
 <body>
@@ -214,7 +225,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
       
       <div style="display:inline-flex;align-items:center;gap:7px;background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px"><span style="width:5px;height:5px;background:#059669;border-radius:50%;display:inline-block"></span>R&eacute;f&eacute;rentiel sant&eacute; unique sur le march&eacute;</div>
       <div style="display:inline-flex;align-items:center;gap:7px;background:#fdf2f8;border:1px solid #f9a8d4;color:#9d174d;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px"><span style="width:5px;height:5px;background:#ec4899;border-radius:50%;display:inline-block"></span>Calcul du remboursement selon le taux souhait&eacute;</div>
-      <div style="display:inline-flex;align-items:center;gap:7px;background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px"><span style="width:5px;height:5px;background:#f97316;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span>Acc&egrave;s au simulateur gratuit 24h</div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:5px 13px;border-radius:100px"><span style="width:5px;height:5px;background:#f97316;border-radius:50%;display:inline-block;-webkit-animation:ss-dot-pulse 1.5s ease-in-out infinite;animation:ss-dot-pulse 1.5s ease-in-out infinite"></span>Acc&egrave;s d&eacute;couverte &middot; 24h</div>
     </div>
       <h1><span style="color:#7c3aed">Simul'</span><span style="color:#ec4899">Sant&eacute;</span></h1>
       <div class="hero-subtitle">Le simulateur sant&eacute; qui calcule et explique les remboursements et reste &agrave; charge en quelques clics</div>
@@ -417,7 +428,8 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
       <div>
         <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">&Eacute;diteur du site</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">
-          Simul'Sant&eacute;<br>
+          Simul'Sant&eacute; &mdash; projet ind&eacute;pendant<br>
+          Contact&nbsp;: simulsante@yahoo.com<br>
           Propri&eacute;t&eacute; intellectuelle : Simul'Sant&eacute; &copy; 2026 — Tous droits r&eacute;serv&eacute;s
         </div>
       </div>
@@ -431,9 +443,11 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
         </div>
       </div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">Donn&eacute;es personnelles</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:10px">Donn&eacute;es personnelles &amp; RGPD</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">
-          Les donn&eacute;es collect&eacute;es via le formulaire de contact (nom, structure, e-mail) sont utilis&eacute;es uniquement pour r&eacute;pondre aux demandes d'acc&egrave;s. Elles ne sont ni revendues ni transmises &agrave; des tiers.
+          Les donn&eacute;es collect&eacute;es via le formulaire de contact (nom, structure, e-mail) sont trait&eacute;es sur la base de votre consentement, uniquement pour r&eacute;pondre &agrave; votre demande d'acc&egrave;s. Elles sont conserv&eacute;es 12 mois maximum et ne sont ni revendues ni transmises &agrave; des tiers &agrave; des fins commerciales.<br><br>
+          Le formulaire est trait&eacute; via Formspree (sous-traitant am&eacute;ricain). Les mesures d'audience sont r&eacute;alis&eacute;es via Google Analytics 4, uniquement apr&egrave;s votre consentement explicite.<br><br>
+          Conform&eacute;ment au RGPD, vous disposez des droits d'acc&egrave;s, de rectification, de suppression, d'opposition, de limitation et de portabilit&eacute; sur vos donn&eacute;es. Pour les exercer&nbsp;: simulsante@yahoo.com. Vous pouvez &eacute;galement introduire une r&eacute;clamation aupr&egrave;s de la <a href="https://www.cnil.fr" target="_blank" rel="noopener" style="color:rgba(99,102,241,.8);text-decoration:none">CNIL</a>.
         </div>
       </div>
       <div>
@@ -462,6 +476,34 @@ document.getElementById('objet').addEventListener('change', function() {
   var msg = document.getElementById('msg-autre');
   if (msg) msg.style.display = this.value === 'Autre demande' ? 'block' : 'none';
 });
+</script>
+
+<!-- Bandeau cookies RGPD -->
+<div id="ss-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a0533;border-top:1px solid rgba(124,58,237,.35);padding:16px 24px;box-shadow:0 -4px 24px rgba(0,0,0,.18)">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between">
+    <div style="flex:1;min-width:200px">
+      <p style="margin:0;font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;font-family:'Plus Jakarta Sans',sans-serif">
+        Ce site utilise Google Analytics pour mesurer son audience. Vos donn&eacute;es ne seront collect&eacute;es qu'avec votre accord.
+        <a href="#mentions" onclick="document.getElementById('ss-cookie-banner').style.display='none'" style="color:rgba(167,139,250,.9);text-decoration:underline;margin-left:4px">En savoir plus</a>
+      </p>
+    </div>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="ssSetConsent('refused')" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s" onmouseover="this.style.borderColor='rgba(255,255,255,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'">Refuser</button>
+      <button onclick="ssSetConsent('accepted')" style="background:#7c3aed;border:none;color:#fff;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7c3aed'">Accepter</button>
+    </div>
+  </div>
+</div>
+<script>
+function ssSetConsent(val){
+  localStorage.setItem('ss_consent', val);
+  document.getElementById('ss-cookie-banner').style.display='none';
+  if(val==='accepted') ssLoadGA4();
+}
+(function(){
+  if(!localStorage.getItem('ss_consent')){
+    document.getElementById('ss-cookie-banner').style.display='block';
+  }
+})();
 </script>
 </body>
 </html>
