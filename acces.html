@@ -2,11 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simul'Santé — Accès sécurisé</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -63,7 +61,7 @@ h1{font-size:20px;font-weight:700;color:#0f1117;margin-bottom:8px}
     </div>
   </div>
   <button class="btn" id="btn" onclick="check()">Acc&eacute;der au simulateur &rarr;</button>
-  <div class="error" id="error">Code incorrect. Vérifiez le code reçu ou contactez <span style="color:#991b1b;font-weight:600">simulsante&#64;yahoo.com</span></div>
+  <div class="error" id="error">Code incorrect. V&eacute;rifiez le code re&ccedil;u ou contactez <a href="mailto:simulsante@yahoo.com" style="color:#991b1b">simulsante@yahoo.com</a></div>
   <p class="note">Acc&egrave;s valable 24h &middot; Usage personnel uniquement</p>
 </div>
 <script>
@@ -81,7 +79,7 @@ async function check() {
   btn.textContent = 'Vérification...';
   err.classList.remove('show');
   const hash = await sha256(pwd);
-  const testUrl = './sim-' + hash + '.html';
+  const testUrl = '/sim-' + hash;
   try {
     const res = await fetch(testUrl, { method: 'HEAD' });
     if (res.ok) {

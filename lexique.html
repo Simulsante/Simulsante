@@ -53,24 +53,13 @@ footer{background:#1a0533;color:rgba(255,255,255,.4);padding:28px 3vw;display:fl
 .footer-logo{font-family:'DM Serif Display',serif;font-size:17px;font-weight:800}
 @media(max-width:768px){nav .nav-links{display:none}.term-grid{grid-template-columns:1fr}.letter-title{font-size:26px}}
 </style>
-<!-- GA4 — chargé uniquement après consentement -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN"></script>
 <script>
-function ssLoadGA4(){
-  if(document.getElementById('ss-ga4'))return;
-  var s=document.createElement('script');
-  s.id='ss-ga4';s.async=true;
-  s.src='https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';
-  document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];
+  window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  window.gtag=gtag;
-  gtag('js',new Date());
-  gtag('config','G-5VHF2E5KPN');
-}
-(function(){
-  var c=localStorage.getItem('ss_consent');
-  if(c==='accepted') ssLoadGA4();
-})();
+  gtag('js', new Date());
+  gtag('config', 'G-5VHF2E5KPN');
 </script>
 </head>
 <body>
@@ -493,46 +482,6 @@ function filterTerms() {
     section.style.display = visible ? '' : 'none';
   });
 }
-</script>
-
-<!-- Bandeau cookies RGPD -->
-<div id="ss-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a0533;border-top:1px solid rgba(124,58,237,.35);padding:16px 24px;box-shadow:0 -4px 24px rgba(0,0,0,.18)">
-  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between">
-    <div style="flex:1;min-width:200px">
-      <p style="margin:0;font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;font-family:'Plus Jakarta Sans',sans-serif">
-        Ce site utilise Google Analytics pour mesurer son audience. Vos donn&eacute;es ne seront collect&eacute;es qu'avec votre accord.
-        <a href="/#mentions" style="color:rgba(167,139,250,.9);text-decoration:underline;margin-left:4px">En savoir plus</a>
-      </p>
-    </div>
-    <div style="display:flex;gap:10px;flex-shrink:0">
-      <button onclick="ssSetConsent('refused')" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s" onmouseover="this.style.borderColor='rgba(255,255,255,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'">Refuser</button>
-      <button onclick="ssSetConsent('accepted')" style="background:#7c3aed;border:none;color:#fff;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7c3aed'">Accepter</button>
-    </div>
-  </div>
-</div>
-<script>
-function ssLoadGA4(){
-  if(document.getElementById('ss-ga4'))return;
-  var s=document.createElement('script');
-  s.id='ss-ga4';s.async=true;
-  s.src='https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';
-  document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  window.gtag=gtag;
-  gtag('js',new Date());
-  gtag('config','G-5VHF2E5KPN');
-}
-function ssSetConsent(val){
-  localStorage.setItem('ss_consent', val);
-  document.getElementById('ss-cookie-banner').style.display='none';
-  if(val==='accepted') ssLoadGA4();
-}
-(function(){
-  if(!localStorage.getItem('ss_consent')){
-    document.getElementById('ss-cookie-banner').style.display='block';
-  }
-})();
 </script>
 </body>
 </html>
