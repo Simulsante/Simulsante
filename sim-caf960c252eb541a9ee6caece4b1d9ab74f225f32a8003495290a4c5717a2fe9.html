@@ -927,7 +927,7 @@ input[type=number]{-moz-appearance:textfield}
 const DB=[
 // ── MÉDECINE GÉNÉRALE ──────────────────────────────────────
 {id:'MG01',code:'C',nom:'Médecin traitant généraliste',cat:'Généraliste',br:30,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
- note:'Consultation du médecin traitant déclaré (code C). Dans le parcours de soins : taux 70%, PF 2€. Pas de pénalité hors parcours — il s\'agit du médecin traitant lui-même. Sect1 : tarif conventionnel 30€. Sect2 DPTAM : dépassement possible avec meilleure prise en charge mutuelle.'},
+ note:'Consultation du médecin traitant déclaré (code C). Taux 70%, PF 2€. Pas de pénalité hors parcours — il s\'agit du médecin traitant lui-même. Tarif conventionnel sect1 : 30€. Dépassements possibles en sect2 selon adhésion DPTAM du praticien.'},
 {id:'MG02',code:'CS',nom:'Médecin généraliste hors parcours de soins',cat:'Généraliste',br:23,tarifHP:30,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
  note:'Consultation d\'un généraliste hors médecin traitant (code CS). Hors parcours par définition : pénalité 10,60€ en sect1. En sect2 non-DPTAM : base 23€ × 30% = 6,90€ remboursés. PF 2€ applicable.'},
 {id:'MG03',code:'V',nom:'Visite à domicile médecin traitant',cat:'Généraliste',br:65,taux:70,ff:2,fran:0,lourd:false,catHP:'gen',accesDirect:false,lockSect:false,lockParc:false,lockSit:false,
@@ -1167,7 +1167,7 @@ const DB=[
 {id:'HO04',code:'HOSPI-AMBU',nom:'Chirurgie ambulatoire',cat:'Hospitalisation',br:350,taux:80,ff:0,fran:0,lourd:true,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'',tags:'frais,sejour,chirurgie,ambulatoire'},
 // ── TRANSPORT SANITAIRE ────────────────────────────────────
 {id:'TR01',code:'TAXI-CONV',nom:'Taxi conventionné (aller simple)',cat:'Transport sanitaire',br:63,taux:55,ff:0,fran:4,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
- note:'Taxi conventionné (aller simple). Taux 55%, franchise 2€/trajet (plafond 8€/jour, 50€/an). Prescription médicale obligatoire. Exonération totale AT/MP, maternité, CSS. Pas de franchise sur transports d\'urgence SAMU.'},
+ note:'Taxi conventionné (aller simple). Taux 55%, franchise 4€/trajet depuis le 31/03/2024 (plafond 8€/jour, 50€/an). Prescription médicale obligatoire. Exonération totale AT/MP, maternité, CSS. Pas de franchise sur transports d\'urgence SAMU.'},
 {id:'TR02',code:'VSL',nom:'VSL — véhicule sanitaire léger (aller simple)',cat:'Transport sanitaire',br:38,taux:55,ff:0,fran:4,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
  note:'Taux 55%. Franchise 4€/trajet. 100% si maternité, CSS ou AT.'},
 {id:'TR03',code:'AMBU',nom:'Ambulance (aller simple)',cat:'Transport sanitaire',br:120,taux:55,ff:0,fran:4,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,
@@ -1638,8 +1638,8 @@ const DB=[
 {id:'DN-MAINTENEUR-ESPACE',code:'HBLD006',nom:'Mainteneur d\'espace (pédiatrie)',cat:'Dentaire',br:30,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Intégré panier RAC modéré jan 2026. BR = 30€ (plafond HLF : 150€). Après perte prématurée dent de lait.',tags:'HBLD006,mainteneur,espace,pediatrie,enfant'},
 
 // Prothèses 100% santé — nouveaux actes 2026
-{id:'DN-COURONNE-ZIRCONE-MOL',code:'HBLD073',nom:'Couronne zircone monolithique molaire — 100% santé',cat:'Dentaire',br:107.5,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Intégré panier 100% santé jan 2026 (anciennement panier RAC modéré). Aucun reste à charge.'},
-{id:'DN-BRIDGE-ZIRCONE',code:'HBLD099',nom:'Bridge monolithique zircone — 100% santé',cat:'Dentaire',br:107.5,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Nouveau bridge zircone intégré panier 100% santé jan 2026.',tags:'HBLD099,bridge,zircone,100,sante,RAC0'},
+{id:'DN-COURONNE-ZIRCONE-MOL',code:'HBLD073',nom:'Couronne zircone monolithique molaire — 100% santé',cat:'Dentaire',br:453.20,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Intégré panier 100% santé jan 2026 (anciennement panier RAC modéré). Aucun reste à charge.'},
+{id:'DN-BRIDGE-ZIRCONE',code:'HBLD099',nom:'Bridge monolithique zircone — 100% santé',cat:'Dentaire',br:1359.60,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Nouveau bridge zircone intégré panier 100% santé jan 2026.',tags:'HBLD099,bridge,zircone,100,sante,RAC0'},
 
 // ── DENTAIRE — couronnes HBLD (CCAM v80 2025) ─────────────────────────────
 {id:'DN-HBLD634',code:'HBLD634',nom:'Couronne céramo-métallique — incisive / canine / 1re prémolaire',cat:'Dentaire',br:107.5,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:true,lockSect:false,lockParc:true,lockSit:false,note:'Panier maîtrisé (entente directe limitée). CCAM HBLD634.',tags:'HBLD634,couronne,ceramique,metallique,incisive,canine,premolaire,bridge,prothese'},
@@ -2159,8 +2159,8 @@ const DB=[
 {id:'OPT-MONOFOCAUX-L',code:'OPT-MF-L',nom:'Verres monofocaux — libre',cat:'Optique',br:6.25,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'OPT-PROGRESSIFS-L',code:'OPT-PG-L',nom:'Verres progressifs — libre',cat:'Optique',br:2.84,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'OPT-MONTURE-100S',code:'OPT-MT-100',nom:'Monture — 100% santé',cat:'Optique',br:30,taux:100,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
-{id:'OPT-MONTURE-P2',code:'OPT-MT-P2',nom:'Monture — panier 2',cat:'Optique',br:2.84,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
-{id:'OPT-MONTURE-LIBRE',code:'OPT-MT-L',nom:'Monture — libre',cat:'Optique',br:2.84,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
+{id:'OPT-MONTURE-P2',code:'OPT-MT-P2',nom:'Monture — panier 2',cat:'Optique',br:0.05,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
+{id:'OPT-MONTURE-LIBRE',code:'OPT-MT-L',nom:'Monture — libre',cat:'Optique',br:0.05,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:''},
 {id:'OPT-LENTILLES-SOUPLES',code:'OPT-LS',nom:'Lentilles souples — forfait annuel par œil',cat:'Optique',br:39.48,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'Forfait annuel de date à date, par œil appareillé. Remb. sécu : 39,48€ × 60% = 23,69€/œil/an.'},
 {id:'OPT-LENTILLES-RIGIDES',code:'OPT-LR',nom:'Lentilles rigides — forfait annuel par œil',cat:'Optique',br:39.48,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'Forfait annuel de date à date, par œil appareillé. Remb. sécu : 39,48€ × 60% = 23,69€/œil/an.'},
 {id:'OPT-LENTILLES-2Y',code:'OPT-L2Y',nom:'Lentilles correctrices — forfait annuel 2 yeux',cat:'Optique',br:78.96,taux:60,ff:0,fran:0,lourd:false,catHP:false,accesDirect:false,lockSect:true,lockParc:true,lockSit:false,note:'2 × 39,48€ = 78,96€. Remb. sécu : 78,96€ × 60% = 47,38€/an. Quel que soit le type (souples, rigides, journalières, hebdo…). Forfait de date à date.'},
@@ -2981,7 +2981,9 @@ function togTag(btn,tag){
 function onSect(){
   // Avertissement secteur 3
   const _s3w = document.getElementById('sect3-warn');
-  if(_s3w) _s3w.style.display = document.getElementById('secteur').value === '3' ? 'block' : 'none';
+  // Ne pas afficher la bannière sect3 pour les actes à secteur verrouillé (optique, biologie, etc.)
+  const _showS3w = document.getElementById('secteur').value === '3' && !(acte && acte.lockSect);
+  if(_s3w) _s3w.style.display = _showS3w ? 'block' : 'none';
 
   if(!acte) return;
   const sectRaw = document.getElementById('secteur').value;
@@ -3289,7 +3291,13 @@ function calc(){
   //   → contrat non responsable : reste à charge → on l'ajoute à irremb si non responsable
   const _forfaitLourdIrremb = (!isResponsable && forfaitLourd > 0) ? forfaitLourd : 0;
   const irremb  = pf + fran + majHP + _forfaitLourdIrremb;
-  const rembMut = Math.min(mutBrute, Math.max(0, paiementPatient - irremb));
+  let rembMut = Math.min(mutBrute, Math.max(0, paiementPatient - irremb));
+  // Plafond 100€ AMO+AMC pour montures panier libre en contrat responsable
+  const _montureIds = ['OPT04','OPT-MONTURE-P2','OPT-MONTURE-LIBRE'];
+  if(isResponsable && acte && _montureIds.includes(acte.id)){
+    const _totalAmoAmc = rembNet + rembMut;
+    if(_totalAmoAmc > 100) rembMut = Math.max(0, 100 - rembNet);
+  }
   const rac     = Math.max(0, tarif - rembNet - rembMut);
 
   render({tarif,br,brBase,tamo:tamoDecimal,tamoEffectif,tauxNominal,pf,fran,forfaitLourd,
@@ -3360,12 +3368,10 @@ function render(r){
   }
 
   // ════ ALERTES ═══════════════════════════════════════════════
-  // al     → alertes critiques affichées AU-DESSUS des résultats
-  // alNote → explications pédagogiques dans le collapsible "En savoir plus"
   let al='', alNote='';
 
-  // ── Alsace-Moselle (critique) ──
-  if(r.regimeAL) al+=`<div class="al al-exo">🔵 <strong>Régime local Alsace-Moselle</strong> — taux de remboursement majoré (90% à 100%). Aucune pénalité hors parcours applicable.</div>`;
+  // ── Alsace-Moselle (pédagogique → collapsible) ──
+  if(r.regimeAL) alNote+=`<div class="al al-exo"><strong>Régime local Alsace-Moselle</strong><br><strong>Mécanisme :</strong> régime complémentaire obligatoire propre aux départements du Bas-Rhin, Haut-Rhin et Moselle. Le taux de prise en charge AMO est majoré (90% à 100% selon les actes).<br><strong>Spécificités :</strong> aucune pénalité hors parcours applicable — forfait 24€ actes lourds pris en charge par l'AMO — forfait journalier hospitalier pris en charge à 100%.</div>`;
 
   // ── Invitation saisir BR (critique) ──
   if(acte && acte.id === 'HOSPI-FRAIS-SEJOUR' && r.br === 0){
@@ -3386,7 +3392,7 @@ function render(r){
     const _isFJHacte = acte && (acte.id === 'HO02' || acte.id === 'HOSPI-FJH-PSY');
     const _isFPUacte = acte && (acte.id === 'HOSPI-URGENCES' || acte.id === 'HOSPI-FPU-MIN');
     if(r.regimeAL){
-      al+=`<div class="al al-exo">✅ <strong>Alsace-Moselle</strong> — ce forfait est pris en charge intégralement par l'AMO. Reste à charge : 0€.</div>`;
+      alNote+=`<div class="al al-exo"><strong>Alsace-Moselle</strong><br><strong>Mécanisme :</strong> ce forfait est pris en charge intégralement par l'AMO en régime local. Reste à charge : 0€.</div>`;
     } else if(_isFJHacte){
       if(r.mutCouvre){
         alNote+=`<div class="al al-info"><strong>Forfait journalier hospitalier — 23€/jour</strong><br><strong>Mécanisme :</strong> participation aux frais d'hébergement lors d'une hospitalisation. Non pris en charge par l'AMO.<br><strong>Remboursement :</strong> couvert par votre contrat responsable au titre de la garantie hospitalisation.</div>`;
@@ -3467,7 +3473,7 @@ function render(r){
   if(_isHospit && !r.isExo && r.regimeAL) alNote+=`<div class="al al-exo"><strong>Forfait journalier hospitalier — Alsace-Moselle</strong><br><strong>Mécanisme :</strong> pris en charge intégralement par l'AMO en régime local Alsace-Moselle. Reste à charge : 0€.</div>`;
 
   // ── Franchise médicale (pédagogique) ──
-  if(r.fran>0&&!r.forfaitLourd) alNote+=`<div class="al al-info"><strong>Franchise médicale</strong><br><strong>Mécanisme :</strong> retenue sur médicaments (0,50€/boîte), actes paramédicaux (0,50€/acte) et transports sanitaires (2€/trajet). Distincte de la PF 2€ qui s'applique, elle, aux consultations médicales.<br><strong>Remboursement :</strong> interdit en contrat responsable (même règle que la PF 2€ — art. L.871-1 CSS). Techniquement possible en contrat non responsable, mais non pratiqué.<br><strong>Plafonds :</strong> 4€/jour sur paramédicaux — 50€/an global par assuré.</div>`;
+  if(r.fran>0&&!r.forfaitLourd) alNote+=`<div class="al al-info"><strong>Franchise médicale</strong><br><strong>Mécanisme :</strong> retenue sur médicaments (1€/boîte), actes paramédicaux (1€/acte) et transports sanitaires (4€/trajet). Montants doublés au 31 mars 2024 (décret JO du 17 fév. 2024). Distincte de la PF 2€ qui s'applique, elle, aux consultations médicales.<br><strong>Remboursement :</strong> interdit en contrat responsable (même règle que la PF 2€ — art. L.871-1 CSS). Techniquement possible en contrat non responsable, mais non pratiqué.<br><strong>Plafonds :</strong> 4€/jour sur paramédicaux — 8€/jour sur transports — 50€/an global par assuré. <em>Source : ameli.fr, service-public.fr</em></div>`;
 
   // ── Forfait acte lourd 24€ (pédagogique) ──
   if(r.forfaitLourd>0&&!r.isExo){
