@@ -435,22 +435,26 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 </style>
 <!-- GA4 — chargé uniquement après consentement -->
 <script>
-function ssLoadGA4(){
-  if(document.getElementById('ss-ga4'))return;
-  var s=document.createElement('script');
-  s.id='ss-ga4';s.async=true;
-  s.src='https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';
-  document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];
+window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  window.gtag=gtag;
-  gtag('js',new Date());
-  gtag('config','G-5VHF2E5KPN');
-}
-(function(){
-  var c=localStorage.getItem('ss_consent');
-  if(c==='accepted') ssLoadGA4();
-})();
+
+  // Vérification du consentement
+  var consent = localStorage.getItem('ss_consent');
+
+  if (consent === 'accepted') {
+    gtag('consent', 'default', { 'analytics_storage': 'granted' });
+  } else {
+    gtag('consent', 'default', { 'analytics_storage': 'denied' });
+  }
+
+  // Chargement du script Google
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5VHF2ESKPN';
+  document.head.appendChild(s);
+
+  gtag('js', new Date());
+  gtag('config', 'G-5VHF2ESKPN');
 </script>
 </head>
 <body>
