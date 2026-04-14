@@ -433,26 +433,29 @@ footer{padding:28px 48px;border-top:1px solid rgba(255,255,255,.07);background:#
 .audience-carousel-section{background:#fff}
 
 </style>
-<!-- GA4 — chargé uniquement après consentement -->
 <script>
-window.dataLayer = window.dataLayer || [];
+  // 1. La fonction pour faire marcher les boutons
+  function ssSetConsent(status) {
+    localStorage.setItem('ss_consent', status);
+    var banner = document.getElementById('ss-cookie-banner');
+    if(banner) banner.style.display = 'none';
+    location.reload();
+  }
+
+  // 2. Configuration Google Analytics
+  window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // Vérification du consentement
   var consent = localStorage.getItem('ss_consent');
-
   if (consent === 'accepted') {
     gtag('consent', 'default', { 'analytics_storage': 'granted' });
   } else {
     gtag('consent', 'default', { 'analytics_storage': 'denied' });
   }
+</script>
 
-  // Chargement du script Google
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5VHF2ESKPN';
-  document.head.appendChild(s);
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VHF2ESKPN"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-5VHF2ESKPN');
 </script>
