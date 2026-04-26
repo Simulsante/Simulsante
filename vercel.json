@@ -13,6 +13,34 @@
     {
       "source": "/faq",
       "destination": "/faq.html"
+    },
+    {
+      "source": "/guides",
+      "destination": "/guides.html"
+    },
+    {
+      "source": "/guides/orthodontie",
+      "destination": "/guides/orthodontie.html"
+    },
+    {
+      "source": "/guides/implantologie",
+      "destination": "/guides/implantologie.html"
+    },
+    {
+      "source": "/guides/optique",
+      "destination": "/guides/optique.html"
+    },
+    {
+      "source": "/guides/contrat-responsable",
+      "destination": "/guides/contrat-responsable.html"
+    },
+    {
+      "source": "/guides/prothese-dentaire",
+      "destination": "/guides/prothese-dentaire.html"
+    },
+    {
+      "source": "/guides/100-sante",
+      "destination": "/guides/100-sante.html"
     }
   ],
   "headers": [
