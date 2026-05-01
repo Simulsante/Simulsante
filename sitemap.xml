@@ -21,17 +21,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://simulsante.fr/guides/orthodontie</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://simulsante.fr/guides/implantologie</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://simulsante.fr/guides/optique</loc>
+    <loc>https://simulsante.fr/guides/100-sante</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -46,7 +36,32 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://simulsante.fr/guides/100-sante</loc>
+    <loc>https://simulsante.fr/guides/optique</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simulsante.fr/guides/orthodontie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simulsante.fr/guides/implantologie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simulsante.fr/guides/ald-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simulsante.fr/guides/parcours-soins</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simulsante.fr/guides/tableau-garanties</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
