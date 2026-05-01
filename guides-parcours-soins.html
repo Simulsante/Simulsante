@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Parcours de soins et hors parcours — les impacts sur le prix en 2026 | Simul'Santé</title>
+<meta name="description" content="Parcours de soins coordonnés vs hors parcours : mécanisme, secteurs 1 et 2, pénalités interdites en contrat responsable, spécialités en accès direct. Guide pédagogique 2026.">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.png">
+<link rel="canonical" href="https://simulsante.fr/guides/parcours-soins">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script>
+function ssLoadGA4(){if(document.getElementById('ss-ga4'))return;var s=document.createElement('script');s.id='ss-ga4';s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-5VHF2E5KPN';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-5VHF2E5KPN');}
+(function(){var c=localStorage.getItem('ss_consent');if(c==='accepted')ssLoadGA4();})();
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:light;
+  --ink:#0a0a0a;--ink2:#3a3a3a;--ink3:#6a6a6a;--rule:#e0e0e0;
+  --white:#ffffff;--accent:#6d28d9;--accent-light:#f5f3ff;
+  --green:#166534;--green-bg:#f0fdf4;--red:#991b1b;--red-bg:#fff5f5;
+  --blue:#1e3a8a;--blue-bg:#eff6ff;--amber:#92400e;--amber-bg:#fffbeb;
+}
+html{scroll-behavior:smooth;background:#ffffff !important;color:#0a0a0a !important;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#ffffff !important;color:#0a0a0a !important;line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased;forced-color-adjust:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;background:#fff;border-bottom:1px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 4vw;}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);text-decoration:none;letter-spacing:-.3px;display:flex;align-items:center;}
+.nav-brand span{color:#ec4899}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:12px;font-weight:600;color:var(--ink3);text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:color .15s}
+.nav-links a:hover{color:var(--accent)}
+@media(max-width:640px){.nav-links{gap:14px}.nav-links a{font-size:11px}}
+.guide-outer{max-width:780px;margin:0 auto;padding:0 4vw 120px}
+.chapeau{padding:88px 0 0;border-bottom:2px solid var(--ink);margin-bottom:0;}
+.chapeau-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:block;}
+.chapeau h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,64px);line-height:1.05;letter-spacing:-.5px;color:var(--ink);margin-bottom:24px;font-weight:400;}
+.chapeau h1 em{font-style:italic;color:var(--accent)}
+.chapeau-deck{font-size:17px;color:var(--ink2);line-height:1.65;max-width:600px;margin-bottom:36px;}
+.chapeau-meta{display:flex;gap:28px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--rule);font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);margin:40px 0;}
+.hero-stat{padding:28px 24px;border-right:1px solid var(--ink);}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,48px);color:var(--ink);line-height:1;margin-bottom:6px;letter-spacing:-1px;}
+.hero-stat-num span{color:var(--accent)}
+.hero-stat-label{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);line-height:1.4}
+@media(max-width:640px){.hero-stats{grid-template-columns:1fr 1fr}.hero-stat:nth-child(2){border-right:none}.hero-stat:nth-child(3){border-right:none;border-top:1px solid var(--ink);grid-column:1/-1}}
+.editorial-alert{border-left:4px solid var(--ink);padding:20px 24px;margin:40px 0;}
+.editorial-alert.accent{border-left-color:var(--accent);background:var(--accent-light)}
+.editorial-alert.green{border-left-color:var(--green);background:var(--green-bg)}
+.editorial-alert.red{border-left-color:var(--red);background:var(--red-bg)}
+.editorial-alert.amber{border-left-color:var(--amber);background:var(--amber-bg)}
+.alert-eyebrow{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;display:block}
+.editorial-alert.accent .alert-eyebrow{color:var(--accent)}
+.editorial-alert.green .alert-eyebrow{color:var(--green)}
+.editorial-alert.red .alert-eyebrow{color:var(--red)}
+.editorial-alert.amber .alert-eyebrow{color:var(--amber)}
+.alert-body{font-size:14.5px;color:var(--ink);line-height:1.7}
+.alert-body strong{font-weight:700}
+.section-break{display:flex;align-items:baseline;gap:16px;margin:56px 0 24px;padding-bottom:12px;border-bottom:2px solid var(--ink);}
+.section-num{font-family:'DM Serif Display',serif;font-size:13px;color:var(--ink3);flex-shrink:0;}
+.section-break h2{font-family:'DM Serif Display',serif;font-size:clamp(22px,3.5vw,30px);font-weight:400;color:var(--ink);line-height:1.2;}
+.section-break h2 em{font-style:italic;color:var(--accent)}
+p{margin:0 0 20px;color:var(--ink2);font-size:15px;line-height:1.75}
+p strong{color:var(--ink)}
+/* Tableau récap */
+.recap-table{width:100%;border-collapse:collapse;margin:32px 0;font-size:14px;}
+.recap-table th{background:var(--ink);color:#fff;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:600;}
+.recap-table td{padding:14px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink2);}
+.recap-table tr:last-child td{border-bottom:none}
+.recap-table td:first-child{font-weight:700;color:var(--ink);width:45%}
+.tag-red{display:inline-block;background:var(--red-bg);color:var(--red);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;}
+.tag-green{display:inline-block;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;}
+.tag-amber{display:inline-block;background:var(--amber-bg);color:var(--amber);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;}
+/* Secteurs */
+.secteur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--ink);margin:32px 0;}
+.secteur-card{padding:24px 20px;border-right:1px solid var(--ink);}
+.secteur-card:last-child{border-right:none}
+.secteur-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.secteur-name{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:12px;}
+.secteur-desc{font-size:13px;color:var(--ink2);line-height:1.6;}
+@media(max-width:600px){.secteur-grid{grid-template-columns:1fr}.secteur-card{border-right:none;border-bottom:1px solid var(--ink)}.secteur-card:last-child{border-bottom:none}}
+/* Pénalités */
+.penalite-bloc{border:2px solid var(--red);padding:24px;margin:32px 0;}
+.penalite-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.penalite-desc{font-size:14px;color:var(--ink);line-height:1.7;}
+.penalite-interdit{background:var(--red-bg);padding:12px 16px;margin-top:14px;font-size:13px;font-weight:700;color:var(--red);}
+/* Spécialités accès direct */
+.access-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink);margin:32px 0;}
+.access-card{background:#fff;padding:20px;}
+.access-icon{font-size:22px;margin-bottom:8px;}
+.access-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.access-note{font-size:12px;color:var(--ink3);line-height:1.5;}
+@media(max-width:500px){.access-grid{grid-template-columns:1fr}}
+/* Exemples */
+.exemple-bloc{border:1px solid var(--rule);margin:24px 0;}
+.exemple-header{background:var(--ink);color:#fff;padding:12px 20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.exemple-header.green-bg{background:var(--green)}
+.exemple-header.red-bg{background:var(--red)}
+.exemple-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--rule);}
+.exemple-row:last-child{border-bottom:none}
+.exemple-cell{padding:12px 16px;font-size:13px;color:var(--ink2);}
+.exemple-cell:first-child{font-weight:600;color:var(--ink);border-right:1px solid var(--rule);}
+.exemple-cell.rac{font-weight:700;color:var(--red)}
+.exemple-cell.rac.green{color:var(--green)}
+@media(max-width:500px){.exemple-row{grid-template-columns:1fr}.exemple-cell{border-right:none !important}}
+/* Acr tooltips */
+.acr{border-bottom:1px dotted var(--ink3);cursor:help;position:relative;}
+.acr:hover::after,.acr.acr-open::after{content:attr(data-tip);position:fixed;background:var(--ink);color:#fff;font-size:12px;padding:6px 10px;white-space:normal;max-width:280px;line-height:1.4;z-index:9999;pointer-events:none;}
+/* Maillage */
+.maillage{margin:60px 0 0;padding:32px 0;border-top:1px solid var(--rule);}
+.maillage-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;}
+.maillage-links{display:flex;flex-wrap:wrap;gap:12px;}
+.maillage-link{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;padding:6px 14px;border:1px solid var(--accent);transition:all .15s;}
+.maillage-link:hover{background:var(--accent);color:#fff;}
+/* Footer */
+.guide-footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--rule);}
+.footer-anon{font-size:12px;color:var(--ink3);margin-bottom:10px;}
+.footer-sources{font-size:11px;color:var(--ink3);line-height:1.6;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand"><img src="data:image/png;base64,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" style="width:34px;height:34px;border-radius:8px;object-fit:cover;vertical-align:middle;margin-right:8px"><span>Simul'</span><span style="color:#ec4899">Santé</span></a>
+  <div class="nav-links">
+    <a href="/">Accueil</a>
+    <a href="/faq">FAQ</a>
+    <a href="/lexique">Lexique</a>
+    <a href="/guides">Guides</a>
+  </div>
+</nav>
+
+<div class="guide-outer">
+  <div class="chapeau">
+    <span class="chapeau-tag">Guide · Parcours de soins · 2026</span>
+    <h1>Parcours de soins et hors parcours —<br><em>les impacts sur le prix en 2026</em></h1>
+    <p class="chapeau-deck">Consulter sans passer par votre médecin traitant peut coûter plus cher que prévu — et votre mutuelle ne peut pas toujours compenser. Voici le mécanisme, les secteurs, les pénalités et les exceptions, clairement.</p>
+    <div class="chapeau-meta">
+      <span>⏱ 7 min de lecture</span>
+      <span>3 exemples chiffrés</span>
+      <span>Mis à jour avril 2026</span>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10,60<span>€</span></div>
+      <div class="hero-stat-label">Pénalité à votre charge<br>hors parcours de soins</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4<span></span></div>
+      <div class="hero-stat-label">Spécialités autorisées<br>sans passer par le MT</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">−<span>16</span></div>
+      <div class="hero-stat-label">Ans : pas de pénalité<br>hors parcours de soins</div>
+    </div>
+  </div>
+
+  <!-- ═══ 01 ═══ -->
+  <div class="section-break"><span class="section-num">01</span><h2>Le mécanisme — <em>parcours vs hors parcours</em></h2></div>
+
+  <div class="editorial-alert amber">
+    <span class="alert-eyebrow">⚡ Cas particulier — enfants</span>
+    <div class="alert-body">Les assurés de <strong>moins de 16 ans</strong> ne sont pas soumis au parcours de soins coordonnés. Ils peuvent consulter directement n'importe quel médecin, généraliste ou spécialiste, <strong>sans pénalité</strong> et sans orientation du médecin traitant, quel que soit le médecin consulté.</div>
+  </div>
+
+  <p>Le parcours de soins coordonnés repose sur un principe simple : <strong>votre médecin traitant est le pivot de votre santé</strong>. Il vous connaît, coordonne vos soins, vous oriente vers les bons spécialistes. En contrepartie de ce suivi coordonné, l'Assurance maladie vous rembourse mieux.</p>
+
+  <p>Concrètement, être <strong>dans le parcours de soins</strong> signifie que vous avez déclaré un médecin traitant et que vous passez par lui avant de consulter un spécialiste — soit pour une consultation directe, soit pour vous obtenir une orientation. Le médecin traitant peut être généraliste ou spécialiste, salarié ou libéral.</p>
+
+  <p>Être <strong>hors parcours de soins</strong>, c'est consulter un spécialiste sans y avoir été orienté par votre médecin traitant, ou consulter sans avoir déclaré de médecin traitant. La Sécu rembourse alors moins bien — et les pénalités qui en découlent sont, pour la plupart, <strong>interdites de remboursement</strong> par votre complémentaire santé si vous avez un contrat responsable.</p>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section-break"><span class="section-num">02</span><h2>Les secteurs — <em>secteur 1, 2 et DPTM</em></h2></div>
+
+  <p>En France, les médecins exercent dans l'un des trois secteurs conventionnels. Ce secteur détermine leur liberté tarifaire — et donc votre reste à charge potentiel.</p>
+
+  <div class="secteur-grid">
+    <div class="secteur-card">
+      <div class="secteur-title">Secteur</div>
+      <div class="secteur-name">1 — Tarif opposable</div>
+      <div class="secteur-desc">Le médecin s'engage à respecter les tarifs fixés par la Sécurité sociale. Pas de dépassement d'honoraires en dehors d'exceptions très encadrées. C'est le secteur le plus accessible financièrement.</div>
+    </div>
+    <div class="secteur-card">
+      <div class="secteur-title">Secteur</div>
+      <div class="secteur-name">2 — Honoraires libres avec DPTM</div>
+      <div class="secteur-desc">Le médecin pratique des dépassements d'honoraires librement fixés, mais a signé le <span class="acr" data-tip="Dispositif de Pratique Tarifaire Maîtrisée — engagement à modérer les dépassements d'honoraires">DPTM</span> — il s'engage à modérer ses dépassements. Vous bénéficiez d'une meilleure base de remboursement Sécu et votre mutuelle peut couvrir les dépassements.</div>
+    </div>
+    <div class="secteur-card">
+      <div class="secteur-title">Secteur</div>
+      <div class="secteur-name">2 — Honoraires libres sans DPTM</div>
+      <div class="secteur-desc">Le médecin pratique des honoraires libres <strong>sans engagement de modération</strong>. La base de remboursement Sécu est réduite. Votre mutuelle peut couvrir les dépassements mais dans une limite réglementaire : au-delà d'un certain plafond, les dépassements ne peuvent pas être pris en charge par un contrat responsable.</div>
+    </div>
+  </div>
+
+  <div class="editorial-alert accent">
+    <span class="alert-eyebrow">Comment vérifier le secteur d'un médecin ?</span>
+    <div class="alert-body">L'annuaire santé d'Ameli vous permet de vérifier en quelques secondes le secteur de convention de n'importe quel médecin, son adhésion ou non au DPTM, ainsi que ses tarifs habituels. → <a href="https://annuaire.ameli.fr" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">annuaire.ameli.fr</a></div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section-break"><span class="section-num">03</span><h2>Les deux pénalités — <em>interdites de remboursement</em></h2></div>
+
+  <p>Consulter hors parcours de soins déclenche deux pénalités distinctes. Toutes deux sont <strong>interdites de prise en charge</strong> par une complémentaire santé souscrite en contrat responsable — ce qui représente plus de 95 % des contrats du marché. Elles restent définitivement à votre charge.</p>
+
+  <div class="penalite-bloc">
+    <div class="penalite-title">Pénalité n° 1 — Majoration du ticket modérateur</div>
+    <div class="penalite-desc">Hors parcours de soins, le taux de remboursement de la Sécu est <strong>réduit</strong>. La différence entre ce que la Sécu vous aurait remboursé dans le parcours et ce qu'elle rembourse réellement hors parcours s'élève à <strong>10,60 €</strong> par consultation. Cette somme reste à votre charge quelle que soit votre mutuelle.</div>
+    <div class="penalite-interdit">⛔ Interdite de remboursement par un contrat responsable</div>
+  </div>
+
+  <div class="penalite-bloc">
+    <div class="penalite-title">Pénalité n° 2 — Dépassements d'honoraires non remboursables</div>
+    <div class="penalite-desc">Hors parcours de soins, les dépassements d'honoraires pratiqués par le médecin <strong>ne peuvent pas être pris en charge</strong> par votre complémentaire santé, même si votre contrat prévoit normalement une couverture des dépassements. La mutuelle peut rembourser le ticket modérateur de base, mais pas un euro de dépassement en dehors du parcours.</div>
+    <div class="penalite-interdit">⛔ Dépassements interdits de remboursement hors parcours par un contrat responsable</div>
+  </div>
+
+  <!-- ═══ 04 ═══ -->
+  <div class="section-break"><span class="section-num">04</span><h2>Les 4 spécialités en accès direct — <em>sans passer par le médecin traitant</em></h2></div>
+
+  <p>Quatre spécialités médicales bénéficient d'un <strong>accès direct réglementé</strong> : vous pouvez les consulter directement, sans orientation préalable du médecin traitant, sans être pénalisé. Le remboursement s'effectue comme si vous étiez dans le parcours de soins.</p>
+
+  <div class="access-grid">
+    <div class="access-card">
+      <div class="access-icon">👁</div>
+      <div class="access-name">Ophtalmologue</div>
+      <div class="access-note">Accès direct pour tout assuré, sans limite d'âge. Consultation, prescription de lunettes ou de lentilles remboursée normalement.</div>
+    </div>
+    <div class="access-card">
+      <div class="access-icon">🦷</div>
+      <div class="access-name">Stomatologue / Dentiste</div>
+      <div class="access-note">Accès direct pour tous soins bucco-dentaires. Le chirurgien-dentiste est de fait accessible sans orientation.</div>
+    </div>
+    <div class="access-card">
+      <div class="access-icon">👩</div>
+      <div class="access-name">Gynécologue</div>
+      <div class="access-note">Accès direct pour toute femme, pour le suivi gynécologique et obstétrical. Pas d'orientation du MT requise.</div>
+    </div>
+    <div class="access-card">
+      <div class="access-icon">🧠</div>
+      <div class="access-name">Psychiatre / Neuropsychiatre</div>
+      <div class="access-note">Accès direct pour les patients entre <strong>3 et 25 ans</strong>. Au-delà de 25 ans, une orientation du médecin traitant reste nécessaire pour éviter les pénalités.</div>
+    </div>
+  </div>
+
+  <div class="editorial-alert green">
+    <span class="alert-eyebrow">✓ Rappel</span>
+    <div class="alert-body">Pour ces 4 spécialités, consulter directement <strong>sans orientation du MT</strong> n'est pas considéré comme hors parcours de soins. Aucune pénalité ne s'applique, quel que soit votre âge (sauf psychiatre au-delà de 25 ans).</div>
+  </div>
+
+  <!-- ═══ 05 ═══ -->
+  <div class="section-break"><span class="section-num">05</span><h2>3 exemples — <em>l'impact chiffré</em></h2></div>
+
+  <p>Même médecin, même acte — le fait d'être dans ou hors parcours de soins peut changer significativement ce que vous payez réellement. Voici trois situations concrètes.</p>
+
+  <!-- Exemple 1 : dans le parcours, secteur 2 DPTM -->
+  <div class="exemple-bloc">
+    <div class="exemple-header green-bg">Exemple 1 — Dans le parcours · Spécialiste secteur 2 avec DPTM · Consultation 30 €</div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Tarif facturé</div>
+      <div class="exemple-cell">30 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Base de remboursement Sécu</div>
+      <div class="exemple-cell">30 € (tarif opposable)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Remboursement Sécu (70 %)</div>
+      <div class="exemple-cell">21 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Participation forfaitaire (non remboursable)</div>
+      <div class="exemple-cell">− 2 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Remboursement net Sécu</div>
+      <div class="exemple-cell">19 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Prise en charge mutuelle (ticket modérateur)</div>
+      <div class="exemple-cell">9 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Reste à charge</div>
+      <div class="exemple-cell rac green">2 € (participation forfaitaire seule)</div>
+      <div class="exemple-cell"></div>
+    </div>
+  </div>
+
+  <!-- Exemple 2 : hors parcours, secteur 1, sans dépassement -->
+  <div class="exemple-bloc">
+    <div class="exemple-header red-bg">Exemple 2 — Hors parcours · Spécialiste secteur 1 · Sans dépassement · Consultation 30 €</div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Tarif facturé</div>
+      <div class="exemple-cell">30 € (tarif opposable)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Remboursement Sécu hors parcours (taux réduit)</div>
+      <div class="exemple-cell">9 € (au lieu de 21 € dans le parcours)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Prise en charge mutuelle (TM hors pénalité)</div>
+      <div class="exemple-cell">9 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Majoration ticket modérateur — pénalité hors parcours</div>
+      <div class="exemple-cell" style="color:var(--red);font-weight:700;">10,60 € — à votre charge, non remboursable</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Participation forfaitaire (non remboursable)</div>
+      <div class="exemple-cell">2 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Reste à charge</div>
+      <div class="exemple-cell rac">12,60 € (pénalité 10,60 € + PF 2 €)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell" style="color:var(--red)">⛔ Pénalité remboursable par la mutuelle ?</div>
+      <div class="exemple-cell" style="color:var(--red);font-weight:700;">Non — interdite en contrat responsable</div>
+      <div class="exemple-cell"></div>
+    </div>
+  </div>
+
+  <!-- Exemple 3 : hors parcours, secteur 2, avec dépassement -->
+  <div class="exemple-bloc">
+    <div class="exemple-header red-bg">Exemple 3 — Hors parcours · Spécialiste secteur 2 avec DPTM · 50 € facturés dont 20 € de dépassement</div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Tarif facturé</div>
+      <div class="exemple-cell">50 € (BRSS 30 € + 20 € de dépassement)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Dans le parcours, votre contrat à 200 % BRSS aurait couvert</div>
+      <div class="exemple-cell" style="color:var(--green);font-weight:700;">TM (9 €) + dépassements (20 €) → RAC = 2 € (PF seule)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Remboursement Sécu hors parcours (taux réduit)</div>
+      <div class="exemple-cell">9 € (au lieu de 21 €)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Prise en charge mutuelle (TM hors pénalité)</div>
+      <div class="exemple-cell">9 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Majoration ticket modérateur — pénalité hors parcours</div>
+      <div class="exemple-cell" style="color:var(--red);font-weight:700;">10,60 € — à votre charge, non remboursable</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Dépassements d'honoraires (20 €) hors parcours</div>
+      <div class="exemple-cell" style="color:var(--red);font-weight:700;">20 € — non remboursables même avec un contrat à 200 %</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Participation forfaitaire (non remboursable)</div>
+      <div class="exemple-cell">2 €</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell">Reste à charge</div>
+      <div class="exemple-cell rac">32,60 € (pénalité 10,60 € + dépassements 20 € + PF 2 €)</div>
+      <div class="exemple-cell"></div>
+    </div>
+    <div class="exemple-row">
+      <div class="exemple-cell" style="color:var(--red)">⛔ Dépassements remboursables hors parcours ?</div>
+      <div class="exemple-cell" style="color:var(--red);font-weight:700;">Non — interdits même avec un contrat à 200 % BRSS</div>
+      <div class="exemple-cell"></div>
+    </div>
+  </div>
+
+  <div class="maillage">
+    <div class="maillage-label">Guides connexes</div>
+    <div class="maillage-links">
+      <a href="/guides-ald-2026.html" class="maillage-link">ALD 2026</a>
+      <a href="/guides-contrat-responsable.html" class="maillage-link">Contrat responsable</a>
+      <a href="/guides-100-sante.html" class="maillage-link">100 % Santé</a>
+      <a href="/lexique.html" class="maillage-link">Lexique</a>
+    </div>
+  </div>
+
+  <div class="guide-footer">
+    <div class="footer-anon">↳ Simul'Santé ne collecte aucune donnée personnelle.</div>
+    <div class="footer-sources">Sources · ameli.fr — parcours de soins coordonnés 2026 · ameli.fr — annuaire santé · Légifrance — art. L162-5-3 CSS · service-public.fr — médecin traitant · ameli.fr — majorations hors parcours · DREES — enquête remboursements 2025</div>
+  </div>
+</div>
+<script>
+window.addEventListener('scroll',function(){document.querySelector('nav').style.boxShadow=scrollY>10?'0 1px 0 #000':'none';});
+document.addEventListener('mouseover',function(e){var acr=e.target.closest('.acr');if(!acr)return;var rect=acr.getBoundingClientRect();var s=document.createElement('style');s.id='acr-tip-style';var ex=document.getElementById('acr-tip-style');if(ex)ex.remove();if(rect.top>80){s.textContent='.acr:hover::after,.acr.acr-open::after{top:'+(rect.top-8)+'px;left:'+Math.min(rect.left,window.innerWidth-300)+'px;transform:translateY(-100%);}'}else{s.textContent='.acr:hover::after,.acr.acr-open::after{top:'+(rect.bottom+8)+'px;left:'+Math.min(rect.left,window.innerWidth-300)+'px;transform:none;}'}document.head.appendChild(s);});
+document.addEventListener('mouseout',function(e){var acr=e.target.closest('.acr');if(!acr)return;var ex=document.getElementById('acr-tip-style');if(ex)ex.remove();});
+(function(){var isMobile='ontouchstart' in window;if(!isMobile)return;document.addEventListener('click',function(e){var acr=e.target.closest('.acr');if(acr){e.preventDefault();var w=acr.classList.contains('acr-open');document.querySelectorAll('.acr-open').forEach(function(a){a.classList.remove('acr-open');});if(!w)acr.classList.add('acr-open');}else{document.querySelectorAll('.acr-open').forEach(function(a){a.classList.remove('acr-open');});}});})();
+</script>
+</body>
+</html>
