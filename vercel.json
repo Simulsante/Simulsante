@@ -40,6 +40,18 @@
     {
       "source": "/guides/100-sante",
       "destination": "/guides-100-sante.html"
+    },
+    {
+      "source": "/guides/ald-2026",
+      "destination": "/guides-ald-2026.html"
+    },
+    {
+      "source": "/guides/parcours-soins",
+      "destination": "/guides-parcours-soins.html"
+    },
+    {
+      "source": "/guides/tableau-garanties",
+      "destination": "/guides-tableau-garanties.html"
     }
   ],
   "headers": [
