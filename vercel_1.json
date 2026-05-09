@@ -1,0 +1,88 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/acces",
+      "destination": "/acces.html"
+    },
+    {
+      "source": "/lexique",
+      "destination": "/lexique.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/guides",
+      "destination": "/guides.html"
+    },
+    {
+      "source": "/guides/orthodontie",
+      "destination": "/guides-orthodontie.html"
+    },
+    {
+      "source": "/guides/implantologie",
+      "destination": "/guides-implantologie.html"
+    },
+    {
+      "source": "/guides/optique",
+      "destination": "/guides-optique.html"
+    },
+    {
+      "source": "/guides/contrat-responsable",
+      "destination": "/guides-contrat-responsable.html"
+    },
+    {
+      "source": "/guides/prothese-dentaire",
+      "destination": "/guides-prothese-dentaire.html"
+    },
+    {
+      "source": "/guides/100-sante",
+      "destination": "/guides-100-sante.html"
+    },
+    {
+      "source": "/guides/ald-2026",
+      "destination": "/guides-ald-2026.html"
+    },
+    {
+      "source": "/guides/parcours-soins",
+      "destination": "/guides-parcours-soins.html"
+    },
+    {
+      "source": "/guides/tableau-garanties",
+      "destination": "/guides-tableau-garanties.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com https://formspree.io; form-action 'self' https://formspree.io;"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ]
+}
