@@ -801,9 +801,15 @@ function ssSetConsent(val){
 }
 (function(){
   if(!localStorage.getItem('ss_consent')){
-    document.addEventListener('DOMContentLoaded',function(){
-      document.getElementById('ss-cookie-banner').style.display='block';
-    });
+    function showBanner(){
+      var b=document.getElementById('ss-cookie-banner');
+      if(b) b.style.display='block';
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded',showBanner);
+    } else {
+      showBanner();
+    }
   }
 })();
 </script>
