@@ -433,22 +433,28 @@ p:last-child{margin-bottom:0}
 .footer-anon{font-size:11px;font-weight:600;color:var(--green);letter-spacing:.3px}
 
 /* ── TOOLTIPS ACRONYMES ──────────────────── */
-.acr{position:relative;cursor:help;border-bottom:1px dotted var(--ink3);font-weight:700}
+.acr{position:relative;cursor:pointer;border-bottom:1px dotted var(--ink3);font-weight:700;-webkit-tap-highlight-color:transparent;}
 .acr::after{
   content:attr(data-tip);
-  position:fixed;
-  bottom:auto;top:auto;left:auto;
-  max-width:280px;white-space:normal;
-  background:#0a0a0a;color:#ffffff;
-  font-size:11px;font-weight:500;padding:8px 12px;
-  opacity:0;pointer-events:none;transition:opacity .15s;
-  z-index:99999;line-height:1.5;
+  position:absolute;
+  bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  max-width:260px;white-space:normal;
+  background:#0a0a0a;color:#fff;
+  font-size:11px;font-weight:500;padding:7px 11px;
+  opacity:0;pointer-events:none;transition:opacity .18s;
+  z-index:400;line-height:1.5;
   font-family:'Plus Jakarta Sans',sans-serif;
-  border-radius:3px;
-  transform:translateY(-110%);
-  margin-top:-4px;
+  border-radius:6px;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
 }
-.acr:hover::after,.acr.acr-open::after{opacity:1}
+.acr::before{
+  content:'';
+  position:absolute;
+  bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#0a0a0a;
+  opacity:0;pointer-events:none;transition:opacity .18s;z-index:400;
+}
+.acr:hover::after,.acr:hover::before,.acr.acr-open::after,.acr.acr-open::before{opacity:1}
 .acr-q{
   display:inline-flex;align-items:center;justify-content:center;
   width:13px;height:13px;border:1px solid var(--ink3);border-radius:50%;
@@ -1093,18 +1099,25 @@ window.addEventListener('scroll',function(){
   document.querySelector('nav').style.boxShadow=scrollY>10?'0 1px 0 #000':'none';
 });
 (function(){
-  var isMobile='ontouchstart' in window;
-  if(!isMobile)return;
+  var active=null;
+  function showTip(el){
+    if(active&&active!==el) active.classList.remove('acr-open');
+    el.classList.toggle('acr-open');
+    active=el.classList.contains('acr-open')?el:null;
+    if(active){
+      clearTimeout(el._t);
+      el._t=setTimeout(function(){el.classList.remove('acr-open');active=null;},2500);
+    }
+  }
+  document.addEventListener('touchstart',function(e){
+    var el=e.target.closest('.acr');
+    if(el){e.preventDefault();showTip(el);}
+    else if(active){active.classList.remove('acr-open');active=null;}
+  },{passive:false});
   document.addEventListener('click',function(e){
-    var acr=e.target.closest('.acr,.acr-q');
-    if(acr){
-      e.preventDefault();
-      var target=acr.classList.contains('acr-q')?acr.previousElementSibling:acr;
-      if(!target||!target.classList.contains('acr'))return;
-      var wasOpen=target.classList.contains('acr-open');
-      document.querySelectorAll('.acr-open').forEach(function(a){a.classList.remove('acr-open');});
-      if(!wasOpen)target.classList.add('acr-open');
-    }else{document.querySelectorAll('.acr-open').forEach(function(a){a.classList.remove('acr-open');});}
+    var el=e.target.closest('.acr');
+    if(el) showTip(el);
+    else if(active){active.classList.remove('acr-open');active=null;}
   });
 })();
 </script>
